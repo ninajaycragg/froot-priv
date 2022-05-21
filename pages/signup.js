@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebase-config';
+import { auth } from '../firebase-config';
 import { useRouter } from 'next/router';
 
 export default function Signup() {
