@@ -1,0 +1,11 @@
+img {
+    margin-left: 25px;
+}
+
+.menu {
+    color: grey;
+}
+
+.clicked {
+    color: black;
+}
