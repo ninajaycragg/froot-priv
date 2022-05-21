@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import Button from '@mui/material/Button';
-import { getAuth, signOut } from 'firebase/auth';
-import { auth } from '../pages/firebase-config';
+import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { auth } from '../firebase-config';
 
 export default function Nav() {
-  const auth = getAuth();
   const user = auth.currentUser;
   const router = useRouter();
 

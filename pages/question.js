@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAuth } from 'firebase/auth';
+import { auth } from '../firebase-config';
 
 export default function Question() {
   const [q1, setQ1] = useState('');
@@ -8,7 +8,7 @@ export default function Question() {
   const [q4, setQ4] = useState('');
   const [display, setDisplay] = useState(false);
   const [dummyResult, setResult] = useState('');
-  const auth = getAuth();
+
   const user = auth.currentUser;
 
   const handleClick = (event) => {

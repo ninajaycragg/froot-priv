@@ -1,10 +1,9 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
-import { getAuth } from 'firebase/auth';
+import { auth } from '../firebase-config';
 
 export default function Quiz() {
-  const auth = getAuth();
   const user = auth.currentUser;
   if (user) {
     console.log(user);
