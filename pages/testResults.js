@@ -8,11 +8,11 @@ export default function TestResults() {
   console.log(data);
   return (
     <div>
-      <h1>YOUR RESULTS ARE</h1>
+      {/* <h1>YOUR RESULTS ARE</h1>
       {data.map((answer) => (
         <p>{answer}</p>
       ))}
-      <p></p>
+      <p></p> */}
     </div>
   );
 }
