@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import CheckIcon from '@mui/icons-material/Check';
@@ -11,7 +11,6 @@ export default function Question1() {
   const [index, setIndex] = useState(0);
   const [sel, setSel] = useState(null);
   const [answers, setAnswers] = useState([]);
-  const myRef = useRef(null);
 
   const questionsArray = [
     {
@@ -289,7 +288,6 @@ export default function Question1() {
   };
 
   const handleClick = () => {
-    const fieldRef = document.getElementById('fieldRef');
     setAnswers([...answers, sel]);
     if (index < answers.length) {
       const newAnswers = [...answers];
@@ -303,6 +301,19 @@ export default function Question1() {
       setSel('');
     }
   };
+
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.code === 'Enter') {
+        event.preventDefault();
+        handleClick();
+      }
+    };
+    document.addEventListener('keydown', listener);
+    return () => {
+      document.removeEventListener('keydown', listener);
+    };
+  });
 
   const handleChoose = (i) => {
     if (i !== sel) {
@@ -484,15 +495,38 @@ export default function Question1() {
             {questionsArray[index].options.map((choices) => (
               <div
                 onClick={() => handleChoose(choices)}
-                style={{
-                  width: '40%',
-                  height: '42%',
-                  marginBottom: '1%',
-                  backgroundColor: 'white',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}
+                id={choices}
+                style={
+                  sel === choices
+                    ? {
+                        width: '40%',
+                        height: '42%',
+                        marginBottom: '1%',
+                        backgroundColor: 'red',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                      }
+                    : {
+                        width: '40%',
+                        height: '42%',
+                        marginBottom: '1%',
+                        backgroundColor: 'white',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                      }
+                }
+                // style={{
+                //   width: '40%',
+                //   height: '42%',
+                //   marginBottom: '1%',
+                //   backgroundColor: 'white',
+                //   display: 'flex',
+                //   flexDirection: 'column',
+                //   alignItems: 'center',
+
+                // }}
               >
                 <div
                   style={{
@@ -614,9 +648,9 @@ export default function Question1() {
           )}
         </div>
 
-        {/* <div>
+        <div>
           <button onClick={postUser}>post user</button>
-        </div> */}
+        </div>
       </div>
     </div>
   );
