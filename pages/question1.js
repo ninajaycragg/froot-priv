@@ -502,7 +502,7 @@ export default function Question1() {
                         width: '40%',
                         height: '42%',
                         marginBottom: '1%',
-                        backgroundColor: 'red',
+                        backgroundColor: '#D0D0D0',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -517,16 +517,6 @@ export default function Question1() {
                         alignItems: 'center',
                       }
                 }
-                // style={{
-                //   width: '40%',
-                //   height: '42%',
-                //   marginBottom: '1%',
-                //   backgroundColor: 'white',
-                //   display: 'flex',
-                //   flexDirection: 'column',
-                //   alignItems: 'center',
-
-                // }}
               >
                 <div
                   style={{
