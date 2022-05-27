@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Button from '@mui/material/Button';
-// 29 questions
+import TextField from '@mui/material/TextField';
+import CheckIcon from '@mui/icons-material/Check';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Image from 'next/image';
+import Link from 'next/link';
+// 27 questions
 
 export default function Question1() {
   const [index, setIndex] = useState(0);
   const [sel, setSel] = useState(null);
   const [answers, setAnswers] = useState([]);
+  const myRef = useRef(null);
 
   const questionsArray = [
     {
       question: 'What is your name?',
       subtext: true,
-      text: 'It can be a nickname or a name you preferred to be called',
+      text: 'It can be a nickname or a name you preferred to be called.',
       type: 'text',
     },
     {
@@ -22,13 +28,14 @@ export default function Question1() {
     },
     {
       question: 'How old are you?',
-      subtext: false,
+      subtext: true,
+      text: 'This helps us understand your breast type.',
       type: 'text',
     },
     {
-      question: 'You currently identify as...',
+      question: 'What gender do you identify with?',
       subtext: true,
-      text: 'You can write in "woman", "man", "non-binary", or however you self-identify. Gender plays a factor in the bra fitting process and we go in-depth on our website.',
+      text: 'Knowing this can help us find the fit that you want most easily.',
       type: 'text',
     },
     {
@@ -41,14 +48,14 @@ export default function Question1() {
     {
       question: 'If you have had your breasts augmented, what was it for?',
       subtext: true,
-      text: 'If not, write N/A',
+      text: 'If not, write "N/A"',
       type: 'text',
     },
     {
       question:
         'Any medical concerns regarding your breasts that you would like us to know?',
       subtext: true,
-      text: 'If not, write N/A',
+      text: 'If not, "write N/A"',
       type: 'text',
     },
     {
@@ -59,49 +66,60 @@ export default function Question1() {
     },
     {
       question: 'Do you have sensitive skin?',
-      subtext: false,
+      subtext: true,
+      text: 'This can affect what materials we recommend to you.',
       type: 'mc',
       options: ['Yes', 'No'],
     },
     {
       question: 'Figuring Out Your Style',
       subtext: true,
-      text: 'Knowing the shape and size of your breasts is critical. But, we also want to buy you bras you enjoy looking at.',
+      text: 'Knowing the shape and size of your breasts is critical. But we also want to know what bras you actually want to wear.',
       type: 'break',
     },
     {
       question: 'What types of bras are you looking for?',
       subtext: true,
-      text: 'We offer a lot of choices. Please pick as many as you like! Read more about each type on our website!',
-      type: 'mc',
+      text: 'We offer a lot of choices. Please pick as many as you like! Read more about each type on our website! Choose as many as you like.',
+      type: 'image',
       options: [
-        'Push up - Pulls breasts upward then inward bringing breasts closer',
-        'Front Fastening - Opens in the front',
-        'Balconette - Bra lifts boobs upwards not inwards',
-        'Tube - A strapless strip of stretchy fabric with a thick band on top and bottom',
-        'T-shirt - Smooth cup bra, usually underwired, that has padded or molded cups',
-        'Sports Bra - Keeps breasts firmly placed and restricts movement in their muscle ligaments',
+        'Push-up ~ Pulls breasts upward then inward bringing breasts closer.',
+        'Front-fastening ~ Opens in the front.',
+        'Balconette ~ Bra lifts boobs upwards not inwards.',
+        'Tube ~ A strapless strip of stretchy fabric with a thick band on top and bottom.',
+        'T-shirt ~ Smooth cup bra, usually underwired, that has padded or molded cups.',
+        'Sports Bra ~ Keeps breasts firmly placed and restricts breast movement.',
+        'Strapless ~ Designed to be worn with no shoulder straps.',
+        'Plunge ~ Draws your breasts together from the center of the cup.',
+        'Multi-way ~ Straps remove or can be reattached to wear with different clothes.',
+        'Halter ~ A strap that fits around your neck.',
+        'Stick-on ~ A bra without a band or straps that sticks to your breasts.',
+        'Nursing ~ Unlatches to expose nipples to breastfeed. It gives extra support.',
+        'Racerback ~ Straps cross each other or meet in a "T" shape across the back.',
+        'Pasties ~ Small adhesive cups designed to conceal the nipple and areola.',
+        "Bralette ~ Unlined, usually doesn't have underwire or lots of padding.",
+        'Other ~ You can write in the comments section what this type of bra is.',
       ],
     },
     {
       question: "What's style(s) do you want your bras to have?",
       subtext: true,
-      text: 'Pick as many as you like!',
-      type: 'mc',
+      text: "It's important to understand what you are interested in wearing, aesthetically! Choose as many as you like.",
+      type: 'image',
       options: [
-        'Romantic - Lots of Lace',
-        'Minimalist - Super Simple',
-        'Sport - Splash of Colors and Possibly A Logo',
-        'Vintage - Shape and Structure remind us of Past Decades',
-        'Modern - A Twist to the Classic',
-        'Classic - Shape of a Typical Bra',
+        'Romantic ~ Lots of lace.',
+        'Minimalist ~ Super simple. Muted Colors.',
+        'Sport ~ Splash of colors and possibly a logo.',
+        'Vintage ~ Shape and Structure remind us of Past Decades.',
+        'Modern ~ Classic with a twist.',
+        'Classic ~ Shape of a siimple bra.',
       ],
     },
     {
       question: 'Pick the colors you would like for your bra(s)',
       subtext: true,
-      text: 'Select as many as you want!',
-      type: 'mc',
+      text: 'This will help us narrow down what colors of bras to recommend. We can always re-adjust this later. Choose as many as you like.',
+      type: 'image',
       options: [
         'Skin Tones',
         'Warm',
@@ -112,41 +130,33 @@ export default function Question1() {
         'Whites',
       ],
     },
+    // {
+    //   question:
+    //     'Out of the color palettes, which colors do you want specifically?',
+    //   subtext: true,
+    //   text: 'If you have no particular colors in mind, just say "surprise me"!',
+    //   type: 'text',
+    // },
     {
-      question:
-        'Out of the color palettes, which colors do you want specifically?',
-      subtext: true,
-      text: 'If you have no particular colors in mind, just say "surprise me"!',
-      type: 'text',
-    },
-    {
-      question: 'Do you want your bras to have underwire or not?',
+      question: 'Do you want your bras to have underwire?',
       subtext: true,
       text: 'Underwire bras do provide a bit more support, structure, and shape. Yet some feel the wireless bra is more comfortable. Ultimately, the choice is yours. If you need help with your choice, we have just the article for you.',
       type: 'mc',
-      options: [
-        'All my bras should be underwire!',
-        'Would like to see some bras with underwire',
-        'No underwire whatsoever',
-      ],
+      options: ['Yes, all of them', 'Some should', 'None at all'],
     },
     {
       question: 'Do you want padding?',
       subtext: true,
       text: 'Padding can be for support or to make you look bustier. Most bras can have padding. But, we want to know your thoughts on padding. If you want some more clarity on padding, check out our article.',
       type: 'mc',
-      options: [
-        'No padding for my bras',
-        'Some bras should have padding',
-        'All my bras should have padding!',
-      ],
+      options: ['Yes, all of them', 'Some should', 'None at all'],
     },
-    {
-      question:
-        'Anything you want us to know regarding how you want your bras to look like?',
-      subtext: false,
-      type: 'text',
-    },
+    // {
+    //   question:
+    //     'Anything you want us to know regarding how you want your bras to look like?',
+    //   subtext: false,
+    //   type: 'text',
+    // },
     {
       question: 'Factors Beyond Size Measuring',
       subtext: true,
@@ -163,39 +173,43 @@ export default function Question1() {
       question: 'What is your breast fullness (top or bottom)?',
       subtext: true,
       text: "Your nipples' location on your breasts indicates where most of your breast tissue is location. Pick the image that best represents your breasts. If you want more info regarding fullness, check out our article.",
-      type: 'mc',
+      type: 'image',
       options: [
-        'Full on Bottom - Nipples are Above Dotted Line',
-        'Full on Top - Nipples are Below Dotted Line',
+        'Full on Bottom ~ Nipples are Above Dotted Line.',
+        'Full on Top ~ Nipples are Below Dotted Line.',
+        'Even Distribution ~ Nipples are at the Dotted Lines.',
       ],
     },
     {
       question: 'What is your breast fullness (outer or inner)?',
       subtext: true,
       text: "Your nipples' location on your breasts indicates where most of your breast tissue is located. Pick the image that best represents your breasts. If you want more info regarding fullness, check out our article.",
-      type: 'mc',
+      type: 'image',
       options: [
-        'Outer Fullness - Nipples are Towards each other',
-        'Inner Fullness - Nipples are Opposite of Each Other',
+        'Outer Fullness ~ Nipples are Towards each other.',
+        'Inner Fullness ~ Nipples are Opposite of Each Other.',
+        'Even Distribution ~ Nipples are pointed straight forward.',
       ],
     },
     {
       question: 'Are your boobs soft or firm?',
       subtext: true,
       text: 'Use your fingers to tape on one of your breasts. Watch if your breast ripples in response to your touch. The results will determine the softness or firmness of your breast tissue. Breast firmness or softness may change',
-      type: 'mc',
+      type: 'image',
       options: [
-        'Super Soft - Fingers do not bounce back but a slight crater is made in your skin in response to the touch of your finger',
-        'Soft - Finger does not bounce back and the ripple is super quick yet still noticeable',
+        'Soft ~ Fingers do not bounce back, indent is made in your skin in response to finger.',
+        'Medium ~ Finger does not bounce back and ripple is super quick yet still noticeable.',
+        'Firm ~ No ripple is created and your finger bounces back.',
       ],
     },
     {
       question:
-        'Laying your hand on your chest, how many fingers fit between your breasts without touching?',
+        'Lay your hand on your chest, how many fingers fit between your breasts?',
       subtext: true,
       text: 'Use your fingers to measure the space between your breast as shown in the image on the right.',
-      type: 'mc',
-      options: ['0', '1', '2', '3 or more'],
+      type: 'mcIMG',
+      image: '/betweenBreasts.svg',
+      options: ['0', '1', '2', '3+'],
     },
     {
       question: 'Measuring Your Breasts',
@@ -207,37 +221,43 @@ export default function Question1() {
       question: 'Measure your under bust loosely (in inches)',
       subtext: true,
       text: 'Sitting down, measure right underneath your breasts as depicted in the image. The tape should NOT dig in at all.',
-      type: 'text',
+      type: 'textIMG',
+      image: '/loosely.svg',
     },
     {
-      question: 'Measure your under bust (in inches)',
+      question: 'Measure your under bust normally (in inches)',
       subtext: true,
       text: 'Sitting down, measure right underneath your breast as depicted in the image. The tape should dig in a little, the tape should be as snug as you want the bra to be.',
-      type: 'text',
+      type: 'textIMG',
+      image: '/loosely.svg',
     },
     {
       question: 'Measure your under bust tightly (in inches)',
       subtext: true,
       text: 'Sitting down, measure right underneath your breast as depicted in the first image. The tape should be as tight as possible.',
-      type: 'text',
+      type: 'textIMG',
+      image: '/loosely.svg',
     },
     {
       question: 'Measure your standing bust (in inches)',
       subtext: true,
       text: 'Stand up straight and measure loosely around the fullest part of your breasts as depicted in the image.',
-      type: 'text',
+      type: 'textIMG',
+      image: '/loosely.svg',
     },
     {
       question: 'Measure your bust while you lean over (in inches)',
       subtext: true,
       text: 'Bend over at a 90-degree angle and measure loosely around the fullest part of your breasts as depicted in the image.',
-      type: 'text',
+      type: 'textIMG',
+      image: '/bent.svg',
     },
     {
       question: 'Measure your bust while you lie on the ground (in inches)',
       subtext: true,
       text: 'Lie on your back and measure loosely around the fullest part of your breasts as depicted in the image below.',
-      type: 'text',
+      type: 'textIMG',
+      image: '/laying.svg',
     },
     {
       question: 'All done!',
@@ -269,6 +289,7 @@ export default function Question1() {
   };
 
   const handleClick = () => {
+    const fieldRef = document.getElementById('fieldRef');
     setAnswers([...answers, sel]);
     if (index < answers.length) {
       const newAnswers = [...answers];
@@ -297,227 +318,305 @@ export default function Question1() {
   return (
     <div
       style={{
-        backgroundColor: '#F2F2F2',
-        paddingBottom: '20%',
+        backgroundColor: '#FAF8F1',
         width: '100vw',
-        height: '200vh',
+        height: '100vh',
+        overflowY: 'auto',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
+      <div id="scroll"></div>
       <div
         style={{
-          textAlign: 'left',
-          width: '60%',
-          marginLeft: '20%',
-          paddingTop: '3%',
-          marginBottom: '2%',
+          width: '5%',
+          height: '40%',
+          textAlign: 'right',
+          display: 'flex',
+          alignItems: 'start',
+          justifyContent: 'center',
+          marginRight: '1%',
+          marginTop: '15%',
         }}
       >
-        <h1 style={{ fontSize: '150%' }}>{questionsArray[index].question}</h1>
-        <p>{questionsArray[index].subtext ? questionsArray[index].text : ''}</p>
+        <h1
+          style={{
+            fontFamily: 'Inter',
+            fontWeight: '700',
+            fontSize: '100%',
+            marginTop: '8%',
+          }}
+        >
+          {index + 1}/29
+        </h1>
+        <ArrowForwardIcon style={{ fontSize: '90%', marginTop: '10%' }} />
       </div>
-
-      {questionsArray[index].type === 'text' ? (
+      <div
+        style={{
+          width: '60%',
+          height: '40%',
+          marginTop: '15%',
+        }}
+      >
         <div
           style={{
-            width: '60%',
-            marginLeft: '20%',
-          }}
-        >
-          <input
-            onChange={handleChange}
-            value={sel}
-            style={{
-              width: '30%',
-              padding: '1.5%',
-              borderRadius: '5px',
-              border: '1px solid black',
-              marginBottom: '3%',
-            }}
-            type="text"
-          />
-        </div>
-      ) : null}
-
-      {questionsArray[index].type === 'mc' ? (
-        <div
-          style={{
-            marginLeft: '10%',
-            width: '80%',
+            width: '100%',
+            marginBottom: '5%',
             display: 'flex',
-            justifyContent: 'space-evenly',
-            flexWrap: 'wrap',
-            alignContent: 'flex-start',
+            justifyContent: 'flex-start',
+            height: '35%',
           }}
         >
-          {questionsArray[index].options.map((choices) => (
-            <div
-              onClick={() => handleChoose(choices)}
-              style={{ height: '380px', margin: '1%', width: '220px' }}
+          <div
+            style={{
+              textAlign: 'left',
+              width: '100%',
+            }}
+          >
+            <h1
+              style={{
+                fontSize: '150%',
+                fontFamily: 'Tiempos Headline',
+                fontWeight: '600',
+                marginTop: '0',
+              }}
             >
-              <div
+              {questionsArray[index].question}
+            </h1>
+            <p style={{ fontFamily: 'Inter' }}>
+              {questionsArray[index].subtext ? questionsArray[index].text : ''}
+            </p>
+          </div>
+          {questionsArray[index].type === 'textIMG' ||
+          questionsArray[index].type === 'mcIMG' ? (
+            <div
+              style={{
+                width: '50%',
+                height: '110%',
+                position: 'relative',
+              }}
+            >
+              <Image
+                src={questionsArray[index].image}
+                layout="fill"
+                objectFit="contain"
+              ></Image>
+            </div>
+          ) : null}
+        </div>
+
+        {questionsArray[index].type === 'text' ||
+        questionsArray[index].type === 'textIMG' ? (
+          <div
+            style={{
+              width: '100%',
+            }}
+          >
+            <TextField
+              onChange={handleChange}
+              value={sel}
+              id="standard-basic"
+              label=""
+              variant="standard"
+              placeholder="Type your answer here..."
+              style={{
+                width: '100%',
+                marginBottom: '5%',
+                fontFamily: 'Inter',
+              }}
+            />
+          </div>
+        ) : null}
+
+        {questionsArray[index].type === 'mc' ||
+        questionsArray[index].type === 'mcIMG' ? (
+          <div
+            style={{
+              width: '90%',
+              display: 'flex',
+              justifyContent: 'flex-start',
+              marginBottom: '5%',
+            }}
+          >
+            {questionsArray[index].options.map((choices) => (
+              <Button
                 id={choices}
                 style={
                   sel === choices
-                    ? { backgroundColor: 'red' }
-                    : { backgroundColor: 'black' }
+                    ? {
+                        backgroundColor: '#D0D0D0',
+                        color: 'black',
+                        width: '20%',
+                        marginRight: '3%',
+                        textTransform: 'capitalize',
+                        fontFamily: 'Inter',
+                      }
+                    : {
+                        backgroundColor: 'white',
+                        color: 'black',
+                        width: '20%',
+                        marginRight: '3%',
+                        textTransform: 'capitalize',
+                        fontFamily: 'Inter',
+                      }
                 }
-                className="questionTop"
+                onClick={() => handleChoose(choices)}
               >
-                <div className="questionContent "></div>
-              </div>
-              <div className="questionBottom">
-                <h3 className="questionh3">{choices.split('-')[0]}</h3>
-                <h5 className="questionh5">{choices.split('-')[1]}</h5>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : null}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          textAlign: 'left',
-          width: '60%',
-          marginLeft: '20%',
-          marginBottom: '5%',
-        }}
-      >
-        {index === 0 ? null : (
-          <Button
-            onClick={handleBack}
-            variant="filled"
-            style={{
-              borderRadius: '2px',
-              width: '20%',
-              backgroundColor: 'black',
-              color: 'white',
-              padding: '1%',
-            }}
-          >
-            back
-          </Button>
-        )}
-        {index === questionsArray.length - 1 ? (
-          <Button
-            onClick={postUser}
-            variant="filled"
-            style={{
-              borderRadius: '2px',
-              width: '20%',
-              backgroundColor: 'black',
-              color: 'white',
-              padding: '1%',
-            }}
-          >
-            Submit
-          </Button>
-        ) : (
-          <Button
-            onClick={handleClick}
-            variant="filled"
-            style={{
-              borderRadius: '2px',
-              width: '20%',
-              backgroundColor: 'black',
-              color: 'white',
-              padding: '1%',
-            }}
-          >
-            Next Question
-          </Button>
-        )}
-      </div>
+                {choices}
+              </Button>
+            ))}
+          </div>
+        ) : null}
 
-      {/* <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <div onClick={() => handleChoose('a')}>
+        {questionsArray[index].type === 'image' ? (
           <div
-            id="1"
-            style={
-              sel === 'a'
-                ? { backgroundColor: 'red' }
-                : { backgroundColor: 'black' }
-            }
-            className="questionTop"
+            style={{
+              width: '100%',
+              height: '100vh',
+              overflowY: 'auto',
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              alignContent: 'flex-start',
+              backgroundColor: '#FAF8F1',
+            }}
           >
-            <div className="questionContent "></div>
+            {questionsArray[index].options.map((choices) => (
+              <div
+                onClick={() => handleChoose(choices)}
+                style={{
+                  width: '40%',
+                  height: '42%',
+                  marginBottom: '1%',
+                  backgroundColor: 'white',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    width: '86%',
+                    height: '255px',
+                    position: 'relative',
+                    margin: '3%',
+                  }}
+                >
+                  <Image
+                    src="/defaultIMG.svg"
+                    objectFit="contain"
+                    layout="fill"
+                  ></Image>
+                </div>
+                <div
+                  style={{
+                    width: '85%',
+                    fontSize: '80%',
+                    fontFamily: 'Inter',
+                  }}
+                >
+                  <h3 style={{ marginTop: '0' }}>{choices.split('~')[0]}</h3>
+                  <h3 style={{ fontWeight: '400' }}>{choices.split('~')[1]}</h3>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="questionBottom">
-            <h3 className="questionh3"></h3>
-            <h5 className="questionh5">{questionsArray[index].option1}</h5>
-          </div>
+        ) : null}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            textAlign: 'left',
+            width: '60%',
+            paddingBottom: '30%',
+          }}
+        >
+          {index === questionsArray.length - 1 ? (
+            <Button
+              onClick={postUser}
+              variant="filled"
+              style={{
+                borderRadius: '2px',
+                width: '20%',
+                backgroundColor: 'black',
+                color: 'white',
+                padding: '1%',
+              }}
+            >
+              Submit
+            </Button>
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+              }}
+            >
+              <Link href="#scroll">
+                <Button
+                  onClick={handleClick}
+                  variant="filled"
+                  style={{
+                    borderRadius: '5px',
+                    width: '15%',
+                    fontFamily: 'Inter',
+                    backgroundColor: '#FFFFFF',
+                    color: 'black',
+                    padding: '1%',
+                  }}
+                  endIcon={<CheckIcon />}
+                >
+                  OK
+                </Button>
+              </Link>
+
+              <h1
+                style={{
+                  color: '#670224',
+                  fontFamily: 'Inter',
+                  fontWeight: '400',
+                  fontSize: '100%',
+                  marginLeft: '2%',
+                  width: '50%',
+                }}
+              >
+                press <b>Enter</b>
+              </h1>
+            </div>
+          )}
+          {index === 0 ? null : (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+              }}
+            >
+              <Link href="#scroll">
+                <Button
+                  onClick={handleBack}
+                  variant="filled"
+                  style={{
+                    borderRadius: '5px',
+                    width: '15%',
+                    backgroundColor: 'black',
+                    color: 'white',
+                    padding: '1%',
+                    marginRight: '20%',
+                    fontFamily: 'Inter',
+                  }}
+                >
+                  back
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
-        <div onClick={() => handleChoose('b')}>
-          <div
-            className="questionTop"
-            style={
-              sel === 'b'
-                ? { backgroundColor: 'red' }
-                : { backgroundColor: 'black' }
-            }
-          >
-            <div className="questionContent"></div>
-          </div>
-          <div className="questionBottom">
-            <h3 className="questionh3"></h3>
-            <h5 className="questionh5">{questionsArray[index].option2}</h5>
-          </div>
-        </div>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {index === 4 ? (
-          ''
-        ) : (
-          <button onClick={handleClick}>next question</button>
-        )}
-        {index === 0 || index === 4 ? (
-          ''
-        ) : (
-          <button onClick={handleBack}>back</button>
-        )}
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          marginTop: '10%',
-        }}
-      >
-        <div onClick={() => handleChoose('c')}>
-          <div
-            className="questionTop"
-            style={
-              sel === 'c'
-                ? { backgroundColor: 'red' }
-                : { backgroundColor: 'black' }
-            }
-          >
-            <div className="questionContent"></div>
-          </div>
-          <div className="questionBottom">
-            <h3 className="questionh3"></h3>
-            <h5 className="questionh5">{questionsArray[index].option3}</h5>
-          </div>
-        </div>
-        <div onClick={() => handleChoose('d')}>
-          <div
-            className="questionTop"
-            style={
-              sel === 'd'
-                ? { backgroundColor: 'red' }
-                : { backgroundColor: 'black' }
-            }
-          >
-            <div className="questionContent"></div>
-          </div>
-          <div className="questionBottom">
-            <h3 className="questionh3"></h3>
-            <h5 className="questionh5">{questionsArray[index].option4}</h5>
-          </div>
-        </div>
-      </div> */}
-      <div>
-        <button onClick={postUser}>post user</button>
+
+        {/* <div>
+          <button onClick={postUser}>post user</button>
+        </div> */}
       </div>
     </div>
   );
