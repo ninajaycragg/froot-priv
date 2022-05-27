@@ -1,8 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
+import { useRouter } from 'next/router';
 
 export default function QuizAlt() {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push('/quizIntro');
+  };
   return (
     <div
       style={{
@@ -10,6 +15,7 @@ export default function QuizAlt() {
         height: '100vh',
         display: 'flex',
         alignContent: 'center',
+        backgroundColor: '#FAF8F1',
       }}
     >
       <div
@@ -20,11 +26,12 @@ export default function QuizAlt() {
         }}
       >
         <Image
-          src="/quizIntroImage3.svg"
-          width="100%"
-          height="100%"
+          src="/imageAltCropped.png"
+          width="100vw"
+          height="100vh"
           layout="fill"
-          objectFit="none"
+          objectFit="fill"
+          alt="intro quiz image"
         ></Image>
       </div>
       <div
@@ -70,6 +77,7 @@ export default function QuizAlt() {
             borderRadius: '3px',
             height: '50px',
           }}
+          onClick={handleClick}
         >
           Take the Quiz
         </Button>

@@ -14,6 +14,12 @@ export default function Question1() {
 
   const questionsArray = [
     {
+      question: 'Figuring out your style',
+      subtext: true,
+      text: "The Froot team realizes that knowing a bit about who you are, not just your boobs, can help us find your perfect bra. So let's get to know you with a few key questions!",
+      type: 'break',
+    },
+    {
       question: 'What is your name?',
       subtext: true,
       text: 'It can be a nickname or a name you preferred to be called.',
@@ -338,30 +344,42 @@ export default function Question1() {
       }}
     >
       <div id="scroll"></div>
-      <div
-        style={{
-          width: '5%',
-          height: '40%',
-          textAlign: 'right',
-          display: 'flex',
-          alignItems: 'start',
-          justifyContent: 'center',
-          marginRight: '1%',
-          marginTop: '15%',
-        }}
-      >
-        <h1
+      {console.log(index)}
+      {index === 0 ? (
+        <div
           style={{
-            fontFamily: 'Inter',
-            fontWeight: '700',
-            fontSize: '100%',
-            marginTop: '8%',
+            width: '5%',
+            height: '40%',
+            marginRight: '1%',
+            marginTop: '15%',
+          }}
+        ></div>
+      ) : (
+        <div
+          style={{
+            width: '5%',
+            height: '40%',
+            textAlign: 'right',
+            display: 'flex',
+            alignItems: 'start',
+            justifyContent: 'center',
+            marginRight: '1%',
+            marginTop: '15%',
           }}
         >
-          {index + 1}/29
-        </h1>
-        <ArrowForwardIcon style={{ fontSize: '90%', marginTop: '10%' }} />
-      </div>
+          <h1
+            style={{
+              fontFamily: 'Inter',
+              fontWeight: '700',
+              fontSize: '100%',
+              marginTop: '8%',
+            }}
+          >
+            {index + 1}/{questionsArray.length}
+          </h1>
+          <ArrowForwardIcon style={{ fontSize: '90%', marginTop: '10%' }} />
+        </div>
+      )}
       <div
         style={{
           width: '60%',
@@ -372,7 +390,6 @@ export default function Question1() {
         <div
           style={{
             width: '100%',
-            marginBottom: '5%',
             display: 'flex',
             justifyContent: 'flex-start',
             height: '35%',
@@ -447,6 +464,7 @@ export default function Question1() {
               display: 'flex',
               justifyContent: 'flex-start',
               marginBottom: '5%',
+              marginTop: '3%',
             }}
           >
             {questionsArray[index].options.map((choices) => (
@@ -547,13 +565,32 @@ export default function Question1() {
           </div>
         ) : null}
         <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            textAlign: 'left',
-            width: '60%',
-            paddingBottom: '30%',
-          }}
+          // style={{
+          //   display: 'flex',
+          //   justifyContent: 'space-between',
+          //   textAlign: 'left',
+          //   width: '60%',
+          //   paddingBottom: '30%',
+          //   marginTop: '3%',
+          // }}
+          style={
+            questionsArray[index].type === 'break'
+              ? {
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  textAlign: 'left',
+                  width: '60%',
+                  paddingBottom: '30%',
+                  marginTop: '5%',
+                }
+              : {
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  textAlign: 'left',
+                  width: '60%',
+                  paddingBottom: '30%',
+                }
+          }
         >
           {index === questionsArray.length - 1 ? (
             <Button
@@ -638,9 +675,9 @@ export default function Question1() {
           )}
         </div>
 
-        <div>
+        {/* <div>
           <button onClick={postUser}>post user</button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
