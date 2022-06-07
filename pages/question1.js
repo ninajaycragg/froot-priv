@@ -277,7 +277,7 @@ export default function Question1() {
       questions: answers,
     };
 
-    await fetch('http://froot-priv.vercel.app/user/add', {
+    await fetch('https://froot-priv.vercel.app/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
