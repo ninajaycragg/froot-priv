@@ -27,8 +27,6 @@ export default function QuizAlt() {
       >
         <Image
           src="/imageAltCropped.png"
-          width="100vw"
-          height="100vh"
           layout="fill"
           objectFit="fill"
           alt="intro quiz image"

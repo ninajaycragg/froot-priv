@@ -277,7 +277,7 @@ export default function Question1() {
       questions: answers,
     };
 
-    await fetch('http://localhost:5000/user/add', {
+    await fetch('http://froot-priv.vercel.app/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -675,9 +675,9 @@ export default function Question1() {
           )}
         </div>
 
-        {/* <div>
+        <div>
           <button onClick={postUser}>post user</button>
-        </div> */}
+        </div>
       </div>
     </div>
   );
