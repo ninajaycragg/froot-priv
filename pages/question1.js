@@ -277,7 +277,7 @@ export default function Question1() {
       questions: answers,
     };
 
-    await fetch('https://froot-priv.vercel.app/server/routes/user/add', {
+    await fetch('http://localhost:5000/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -517,49 +517,65 @@ export default function Question1() {
                 style={
                   sel === choices
                     ? {
-                        width: '40%',
-                        height: '42%',
-                        marginBottom: '1%',
                         backgroundColor: '#D0D0D0',
+                        width: '353px',
+                        height: '377px',
+                        marginBottom: '20px',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        padding: '20px',
                       }
                     : {
-                        width: '40%',
-                        height: '42%',
-                        marginBottom: '1%',
+                        width: '353px',
+                        height: '377px',
+                        marginBottom: '20px',
                         backgroundColor: 'white',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        padding: '20px',
                       }
                 }
               >
                 <div
                   style={{
-                    width: '86%',
-                    height: '255px',
+                    width: '313px',
+                    height: '246px !important',
                     position: 'relative',
-                    margin: '3%',
                   }}
                 >
-                  <Image
-                    src="/defaultIMG.svg"
-                    objectFit="contain"
-                    layout="fill"
-                  ></Image>
+                  <Image src="/testing.png" layout="fill"></Image>
                 </div>
-                <div
+
+                <h3
                   style={{
-                    width: '85%',
-                    fontSize: '80%',
+                    width: '313px',
+                    textAlign: 'left',
+                    margin: '0',
+                    marginTop: '20px',
+                    marginBottom: '20px',
                     fontFamily: 'Inter',
+                    fontWeight: '700',
+                    fontSize: '14px',
                   }}
                 >
-                  <h3 style={{ marginTop: '0' }}>{choices.split('~')[0]}</h3>
-                  <h3 style={{ fontWeight: '400' }}>{choices.split('~')[1]}</h3>
-                </div>
+                  {choices.split('~')[0]}
+                </h3>
+                <h3
+                  style={{
+                    width: '313px',
+                    textAlign: 'left',
+                    fontWeight: '400',
+                    margin: '0',
+                    padding: '0',
+                    fontFamily: 'Inter',
+                    fontWeight: '400',
+                    fontSize: '15px',
+                  }}
+                >
+                  {choices.split('~')[1]}
+                </h3>
               </div>
             ))}
           </div>
