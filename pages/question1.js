@@ -321,7 +321,7 @@ export default function Question1() {
       questions: answers,
     };
 
-    await fetch('http://localhost:5000/user/add', {
+    await fetch('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
