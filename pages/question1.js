@@ -315,25 +315,39 @@ export default function Question1() {
     borderRadius: '5px',
   };
 
-  async function postUser() {
-    // When a post request is sent to the create url, we'll add a new record to the database.
+  // async function postUser() {
+  //   // When a post request is sent to the create url, we'll add a new record to the database.
+  //   const newUser = {
+  //     questions: answers,
+  //   };
+  //   // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
+  //   // ('http://localhost:5000/user/add');
+  //   await fetch('http://localhost:3000/api/hello', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
+  //     },
+  //     body: JSON.stringify(newUser),
+  //   }).catch((error) => {
+  //     window.alert(error);
+  //     return;
+  //   });
+  // }
+
+  const postUser = async () => {
     const newUser = {
       questions: answers,
     };
-    // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
-    // ('http://localhost:5000/user/add');
-    await fetch('https://api.vercel.com/user/add', {
+    const res = await fetch('https://api.vercel.com/api/hello', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
       },
       body: JSON.stringify(newUser),
-    }).catch((error) => {
-      window.alert(error);
-      return;
     });
-  }
+    console.log(res);
+  };
 
   const handleChange = (e) => {
     setSel(e.target.value);

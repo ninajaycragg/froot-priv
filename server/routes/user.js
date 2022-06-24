@@ -16,14 +16,5 @@ userRoutes.route('/user/add').post(function (req, response) {
     response.json(res);
   });
 });
-// userRoutes.route('/update/:userId').post(function (req, response) {
-//   let db_connect = dbo.getDb();
-//   let myquery = { userId: req.body.userId };
-//   let newvalues = {
-//     $set: {
-//       q1: req.body.q1,
-//     },
-//   };
-// });
 
 module.exports = userRoutes;
