@@ -320,7 +320,8 @@ export default function Question1() {
     const newUser = {
       questions: answers,
     };
-
+    // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
+    // ('http://localhost:5000/user/add');
     await fetch('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add', {
       method: 'POST',
       headers: {

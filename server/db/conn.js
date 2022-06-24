@@ -1,6 +1,5 @@
 const { MongoClient } = require('mongodb');
-const Db =
-  'mongodb+srv://mhwang:organicfroot135@froot1.mykyd.mongodb.net/froot1?retryWrites=true&w=majority';
+const Db = process.env.MONGODB_URI;
 const client = new MongoClient(Db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
