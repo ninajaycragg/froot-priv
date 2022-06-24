@@ -326,6 +326,7 @@ export default function Question1() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
       },
       body: JSON.stringify(newUser),
     }).catch((error) => {
