@@ -322,7 +322,7 @@ export default function Question1() {
     };
     // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
     // ('http://localhost:5000/user/add');
-    await fetch('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add', {
+    await fetch('https://api.vercel.com/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
