@@ -122,6 +122,23 @@ html {
   height: 360px;
 }
 
+.column {
+  display: 'flex';
+  flex-direction: 'column';
+  justify-content: 'center';
+  align-items: 'center';
+}
+
+.general {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.neutralize {
+  margin: 0;
+  padding: 0;
+}
 
 
 

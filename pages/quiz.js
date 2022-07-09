@@ -1,155 +1,78 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
+import Image from 'next/image';
 import { auth } from '../firebase-config';
 
 export default function Quiz() {
-  // const user = auth.currentUser;
-  // if (user) {
-  //   console.log(user);
-  //   return (
-  //     <div
-  //       className="grayBackdrop"
-  //       style={{
-  //         display: 'flex',
-  //         justifyContent: 'center',
-  //       }}
-  //     >
-  //       <h2 style={{ fontWeight: '300', position: 'absolute', top: '10%' }}>
-  //         Welcome, {user.email}
-  //       </h2>
-  //       <h1
-  //         className="quizh1"
-  //         style={{
-  //           color: '#6F717A',
-  //           fontSize: '300%',
-  //           top: '40%',
-  //           position: 'absolute',
-  //         }}
-  //       >
-  //         Bras that fit you are out there.
-  //       </h1>
-  //       <h1
-  //         className="quizh1"
-  //         style={{ fontSize: '300%', top: '50%', position: 'absolute' }}
-  //       >
-  //         We'll help you find them.
-  //       </h1>
-  //       <Button
-  //         variant="outlined"
-  //         size="small"
-  //         style={{
-  //           height: '5%',
-  //           textAlign: 'center',
-  //           textTransform: 'capitalize',
-  //           position: 'absolute',
-  //           color: 'white',
-  //           background: 'black',
-  //           paddingLeft: '3%',
-  //           paddingRight: '3%',
-  //           top: '80%',
-  //           weight: '400',
-  //           height: '6%',
-  //         }}
-  //       >
-  //         <Link href={'/question'}>Start the Quiz</Link>
-  //       </Button>
-  //     </div>
-  //   );
-  // } else {
-  //   return (
-  //     <div
-  //       className="grayBackdrop"
-  //       style={{
-  //         display: 'flex',
-  //         justifyContent: 'center',
-  //       }}
-  //     >
-  //       <h2 style={{ fontWeight: '300', position: 'absolute', top: '10%' }}>
-  //         Welcome, User
-  //       </h2>
-  //       <h1
-  //         className="quizh1"
-  //         style={{
-  //           color: '#6F717A',
-  //           fontSize: '300%',
-  //           top: '40%',
-  //           position: 'absolute',
-  //         }}
-  //       >
-  //         Bras that fit you are out there.
-  //       </h1>
-  //       <h1
-  //         className="quizh1"
-  //         style={{ fontSize: '300%', top: '50%', position: 'absolute' }}
-  //       >
-  //         We'll help you find them.
-  //       </h1>
-  //       <Button
-  //         variant="outlined"
-  //         size="small"
-  //         style={{
-  //           height: '5%',
-  //           textAlign: 'center',
-  //           textTransform: 'capitalize',
-  //           position: 'absolute',
-  //           color: 'white',
-  //           background: 'black',
-  //           paddingLeft: '3%',
-  //           paddingRight: '3%',
-  //           top: '80%',
-  //           weight: '400',
-  //           height: '6%',
-  //         }}
-  //       >
-  //         <Link href={'/question'}>Start the Quiz</Link>
-  //       </Button>
-  //     </div>
-  //   );
-  // }
   return (
     <div
+      className="general"
       style={{
         width: '100vw',
         height: '100vh',
         backgroundColor: '#FAF8F1',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
       }}
     >
-      <h1
+      <div style={{ width: '50%', height: '100%' }} className="general">
+        <Image src="/pizza.svg" width="500%" height="500%"></Image>
+      </div>
+      <div
         style={{
-          margin: '0',
-          padding: '0',
-          fontFamily: 'tempios family',
-          fontStyle: 'italic',
-          fontWeight: '400',
-          width: '30%',
-          textAlign: 'center',
-          marginBottom: '20%',
+          width: '50%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
         }}
       >
-        Bras that fit you are out there. We&apos;ll help you find them.
-      </h1>
-      <Button
-        variant="filled"
-        size="small"
-        style={{
-          height: '5%',
-          textAlign: 'center',
-          textTransform: 'capitalize',
-          position: 'absolute',
-          color: 'white',
-          background: '#670224',
-          paddingLeft: '3%',
-          paddingRight: '3%',
-          weight: '400',
-          height: '5%',
-        }}
-      >
-        <Link href={'/quizIntro'}>Start the Quiz</Link>
-      </Button>
+        <div className="general" style={{ justifyContent: 'left' }}>
+          <p
+            className="neutralize"
+            style={{
+              fontWeight: '500',
+              fontFamily: 'Inter',
+              fontSize: '70%',
+              marginRight: '1%',
+            }}
+          >
+            THE FROOT EXPERIENCE
+          </p>
+          <Image src="/sparkles.gif" width="20%" height="20%"></Image>
+        </div>
+        <hr style={{ width: '60%', marginLeft: '0', marginBottom: '5%' }} />
+        <h1
+          className="neutralize"
+          style={{
+            fontFamily: 'tempios family',
+            fontStyle: 'italic',
+            fontWeight: '400',
+            width: '60%',
+            textAlign: 'left',
+            marginBottom: '5%',
+            lineHeight: '40px',
+          }}
+        >
+          Bras that fit you are out there. We&apos;ll help you find them.
+        </h1>
+        <Button
+          variant="filled"
+          size="small"
+          style={{
+            width: '30%',
+            height: '5%',
+            textAlign: 'center',
+            textTransform: 'capitalize',
+            color: 'white',
+            background: '#670224',
+            paddingLeft: '3%',
+            paddingRight: '3%',
+            weight: '400',
+          }}
+        >
+          <Link href={'/quizIntro'}>Start the Quiz</Link>
+        </Button>
+      </div>
     </div>
   );
 }
