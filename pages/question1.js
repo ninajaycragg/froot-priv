@@ -497,7 +497,8 @@ export default function Question1() {
               style={{
                 fontSize: '150%',
                 fontFamily: 'Tiempos Headline',
-                fontWeight: '600',
+                fontWeight: '400',
+                fontStyle: 'italic',
                 marginTop: '0',
               }}
             >
@@ -566,25 +567,29 @@ export default function Question1() {
           >
             {questionsArray[index].options.map((choices) => (
               <Button
+                variant="outlined"
                 key={choices}
                 id={choices}
                 style={
                   sel === choices
                     ? {
-                        backgroundColor: '#D0D0D0',
-                        color: 'black',
+                        background:
+                          'linear-gradient(180deg, rgba(103, 2, 36, 0.83) -10%, #670224 87.03%, rgba(103, 2, 36, 0) 188.18%, rgba(103, 2, 36, 0.95) 188.18%)',
+                        color: 'white',
                         width: '25%',
                         marginRight: '3%',
                         textTransform: 'capitalize',
                         fontFamily: 'Inter',
+                        border: 'none',
                       }
                     : {
-                        backgroundColor: 'white',
+                        backgroundColor: '#FAF8F1',
                         color: 'black',
                         width: '25%',
                         marginRight: '3%',
                         textTransform: 'capitalize',
                         fontFamily: 'Inter',
+                        border: '1px solid black',
                       }
                 }
                 onClick={() => handleChoose(choices)}
@@ -737,14 +742,15 @@ export default function Question1() {
               <Link href="#scroll">
                 <Button
                   onClick={handleClick}
-                  variant="filled"
+                  variant="outlined"
                   style={{
                     borderRadius: '5px',
                     width: '15%',
                     fontFamily: 'Inter',
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: '#FAF8F1',
                     color: 'black',
                     padding: '1%',
+                    border: '1px solid black',
                   }}
                   endIcon={<CheckIcon />}
                 >
