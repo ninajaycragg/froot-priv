@@ -317,6 +317,7 @@ export default function Question1() {
     borderRadius: '5px',
   };
 
+
   // async function postUser() {
   //   // When a post request is sent to the create url, we'll add a new record to the database.
   //   const newUser = {
@@ -437,7 +438,7 @@ export default function Question1() {
         overflowY: 'auto',
         display: 'flex',
         justifyContent: 'center',
-        position: 'relative'
+        position: 'relative',
       }}
     >
       <div id="scroll"></div>
@@ -455,8 +456,8 @@ export default function Question1() {
                     padding: '0.5%',
                     border: '1px solid black',
                     position: 'absolute',
-                    right: '5%',
-                    top: '90%',
+                    right: '2%',
+                    bottom: '2%'
                   }}
                   startIcon={<WestIcon />}
                 >
