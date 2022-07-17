@@ -5,6 +5,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
 import Link from 'next/link';
+import WestIcon from '@mui/icons-material/West';
+
 // 27 questions
 
 export default function Question1() {
@@ -430,12 +432,37 @@ export default function Question1() {
       style={{
         backgroundColor: '#FAF8F1',
         width: '100vw',
-        height: '100vh',
+        height: '100%',
+        minHeight: '100vh',
         overflowY: 'auto',
         display: 'flex',
         justifyContent: 'center',
+        position: 'relative'
       }}
     >
+      {index === 0 ? null : (
+              <Link href="#scroll">
+                <Button
+                  onClick={handleBack}
+                  variant="outlined"
+                  style={{
+                    borderRadius: '5px',
+                    width: '6%',
+                    fontFamily: 'Inter',
+                    backgroundColor: '#FAF8F1',
+                    color: 'black',
+                    padding: '0.5%',
+                    border: '1px solid black',
+                    position: 'absolute',
+                    right: '5%',
+                    top: '90%',
+                  }}
+                  startIcon={<WestIcon />}
+                >
+                  back
+                </Button>
+              </Link>
+          )}
       <div id="scroll"></div>
       {index === 0 ? (
         <div
@@ -772,39 +799,13 @@ export default function Question1() {
               </h1>
             </div>
           )}
-          {index === 0 ? null : (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%',
-              }}
-            >
-              <Link href="#scroll">
-                <Button
-                  onClick={handleBack}
-                  variant="filled"
-                  style={{
-                    borderRadius: '5px',
-                    width: '15%',
-                    backgroundColor: 'black',
-                    color: 'white',
-                    padding: '1%',
-                    marginRight: '20%',
-                    fontFamily: 'Inter',
-                  }}
-                >
-                  back
-                </Button>
-              </Link>
-            </div>
-          )}
         </div>
 
-        <div>
+        {/* <div>
           <button onClick={postUser}>post user</button>
-        </div>
+        </div> */}
       </div>
+      
     </div>
   );
 }

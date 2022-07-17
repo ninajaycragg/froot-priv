@@ -86,7 +86,7 @@ export default function Nav() {
       >
         <div style={{ width: '15%', margin: 'auto' }}>
           <Link href="/">
-            <Image src="/logo.svg" width="30%" height="30%"></Image>
+            <Image src="/logo.svg" width="30rem" height="30rem"></Image>
           </Link>
         </div>
         <div

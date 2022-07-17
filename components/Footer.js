@@ -24,7 +24,7 @@ export default function Footer() {
         <div className="general" style={{ width: '50%', height: '100%' }}>
           <div className="column" style={{ height: '100%', width: '25%' }}>
             <div style={{ marginBottom: '5%', display: 'flex' }}>
-              <Image src="/logo.svg" width="30%" height="30%"></Image>
+              <Image src="/logo.svg" width="19rem" height="19rem"></Image>
               <h1
                 className="neutralize"
                 style={{

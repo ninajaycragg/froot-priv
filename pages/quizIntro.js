@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Image from 'next/image'
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 
@@ -32,27 +33,29 @@ export default function QuizIntro() {
     >
       <div
         style={{
-          width: '60%',
+          width: '45%',
           height: '40%',
           marginTop: '15%',
           textAlign: 'center',
         }}
       >
-        <h1
-          style={{
-            margin: '0',
-            fontFamily: 'Tempios Headline',
-            fontWeight: '600',
-            fontSize: '170%',
-          }}
-        >
-          Welcome to Froot
-        </h1>
-        <p style={{ fontFamily: 'Inter', fontWeight: '400' }}>
-          The following questionnaire helps our team at Froot best understand
-          your size, desired fit, and style. Please take this test in a private
-          and comfortable setting as you will have to undress for the
-          self-sizing portion of our quiz.
+        <div style={{width: '100%', width: '100%', display:'flex', justifyContent: 'center', alignItems:'center'}}>
+          <Image src="/sparkles.gif" height="50%" width="50%"></Image>
+          <h1
+            style={{
+              margin: '0',
+              fontFamily: 'Tempios Headline',
+              fontWeight: '400',
+              fontSize: '200%',
+              fontStyle: 'italic'
+            }}
+          >
+            &nbsp;Welcome to Froot&nbsp;
+          </h1>
+          <Image src="/sparkles.gif" height="50%" width="50%"></Image>
+        </div>
+        <p style={{ fontFamily: 'Inter', fontWeight: '300', lineHeight: '150%' }}>
+        The following questionnaire helps our team at Froot best understand your size, desired fit, and style. Please take this test in a private and comfortable setting as you will have to undress for the self-sizing portion of our quiz.
         </p>
         <div
           style={{
@@ -60,18 +63,20 @@ export default function QuizIntro() {
             alignItems: 'center',
             width: '100%',
             justifyContent: 'center',
+            marginTop: '5%',
           }}
         >
           <Button
             onClick={handleClick}
-            variant="filled"
+            variant="outlined"
             style={{
               borderRadius: '5px',
-              width: '10%',
+              width: '15%',
               fontFamily: 'Inter',
-              backgroundColor: '#FFFFFF',
+              backgroundColor: '#FAF8F1',
               color: 'black',
               padding: '1%',
+              border: '1px solid black',
             }}
           >
             START
