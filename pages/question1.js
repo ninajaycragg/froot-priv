@@ -440,6 +440,7 @@ export default function Question1() {
         position: 'relative'
       }}
     >
+      <div id="scroll"></div>
       {index === 0 ? null : (
               <Link href="#scroll">
                 <Button
@@ -463,7 +464,6 @@ export default function Question1() {
                 </Button>
               </Link>
           )}
-      <div id="scroll"></div>
       {index === 0 ? (
         <div
           style={{
