@@ -1,8 +1,12 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 export default function Home() {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push('/quizIntro');
+  };
   return (
     <div
       style={{
@@ -42,15 +46,17 @@ export default function Home() {
           letterSpacing: '1px',
           fontWeight: '500',
         }}
+        onClick={handleClick}
       >
         <p className="neutralize">
           A TALE AS OLD AS TIME. FINDING A BRA THAT FITS YOUR TITS.
         </p>
-        <p className="neutralize"><Link href="/quizIntro">YOUR PERFECT BRA FITS HERE</Link></p>
+        <p className="neutralize">YOUR PERFECT BRA FITS HERE</p>
       </div>
       <div
         className="general"
-        style={{ width: '20%', height: '25%', alignItems: 'flex-start' }}
+        style={{ width: '350px', height: '25%', alignItems: 'flex-start' }}
+        onClick={handleClick}
       >
         <Image src="/sparkles.gif" width="50%" height="50%"></Image>
         <hr style={{ width: '100%', marginRight: '2%', marginLeft: '2%', marginTop: '5%' }} />

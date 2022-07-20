@@ -6,6 +6,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
 import Link from 'next/link';
 import WestIcon from '@mui/icons-material/West';
+import ButtonBase from '@mui/material/ButtonBase'
 
 // 27 questions
 
@@ -505,6 +506,7 @@ export default function Question1() {
           width: '726px',
           height: '40%',
           marginTop: '15%',
+          
         }}
       >
         <div
@@ -642,7 +644,8 @@ export default function Question1() {
             }}
           >
             {questionsArray[index].options.map((choices) => (
-              <div
+              <ButtonBase
+                component="div"
                 onClick={() => handleChoose(choices)}
                 key={choices}
                 id={choices}
@@ -713,7 +716,7 @@ export default function Question1() {
                 >
                   {choices.split('~')[1]}
                 </h3>
-              </div>
+              </ButtonBase>
             ))}
           </div>
         ) : null}
