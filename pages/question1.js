@@ -6,7 +6,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
 import Link from 'next/link';
 import WestIcon from '@mui/icons-material/West';
-import ButtonBase from '@mui/material/ButtonBase'
+import ButtonBase from '@mui/material/ButtonBase';
 
 // 27 questions
 
@@ -121,6 +121,24 @@ export default function Question1() {
         'Other ~ You can write in the comments section what this type of bra is.',
       ],
       select: 'multiple',
+      imageNames: [
+        '/question12/push_up.jpeg',
+        '/question12/front_fastening.png',
+        '/question12/balconette.jpeg',
+        '/question12/tube.jpeg',
+        '/question12/t_shirt.jpeg',
+        '/question12/sports_bra.jpeg',
+        '/question12/strapless.jpeg',
+        '/question12/plunge.png',
+        '/question12/multi_way.jpeg',
+        '/question12/halter.jpeg',
+        '/question12/stick_on.jpeg',
+        '/question12/nursing.jpeg',
+        '/question12/racerback.png',
+        '/question12/pasties.jpeg',
+        '/question12/bralette.png',
+        '/testing.png',
+      ],
     },
     {
       question: "What's style(s) do you want your bras to have?",
@@ -136,6 +154,14 @@ export default function Question1() {
         'Classic ~ Shape of a siimple bra.',
       ],
       select: 'multiple',
+      imageNames: [
+        '/question13/romantic.jpeg',
+        '/question13/minimalist.jpeg',
+        '/question13/sport.jpeg',
+        '/question13/vintage.jpeg',
+        '/question13/modern.jpeg',
+        '/question13/classic.png',
+      ],
     },
     {
       question: 'Pick the colors you would like for your bra(s)',
@@ -152,6 +178,15 @@ export default function Question1() {
         'Whites',
       ],
       select: 'multiple',
+      imageNames: [
+        '/question14/skin_tones.png',
+        '/question14/warm.png',
+        '/question14/blacks.png',
+        '/question14/pink_and_blue.png',
+        '/question14/cold.png',
+        '/question14/bright_yellows.png',
+        '/question14/whites.png',
+      ],
     },
     // {
     //   question:
@@ -207,6 +242,11 @@ export default function Question1() {
         'Even Distribution ~ Nipples are at the Dotted Lines.',
       ],
       select: 'one',
+      imageNames: [
+        '/question19/full_on_bottom.png',
+        '/question19/full_on_top.png',
+        '/question19/even_dist.png',
+      ],
     },
     {
       question: 'What is your breast fullness (outer or inner)?',
@@ -219,6 +259,11 @@ export default function Question1() {
         'Even Distribution ~ Nipples are pointed straight forward.',
       ],
       select: 'one',
+      imageNames: [
+        '/question20/outer_fullness.png',
+        '/question20/inner_fullness.png',
+        '/question20/even_dist.png',
+      ],
     },
     {
       question: 'Are your boobs soft or firm?',
@@ -231,6 +276,11 @@ export default function Question1() {
         'Firm ~ No ripple is created and your finger bounces back.',
       ],
       select: 'one',
+      imageNames: [
+        '/question21/super_soft.gif',
+        '/question21/soft.gif',
+        '/question21/firm.png',
+      ],
     },
     {
       question:
@@ -317,7 +367,6 @@ export default function Question1() {
     border: '1px solid black',
     borderRadius: '5px',
   };
-
 
   // async function postUser() {
   //   // When a post request is sent to the create url, we'll add a new record to the database.
@@ -444,28 +493,28 @@ export default function Question1() {
     >
       <div id="scroll"></div>
       {index === 0 ? null : (
-              <Link href="#scroll">
-                <Button
-                  onClick={handleBack}
-                  variant="outlined"
-                  style={{
-                    borderRadius: '5px',
-                    width: '6%',
-                    fontFamily: 'Inter',
-                    backgroundColor: '#FAF8F1',
-                    color: 'black',
-                    padding: '0.5%',
-                    border: '1px solid black',
-                    position: 'absolute',
-                    right: '2%',
-                    bottom: '2%'
-                  }}
-                  startIcon={<WestIcon />}
-                >
-                  back
-                </Button>
-              </Link>
-          )}
+        <Link href="#scroll">
+          <Button
+            onClick={handleBack}
+            variant="outlined"
+            style={{
+              borderRadius: '5px',
+              width: '6%',
+              fontFamily: 'Inter',
+              backgroundColor: '#FAF8F1',
+              color: 'black',
+              padding: '0.5%',
+              border: '1px solid black',
+              position: 'absolute',
+              right: '2%',
+              bottom: '2%',
+            }}
+            startIcon={<WestIcon />}
+          >
+            back
+          </Button>
+        </Link>
+      )}
       {index === 0 ? (
         <div
           style={{
@@ -506,7 +555,6 @@ export default function Question1() {
           width: '726px',
           height: '40%',
           marginTop: '15%',
-          
         }}
       >
         <div
@@ -685,7 +733,14 @@ export default function Question1() {
                     position: 'relative',
                   }}
                 >
-                  <Image src="/testing.png" layout="fill"></Image>
+                  <Image
+                    src={
+                      questionsArray[index].imageNames[
+                        questionsArray[index].options.indexOf(choices)
+                      ]
+                    }
+                    layout="fill"
+                  ></Image>
                 </div>
 
                 <h3
@@ -809,7 +864,6 @@ export default function Question1() {
           <button onClick={postUser}>post user</button>
         </div> */}
       </div>
-      
     </div>
   );
 }
