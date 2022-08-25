@@ -103,7 +103,7 @@ export default function Nav() {
         >
           <Link href="#">BREAST PROFILE</Link>
           <Link href="/about">THE FROOT SALAD</Link>
-          <Link href="/quizIntro">QUIZ</Link>
+          <Link href="/quiz">QUIZ</Link>
           <Link href="#">STORE</Link>
           <Link href="#">ABOUT US</Link>
         </div>

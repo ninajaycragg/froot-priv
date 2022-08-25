@@ -5,7 +5,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
 import Link from 'next/link';
-import WestIcon from '@mui/icons-material/West';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ButtonBase from '@mui/material/ButtonBase';
 
 // 27 questions
@@ -368,39 +368,61 @@ export default function Question1() {
     borderRadius: '5px',
   };
 
-  // async function postUser() {
-  //   // When a post request is sent to the create url, we'll add a new record to the database.
-  //   const newUser = {
-  //     questions: answers,
-  //   };
-  //   // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
-  //   // ('http://localhost:5000/user/add');
-  //   await fetch('http://localhost:3000/api/hello', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
-  //     },
-  //     body: JSON.stringify(newUser),
-  //   }).catch((error) => {
-  //     window.alert(error);
-  //     return;
-  //   });
-  // }
-
-  const postUser = async () => {
+  async function postUser() {
+    // When a post request is sent to the create url, we'll add a new record to the database.
     const newUser = {
       questions: answers,
     };
-    const res = await fetch('https://api.vercel.com/api/hello', {
+    // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
+    // ('http://localhost:5000/user/add');
+    // http://localhost:3000/api/hello
+    await fetch('http://localhost:5000/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
       },
       body: JSON.stringify(newUser),
+    }).catch((error) => {
+      window.alert(error);
+      return;
     });
-    console.log(res);
-  };
+  }
+  async function postBlog() {
+    // When a post request is sent to the create url, we'll add a new record to the database.
+    const post = {
+      title: 'teehee',
+      content: 'testContent',
+    };
+    // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
+    // ('http://localhost:5000/user/add');
+    // http://localhost:3000/api/hello
+    await fetch('http://localhost:5000/blogPosts/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(post),
+    }).catch((error) => {
+      window.alert(error);
+      return;
+    });
+  }
+
+  // const postUser = async () => {
+  //   const newUser = {
+  //     questions: answers,
+  //   };
+  //   const res = await fetch('https://api.vercel.com/api/hello', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(newUser),
+  //   });
+  //   console.log(res);
+  // };
 
   const handleChange = (e) => {
     setSel(e.target.value);
@@ -503,13 +525,13 @@ export default function Question1() {
               fontFamily: 'Inter',
               backgroundColor: '#FAF8F1',
               color: 'black',
-              padding: '0.5%',
+              padding: '0.32%',
               border: '1px solid black',
               position: 'absolute',
-              right: '2%',
-              bottom: '2%',
+              right: '5%',
+              bottom: '10%',
             }}
-            startIcon={<WestIcon />}
+            startIcon={<ArrowBackIcon />}
           >
             back
           </Button>
@@ -860,9 +882,12 @@ export default function Question1() {
           )}
         </div>
 
-        {/* <div>
+        <div>
           <button onClick={postUser}>post user</button>
-        </div> */}
+        </div>
+        <div>
+          <button onClick={postBlog}>post blog</button>
+        </div>
       </div>
     </div>
   );
