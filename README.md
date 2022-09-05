@@ -32,3 +32,23 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# Tech Stack
+
+The application is built with MongoDB, Express, React, and Node.js. User authentication/log in is completed with Firebase. The component library used is material UI. 
+
+Some Docs below:
+
+https://www.mongodb.com/docs/manual/ 
+
+https://firebase.google.com/docs 
+
+https://mui.com/material-ui/getting-started/overview/ 
+
+Connection to MongoDB can be established by navigating into the server folder and running: node server
+
+# Goals / Issues
+
+Currently working on getting the application connected to the server/MongoDB when it's deployed on Vercel. Having a hard time figuring out how to do it when it's not being ran locally. 
+
+I also intend on cleaning up the code -- by a lot. Once final designs are made, I hope to create standardized/global style sheets and fix some of the things done in bad practice. 
