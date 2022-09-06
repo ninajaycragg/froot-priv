@@ -49,8 +49,7 @@ export default function Home() {
         onClick={handleClick}
       >
         <p className="neutralize">
-          A TALE AS OLD AS TIME. FINDING A BRA THAT FITS YOUR TITS.
-        </p>
+THE EASIEST PLATFORM TO FIND BRAS THAT FIT.        </p>
         <p className="neutralize">YOUR PERFECT BRA FITS HERE</p>
       </div>
       <div
