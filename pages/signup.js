@@ -13,6 +13,24 @@ export default function Signup() {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, suEmail, suPass)
       .then((userCredential) => {
+        // Create a mongodb user to save other user data
+        const newUser = {
+          firebaseUID: userCredential.user.uid,
+          email: suEmail,
+          questions: null,
+        };
+
+        fetch('http://localhost:5001/user/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
+          },
+          body: JSON.stringify(newUser),
+        }).catch((error) => {
+          window.alert(error);
+          return;
+        });
         router.push('/quiz');
       })
       .catch((error) => {

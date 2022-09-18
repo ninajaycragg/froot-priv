@@ -368,7 +368,8 @@ export default function Question1() {
     borderRadius: '5px',
   };
 
-  async function postUser() {
+  async function postUser(e) {
+    e.preventDefault();
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newUser = {
       questions: answers,
@@ -376,7 +377,7 @@ export default function Question1() {
     // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
     // ('http://localhost:5000/user/add');
     // http://localhost:3000/api/hello
-    await fetch('http://localhost:5000/user/add', {
+    await fetch('http://localhost:5001/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -387,6 +388,7 @@ export default function Question1() {
       window.alert(error);
       return;
     });
+    window.alert(JSON.stringify(newUser));
   }
   async function postBlog() {
     // When a post request is sent to the create url, we'll add a new record to the database.
@@ -397,7 +399,7 @@ export default function Question1() {
     // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
     // ('http://localhost:5000/user/add');
     // http://localhost:3000/api/hello
-    await fetch('http://localhost:5000/blogPosts/add', {
+    await fetch('http://localhost:5001/blogPosts/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -613,7 +615,7 @@ export default function Question1() {
             </p>
           </div>
           {questionsArray[index].type === 'textIMG' ||
-          questionsArray[index].type === 'mcIMG' ? (
+            questionsArray[index].type === 'mcIMG' ? (
             <div
               style={{
                 width: '50%',
@@ -631,7 +633,7 @@ export default function Question1() {
         </div>
 
         {questionsArray[index].type === 'text' ||
-        questionsArray[index].type === 'textIMG' ? (
+          questionsArray[index].type === 'textIMG' ? (
           <div
             style={{
               width: '100%',
@@ -655,7 +657,7 @@ export default function Question1() {
         ) : null}
 
         {questionsArray[index].type === 'mc' ||
-        questionsArray[index].type === 'mcIMG' ? (
+          questionsArray[index].type === 'mcIMG' ? (
           <div
             style={{
               width: '90%',
@@ -673,24 +675,24 @@ export default function Question1() {
                 style={
                   sel === choices
                     ? {
-                        background:
-                          'linear-gradient(180deg, rgba(103, 2, 36, 0.83) -10%, #670224 87.03%, rgba(103, 2, 36, 0) 188.18%, rgba(103, 2, 36, 0.95) 188.18%)',
-                        color: 'white',
-                        width: '25%',
-                        marginRight: '3%',
-                        textTransform: 'capitalize',
-                        fontFamily: 'Inter',
-                        border: 'none',
-                      }
+                      background:
+                        'linear-gradient(180deg, rgba(103, 2, 36, 0.83) -10%, #670224 87.03%, rgba(103, 2, 36, 0) 188.18%, rgba(103, 2, 36, 0.95) 188.18%)',
+                      color: 'white',
+                      width: '25%',
+                      marginRight: '3%',
+                      textTransform: 'capitalize',
+                      fontFamily: 'Inter',
+                      border: 'none',
+                    }
                     : {
-                        backgroundColor: '#FAF8F1',
-                        color: 'black',
-                        width: '25%',
-                        marginRight: '3%',
-                        textTransform: 'capitalize',
-                        fontFamily: 'Inter',
-                        border: '1px solid black',
-                      }
+                      backgroundColor: '#FAF8F1',
+                      color: 'black',
+                      width: '25%',
+                      marginRight: '3%',
+                      textTransform: 'capitalize',
+                      fontFamily: 'Inter',
+                      border: '1px solid black',
+                    }
                 }
                 onClick={() => handleChoose(choices)}
               >
@@ -721,31 +723,31 @@ export default function Question1() {
                 id={choices}
                 style={
                   sel === choices ||
-                  (questionsArray[index].select === 'multiple' &&
-                    multAnswers.includes(choices))
+                    (questionsArray[index].select === 'multiple' &&
+                      multAnswers.includes(choices))
                     ? {
-                        backgroundColor: 'white',
-                        width: '353px',
-                        height: '377px',
-                        marginBottom: '20px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        padding: '20px',
-                        border: '1px solid black',
-                        borderRadius: '5px',
-                      }
+                      backgroundColor: 'white',
+                      width: '353px',
+                      height: '377px',
+                      marginBottom: '20px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      padding: '20px',
+                      border: '1px solid black',
+                      borderRadius: '5px',
+                    }
                     : {
-                        width: '353px',
-                        height: '377px',
-                        marginBottom: '20px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        padding: '20px',
-                        border: '1px solid black',
-                        borderRadius: '5px',
-                      }
+                      width: '353px',
+                      height: '377px',
+                      marginBottom: '20px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      padding: '20px',
+                      border: '1px solid black',
+                      borderRadius: '5px',
+                    }
                 }
               >
                 <div
@@ -758,7 +760,7 @@ export default function Question1() {
                   <Image
                     src={
                       questionsArray[index].imageNames[
-                        questionsArray[index].options.indexOf(choices)
+                      questionsArray[index].options.indexOf(choices)
                       ]
                     }
                     layout="fill"
@@ -809,20 +811,20 @@ export default function Question1() {
           style={
             questionsArray[index].type === 'break'
               ? {
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  textAlign: 'left',
-                  width: '60%',
-                  paddingBottom: '30%',
-                  marginTop: '5%',
-                }
+                display: 'flex',
+                justifyContent: 'space-between',
+                textAlign: 'left',
+                width: '60%',
+                paddingBottom: '30%',
+                marginTop: '5%',
+              }
               : {
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  textAlign: 'left',
-                  width: '60%',
-                  paddingBottom: '30%',
-                }
+                display: 'flex',
+                justifyContent: 'space-between',
+                textAlign: 'left',
+                width: '60%',
+                paddingBottom: '30%',
+              }
           }
         >
           {index === questionsArray.length - 1 ? (

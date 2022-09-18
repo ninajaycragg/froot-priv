@@ -9,6 +9,8 @@ const ObjectId = require('mongodb').ObjectId;
 userRoutes.route('/user/add').post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
+    firebaseUID: req.body.firebaseUID,
+    email: req.body.email,
     questions: req.body.questions,
   };
   db_connect.collection('users').insertOne(myobj, function (err, res) {
