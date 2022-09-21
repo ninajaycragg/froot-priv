@@ -9,6 +9,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ButtonBase from '@mui/material/ButtonBase';
 
 // 27 questions
+let tog = 1
 
 export default function Question1() {
   const [index, setIndex] = useState(0);
@@ -355,6 +356,7 @@ export default function Question1() {
     },
   ];
 
+  // end of question array
   const mult = {
     backgroundColor: 'white',
     width: '353px',
@@ -495,115 +497,54 @@ export default function Question1() {
       setSel(answers[index]);
     }
   };
-
+  //onclick change color: setCSS on click?
   useEffect(() => {
     setSel(multAnswers);
   }, [multAnswers]);
-
   return (
-    <div
-      style={{
-        backgroundColor: '#FAF8F1',
-        width: '100vw',
-        height: '100%',
-        minHeight: '100vh',
-        overflowY: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
-        position: 'relative',
-      }}
+    // come back and change this
+    //example conditional change css
+    <div className=
+      // className="question_body"
+      // style="question_body"
+      {
+        true ? "question_body" : null
+      }
     >
       <div id="scroll"></div>
+      {/* enable back button if index is not 0 */}
       {index === 0 ? null : (
         <Link href="#scroll">
           <Button
             onClick={handleBack}
             variant="outlined"
-            style={{
-              borderRadius: '5px',
-              width: '6%',
-              fontFamily: 'Inter',
-              backgroundColor: '#FAF8F1',
-              color: 'black',
-              padding: '0.32%',
-              border: '1px solid black',
-              position: 'absolute',
-              right: '5%',
-              bottom: '10%',
-            }}
+            className="question_back_button"
             startIcon={<ArrowBackIcon />}
           >
             back
           </Button>
         </Link>
       )}
+      {/* Defining first intro question */}
       {index === 0 ? (
-        <div
-          style={{
-            width: '5%',
-            height: '40%',
-            marginRight: '1%',
-            marginTop: '15%',
-          }}
+        <div className="question1_container"
         ></div>
       ) : (
-        <div
-          style={{
-            width: '5%',
-            height: '40%',
-            textAlign: 'right',
-            display: 'flex',
-            alignItems: 'start',
-            justifyContent: 'center',
-            marginRight: '1%',
-            marginTop: '15%',
-          }}
-        >
-          <h1
-            style={{
-              fontFamily: 'Inter',
-              fontWeight: '700',
-              fontSize: '100%',
-              marginTop: '8%',
-            }}
-          >
-            {index + 1}/{questionsArray.length}
-          </h1>
-          <ArrowForwardIcon style={{ fontSize: '90%', marginTop: '10%' }} />
+        // question count container
+        <div className="question_count_container">
+          <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+          <ArrowForwardIcon className="question_count_arrow" />
         </div>
       )}
-      <div
-        style={{
-          width: '726px',
-          height: '40%',
-          marginTop: '15%',
-        }}
-      >
-        <div
-          style={{
-            width: '726px',
-            display: 'flex',
-            justifyContent: 'flex-start',
-            height: '35%',
-          }}
-        >
-          <div
-            style={{
-              textAlign: 'left',
-              width: '100%',
-            }}
-          >
-            <h1
-              style={{
-                fontSize: '150%',
-                fontFamily: 'Tiempos Headline',
-                fontWeight: '400',
-                fontStyle: 'italic',
-                marginTop: '0',
-              }}
-            >
+      {/* end */}
+      <div className="question_block">
+        <div className="question_container">
+          <div className="question_container2">
+            {/* like the question title */}
+            <h1 className="question_title">
               {questionsArray[index].question}
             </h1>
+            {/* denotes the paragraph (question body) */}
             <p
               style={{
                 fontFamily: 'Inter',
@@ -612,15 +553,10 @@ export default function Question1() {
               {questionsArray[index].subtext ? questionsArray[index].text : ''}
             </p>
           </div>
+          {/* here displays image if available or nothing at all */}
           {questionsArray[index].type === 'textIMG' ||
-          questionsArray[index].type === 'mcIMG' ? (
-            <div
-              style={{
-                width: '50%',
-                height: '110%',
-                position: 'relative',
-              }}
-            >
+            questionsArray[index].type === 'mcIMG' ? (
+            <div className="question_text_images_container">
               <Image
                 src={questionsArray[index].image}
                 layout="fill"
@@ -629,13 +565,10 @@ export default function Question1() {
             </div>
           ) : null}
         </div>
-
+        {/* displays question text or nothing */}
         {questionsArray[index].type === 'text' ||
-        questionsArray[index].type === 'textIMG' ? (
-          <div
-            style={{
-              width: '100%',
-            }}
+          questionsArray[index].type === 'textIMG' ? (
+          <div className="question_text_options_container"
           >
             <TextField
               onChange={handleChange}
@@ -644,53 +577,23 @@ export default function Question1() {
               input="text"
               variant="standard"
               placeholder="Type your answer here..."
-              style={{
-                width: '100%',
-                marginBottom: '5%',
-                fontFamily: 'Inter',
-                marginTop: '20px',
-              }}
+              className="question_text_box"
             />
           </div>
         ) : null}
-
+        {/* displays multiple choices or not */}
         {questionsArray[index].type === 'mc' ||
-        questionsArray[index].type === 'mcIMG' ? (
-          <div
-            style={{
-              width: '90%',
-              display: 'flex',
-              justifyContent: 'flex-start',
-              marginBottom: '5%',
-              marginTop: '3%',
-            }}
-          >
+          questionsArray[index].type === 'mcIMG' ? (
+          <div className="question_mc_container">
             {questionsArray[index].options.map((choices) => (
               <Button
                 variant="outlined"
                 key={choices}
                 id={choices}
-                style={
+                className={
                   sel === choices
-                    ? {
-                        background:
-                          'linear-gradient(180deg, rgba(103, 2, 36, 0.83) -10%, #670224 87.03%, rgba(103, 2, 36, 0) 188.18%, rgba(103, 2, 36, 0.95) 188.18%)',
-                        color: 'white',
-                        width: '25%',
-                        marginRight: '3%',
-                        textTransform: 'capitalize',
-                        fontFamily: 'Inter',
-                        border: 'none',
-                      }
-                    : {
-                        backgroundColor: '#FAF8F1',
-                        color: 'black',
-                        width: '25%',
-                        marginRight: '3%',
-                        textTransform: 'capitalize',
-                        fontFamily: 'Inter',
-                        border: '1px solid black',
-                      }
+                    ? "question_mc_selected"
+                    : "question_mc"
                 }
                 onClick={() => handleChoose(choices)}
               >
@@ -699,19 +602,9 @@ export default function Question1() {
             ))}
           </div>
         ) : null}
-
+        {/* displays image */}
         {questionsArray[index].type === 'image' ? (
-          <div
-            style={{
-              width: '100%',
-              height: 'auto',
-              overflowY: 'auto',
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              alignContent: 'flex-start',
-              backgroundColor: '#FAF8F1',
-            }}
+          <div className="question_images_container"
           >
             {questionsArray[index].options.map((choices) => (
               <ButtonBase
@@ -719,162 +612,63 @@ export default function Question1() {
                 onClick={() => handleChoose(choices)}
                 key={choices}
                 id={choices}
-                style={
+                className={
                   sel === choices ||
-                  (questionsArray[index].select === 'multiple' &&
-                    multAnswers.includes(choices))
-                    ? {
-                        backgroundColor: 'white',
-                        width: '353px',
-                        height: '377px',
-                        marginBottom: '20px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        padding: '20px',
-                        border: '1px solid black',
-                        borderRadius: '5px',
-                      }
-                    : {
-                        width: '353px',
-                        height: '377px',
-                        marginBottom: '20px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        padding: '20px',
-                        border: '1px solid black',
-                        borderRadius: '5px',
-                      }
+                    (questionsArray[index].select === 'multiple' &&
+                      multAnswers.includes(choices))
+                    ? "question_image_selected" : "question_image_unselected"
                 }
               >
-                <div
-                  style={{
-                    width: '313px',
-                    height: '246px',
-                    position: 'relative',
-                  }}
-                >
+                <div className="question_image_container">
                   <Image
                     src={
                       questionsArray[index].imageNames[
-                        questionsArray[index].options.indexOf(choices)
+                      questionsArray[index].options.indexOf(choices)
                       ]
                     }
                     layout="fill"
                   ></Image>
                 </div>
 
-                <h3
-                  style={{
-                    width: '313px',
-                    textAlign: 'left',
-                    margin: '0',
-                    marginTop: '20px',
-                    marginBottom: '20px',
-                    fontFamily: 'Inter',
-                    fontWeight: '700',
-                    fontSize: '14px',
-                  }}
-                >
+                <h3 className="question_image_title">
                   {choices.split('~')[0]}
                 </h3>
-                <h3
-                  style={{
-                    width: '313px',
-                    textAlign: 'left',
-                    fontWeight: '400',
-                    margin: '0',
-                    padding: '0',
-                    fontFamily: 'Inter',
-                    fontWeight: '400',
-                    fontSize: '15px',
-                  }}
-                >
+                <h3 className="question_image_text">
                   {choices.split('~')[1]}
                 </h3>
               </ButtonBase>
             ))}
           </div>
         ) : null}
-        <div
-          // style={{
-          //   display: 'flex',
-          //   justifyContent: 'space-between',
-          //   textAlign: 'left',
-          //   width: '60%',
-          //   paddingBottom: '30%',
-          //   marginTop: '3%',
-          // }}
-          style={
-            questionsArray[index].type === 'break'
-              ? {
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  textAlign: 'left',
-                  width: '60%',
-                  paddingBottom: '30%',
-                  marginTop: '5%',
-                }
-              : {
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  textAlign: 'left',
-                  width: '60%',
-                  paddingBottom: '30%',
-                }
-          }
+        <div className={
+          questionsArray[index].type === 'break'
+            ? "question_break_container"
+            : "question_no_break_container"
+        }
         >
+          {/* if next question is valid, not the end: display next button */}
           {index === questionsArray.length - 1 ? (
             <Button
               onClick={postUser}
               variant="filled"
-              style={{
-                borderRadius: '2px',
-                width: '20%',
-                backgroundColor: 'black',
-                color: 'white',
-                padding: '1%',
-              }}
+              className="question_end_button"
             >
               Submit
             </Button>
           ) : (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%',
-              }}
-            >
+            <div className="question_next_container">
               <Link href="#scroll">
                 <Button
                   onClick={handleClick}
                   variant="outlined"
-                  style={{
-                    borderRadius: '5px',
-                    width: '15%',
-                    fontFamily: 'Inter',
-                    backgroundColor: '#FAF8F1',
-                    color: 'black',
-                    padding: '1%',
-                    border: '1px solid black',
-                  }}
+                  className="question_next_button"
                   endIcon={<CheckIcon />}
                 >
                   OK
                 </Button>
               </Link>
 
-              <h1
-                style={{
-                  color: '#670224',
-                  fontFamily: 'Inter',
-                  fontWeight: '400',
-                  fontSize: '100%',
-                  marginLeft: '2%',
-                  width: '50%',
-                }}
+              <h1 className="question_next_enter"
               >
                 press <b>Enter</b>
               </h1>
@@ -889,6 +683,6 @@ export default function Question1() {
           <button onClick={postBlog}>post blog</button>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

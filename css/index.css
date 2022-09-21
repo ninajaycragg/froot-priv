@@ -1,0 +1,38 @@
+.index_body {
+    background-color: #FAF8F1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.index_title {
+    font-size: 1300%;
+    font-family: Tempios Headline;
+    font-style: italic;
+    font-weight: 300;
+    width: 100%;
+    text-align: center;
+    height: 50%;
+    margin-bottom: 20%;
+}
+
+.index_quiz_enter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+    height: 25%;
+    font-size: 80%;
+    font-family: Inter;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.index_quiz_line {
+    width: 100%;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-top: 5%;
+}

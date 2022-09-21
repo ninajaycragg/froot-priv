@@ -1,0 +1,26 @@
+.head {
+    width: '100vw';
+    height: '180vh';
+    background: '#FAF8F1';
+    display: 'flex';
+    justify-content: 'flex-start';
+    flex-direction: 'column';
+    align-items: 'center';
+}
+
+.b {
+    width: '50vw';
+    height: '15%';
+    display: 'flex';
+    justify-content: 'center';
+    flex-direction: 'column';
+    text-align: 'left';
+}
+
+.n {
+    font-size: '80%';
+    font-family: 'Inter';
+    font-weight: '500';
+    line-height: '82.5%';
+    letter-spacing: '0.095em';
+}
