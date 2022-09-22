@@ -9,7 +9,7 @@ export default function Signup() {
   const [suPass, setsuPass] = useState('');
   const router = useRouter();
 
-  const handleSubmit = (event) => {
+  const signupUser = (event) => {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, suEmail, suPass)
       .then((userCredential) => {
@@ -24,7 +24,6 @@ export default function Signup() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
           },
           body: JSON.stringify(newUser),
         }).catch((error) => {
@@ -37,6 +36,26 @@ export default function Signup() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
+        switch (errorCode) {
+          case 'auth/email-already-in-use':
+            window.alert(`${suEmail} is already in use.`);
+            break;
+          case 'auth/invalid-email':
+            window.alert(`Email address ${suEmail} is invalid.`);
+            break;
+          case 'auth/missing-email':
+            window.alert("Please enter a valid email address.");
+            break;
+          case 'auth/operation-not-allowed':
+            window.alert(`Error during sign up.`);
+            break;
+          case 'auth/weak-password':
+            window.alert('Password is not strong enough. Add additional characters including special characters and numbers.');
+            break;
+          default:
+            window.alert(errorMessage);
+            break;
+        }
       });
   };
 
@@ -105,7 +124,7 @@ export default function Signup() {
           position: 'absolute',
           top: '56%',
         }}
-        onClick={handleSubmit}
+        onClick={signupUser}
       >
         Create your Account
       </Button>
