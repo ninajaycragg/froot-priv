@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import { useRouter } from 'next/router';
+import globalVal from "./global";
 
 export default function Signup() {
   const [suEmail, setsuEmail] = useState('');
@@ -19,6 +20,8 @@ export default function Signup() {
           email: suEmail,
           questions: null,
         };
+
+        globalVal.firebaseUID = userCredential.user.uid;
 
         fetch('http://localhost:5001/user/add', {
           method: 'POST',
