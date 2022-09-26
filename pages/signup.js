@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Button from '@mui/material/Button';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import { useRouter } from 'next/router';
 import globalVal from "./global";
+import { positions } from '@mui/system';
+import { Padding } from '@mui/icons-material';
 
 export default function Signup() {
-  const [suEmail, setsuEmail] = useState('');
-  const [suPass, setsuPass] = useState('');
-  const router = useRouter();
+  const [inputs, setInputs] = useState({});
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs(values => ({ ...values, [name]: value }))
+  }
 
   const signupUser = (event) => {
     event.preventDefault();
@@ -64,73 +71,194 @@ export default function Signup() {
 
   return (
     <div
-      className="grayBackdrop"
+      className="general"
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: '#FAF8F1',
       }}
     >
-      <h4
+
+      <div
         style={{
-          margin: '0',
-          fontWeight: '400',
-          textAlign: 'center',
-          position: 'absolute',
-          top: '12%',
+          // backgroundColor: 'red',
+          width: '50%',
+          height: '75%',
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative'
         }}
       >
-        Sign up for Froot
-      </h4>
-      <input
-        type="text"
-        placeholder="email"
-        className="signupInput"
+        <Image src="/createAccountImg.svg" layout="fill"></Image>
+      </div>
+
+      <div
         style={{
-          top: '24%',
+          width: '50%',
+          height: '75%',
+          display: 'flex',
+          flexDirection: 'column',
+          // backgroundColor: 'blue'
         }}
-        onChange={(e) => {
-          setsuEmail(e.target.value);
-        }}
-      />
-      <input
-        type="text"
-        placeholder="password"
-        className="signupInput"
-        style={{
-          top: '34%',
-        }}
-        onChange={(e) => {
-          setsuPass(e.target.value);
-        }}
-      />
-      {/* <input
-        type="text"
-        placeholder="age"
-        className="signupInput"
-        style={{
-          top: '44%',
-        }}
-        onChange={(e) => {
-          setsuAge(e.target.value);
-        }}
-      /> */}
-      <Button
-        variant="outlined"
-        style={{
-          color: 'white',
-          background: 'black',
-          textTransform: 'capitalize',
-          width: '30%',
-          height: '6%',
-          borderRadius: '5px',
-          position: 'absolute',
-          top: '56%',
-        }}
-        onClick={signupUser}
       >
-        Create your Account
-      </Button>
+        <div className="general" style={{ justifyContent: 'left' }}>
+          <p
+            className="neutralize"
+            style={{
+              fontWeight: '500',
+              fontFamily: 'Inter',
+              fontSize: '70%',
+              marginRight: '1%',
+            }}
+          >
+            <b>CREATE ACCOUNT</b>
+          </p>
+        </div>
+        <hr style={{ width: '60%', marginLeft: '0', marginBottom: '5%' }} />
+
+        <form
+          onSubmit={signupUser}
+          style={{
+            width: '60%',
+            marginLeft: '0',
+            marginBottom: '10%',
+            // backgroundColor: 'red',
+            fontFamily: 'Inter',
+            fontSize: '70%',
+
+          }}
+        >
+
+          <label>
+            <input
+              type="email"
+              placeholder='Enter Email Here'
+              name="email"
+              value={inputs.email || ""}
+              onChange={handleChange}
+              style={{
+                boxSizing: 'border-box',
+                height: '20%',
+                width: '100%',
+                marginBottom: '5%',
+                paddingLeft: '5%',
+                paddingRight: '5%'
+              }}
+            />
+          </label>
+          <br></br>
+
+          <label>
+            <input
+              type="text"
+              placeholder='First Name'
+              name="firstName"
+              value={inputs.firstName || ""}
+              onChange={handleChange}
+              style={{
+                boxSizing: 'border-box',
+                height: '20%',
+                width: '100%',
+                marginBottom: '5%',
+                paddingLeft: '5%',
+                paddingRight: '5%'
+              }}
+            />
+          </label>
+          <br></br>
+
+          <label>
+            <input
+              type="text"
+              placeholder='Last Name'
+              name="lastName"
+              value={inputs.lastName || ""}
+              onChange={handleChange}
+              style={{
+                boxSizing: 'border-box',
+                height: '20%',
+                width: '100%',
+                marginBottom: '5%',
+                paddingLeft: '5%',
+                paddingRight: '5%'
+              }}
+            />
+          </label>
+          <br></br>
+
+          <label>
+            <input
+              type="password"
+              placeholder='Password'
+              name="password"
+              value={inputs.password || ""}
+              onChange={handleChange}
+              style={{
+                boxSizing: 'border-box',
+                height: '20%',
+                width: '100%',
+                marginBottom: '5%',
+                paddingLeft: '5%',
+                paddingRight: '5%'
+              }}
+            />
+          </label>
+          <br></br>
+
+          <label>
+            <input
+              type="password"
+              placeholder='Confirm Password'
+              name="confirmPassword"
+              value={inputs.confirmPassword || ""}
+              onChange={handleChange}
+              style={{
+                boxSizing: 'border-box',
+                height: '20%',
+                width: '100%',
+                marginBottom: '5%',
+                paddingLeft: '5%',
+                paddingRight: '5%'
+              }}
+            />
+          </label>
+          <br></br>
+
+          <label>
+            <input
+              type="checkbox"
+              name="agree"
+              value={inputs.agree || ""}
+              onChange={handleChange}
+            />
+            I agree with Froot's Terms, Privacy Policy, and E-sign consent.
+          </label>
+          <br></br>
+
+          <div>
+            <input
+              type="submit"
+              value={"Create Account"}
+              variant="filled"
+              size="small"
+              style={{
+                width: '40%',
+                height: '100%',
+                textAlign: 'center',
+                textTransform: 'capitalize',
+                color: 'white',
+                background: '#670224',
+                paddingLeft: '3%',
+                paddingRight: '3%',
+                weight: '400',
+              }}
+            />
+
+            <Image src="/sparkles.gif" width="20%" height="20%"></Image>
+          </div>
+        </form>
+
+      </div>
     </div>
-  );
+  )
 }
