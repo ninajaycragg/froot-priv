@@ -16,15 +16,21 @@ export default function Signup() {
     const value = event.target.value;
     setInputs(values => ({ ...values, [name]: value }))
   }
+  const router = useRouter();
 
   const signupUser = (event) => {
     event.preventDefault();
+
+    const suEmail = inputs["email"];
+    const suPass = inputs["password"];
     createUserWithEmailAndPassword(auth, suEmail, suPass)
       .then((userCredential) => {
         // Create a mongodb user to save other user data
         const newUser = {
           firebaseUID: userCredential.user.uid,
-          email: suEmail,
+          email: inputs["email"],
+          firstName: inputs["firstName"],
+          lastName: inputs["lastName"],
           questions: null,
         };
 

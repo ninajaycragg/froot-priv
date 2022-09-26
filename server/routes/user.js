@@ -11,6 +11,8 @@ userRoutes.route('/user/add').post(function (req, response) {
   let myobj = {
     firebaseUID: req.body.firebaseUID,
     email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     questions: req.body.questions,
   };
   db_connect.collection('users').insertOne(myobj, function (err, res) {
