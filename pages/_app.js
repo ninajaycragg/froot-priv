@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps, test }) {
   return (
     <div>
       {mobile === 1 ? <MobileNav /> : <Nav />}
+      {/* <Nav /> */}
       <Component {...pageProps} />
       <Footer />
     </div>
