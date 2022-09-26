@@ -11,6 +11,7 @@ import '../css/quizIntro.css';
 import '../css/question.css';
 import '../css/footer.css';
 import '../css/mobile-nav.css';
+import '../css/nav.css';
 
 function MyApp({ Component, pageProps, test }) {
   console.log(Component);
@@ -19,8 +20,9 @@ function MyApp({ Component, pageProps, test }) {
   let mobile = 1;
   return (
     <div>
-      {mobile === 1 ? <MobileNav /> : <Nav />}
-      {/* <Nav /> */}
+      {/* {mobile === 1 ? <MobileNav /> : <Nav />} */}
+      <MobileNav className="mobile-nav" />
+      <Nav className="nav" />
       <Component {...pageProps} />
       <Footer />
     </div>

@@ -19,6 +19,7 @@ export default function Nav() {
         // An error happened.
       });
   };
+  // logged in nav
   if (user) {
     return (
       <div
@@ -72,18 +73,11 @@ export default function Nav() {
         </div>
       </div>
     );
-  } else {
+  }
+  // default nav
+  else {
     return (
-      <div
-        style={{
-          width: '100vw',
-          display: 'flex',
-          justifyContent: 'space-around',
-          paddingTop: '0.8%',
-          paddingBottom: '0.8%',
-          backgroundColor: '#FAF8F1',
-        }}
-      >
+      <div className="default-nav">
         <div style={{ width: '15%', margin: 'auto' }}>
           <Link href="/">
             <Image src="/logo.svg" width="30rem" height="30rem"></Image>

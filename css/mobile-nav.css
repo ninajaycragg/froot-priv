@@ -19,7 +19,15 @@
     height: 100%;
     position: absolute;
     z-index: 10;
-    /* background-color: pink; */
-    /* filter: blur(8px);
+    visibility: hidden
+        /* background-color: pink; */
+        /* filter: blur(8px);
     -webkit-filter: blur(8px); */
+}
+
+/* for mobile view: visible during mobile view */
+@media only screen and (max-width: 450px) {
+    .navigation {
+        visibility: visible;
+    }
 }
