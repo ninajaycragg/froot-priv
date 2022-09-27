@@ -99,7 +99,7 @@ export default function Nav() {
           <Link href="/about">THE FROOT SALAD</Link>
           <Link href="/quiz">QUIZ</Link>
           <Link href="#">STORE</Link>
-          <Link href="#">ABOUT US</Link>
+          <Link href="/about">ABOUT US</Link>
         </div>
         <div
           style={{
