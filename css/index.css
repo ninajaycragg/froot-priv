@@ -6,15 +6,76 @@
     align-items: center;
 }
 
+
+.index_r1 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.index_r2 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.index_imagestack {
+    display: grid;
+}
+
+.index_hanginglaundry {
+    margin-top: 70%;
+    margin-bottom: 50%;
+}
+
+.index_lingerieshadow {
+    /* margin-right: 10%; */
+    margin-bottom: 9%;
+}
+
+.index_orangeslingerie {
+    margin-top: 5%;
+}
+
+.index_hanginglingerie {
+    margin-top: 15%;
+}
+
+.index_lingerieclothesline {
+    /* margin-right: 15%; */
+}
+
+.index_braflowers {
+    margin-left: 10%;
+}
+
+.index_dresser {
+    margin-left: 3%;
+    margin-top: 6%;
+}
+
+.index_braclasp {
+    margin-right: 8%;
+}
+
+.index_title_wrap {
+    text-align: center;
+}
+
 .index_title {
     font-size: 1300%;
     font-family: Tempios Headline;
     font-style: italic;
     font-weight: 300;
-    width: 100%;
-    text-align: center;
-    height: 50%;
-    margin-bottom: 20%;
+}
+
+.index_description {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 82.5%;
+    padding-bottom: 15%;
 }
 
 .index_quiz_enter {
@@ -28,6 +89,7 @@
     font-family: Inter;
     letter-spacing: 1px;
     font-weight: 500;
+    margin-top: -5%;
 }
 
 .index_quiz_line {
