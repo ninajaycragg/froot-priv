@@ -15,7 +15,8 @@ export default function About() {
       </div>
 
       <div className="about_image">
-        <Image src="/abouteImages.svg" layout="fill"></Image>
+        <Image className="about_image_desktop" src="/abouteImages.svg" layout="fill"></Image>
+        <img className="about_image_mobile" src="happygirls.svg"></img>
       </div>
       {/* about container */}
       <div className="about_container">

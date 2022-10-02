@@ -8,6 +8,11 @@
     align-items: center;
 }
 
+.about_image_mobile {
+    visibility: hidden;
+    display: none;
+}
+
 .about_title_container {
     width: 50vw;
     height: 15%;
@@ -64,4 +69,43 @@
     text-align: left;
     margin-top: 1%;
     line-height: 200%;
+}
+
+@media only screen and (max-width: 450px) {
+    .about_body {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .about_title_container {
+        width: 100%;
+    }
+
+    .about_image {
+        height: auto;
+        margin-bottom: 6%;
+    }
+
+    .about_image_mobile {
+        visibility: visible;
+        display: block;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .about_image_desktop {
+        display: none;
+        visibility: hidden;
+    }
+
+    .about_container {
+        width: 100%;
+        margin-top: 0%;
+    }
+
+    .about_container_description {
+        width: 100%;
+    }
 }

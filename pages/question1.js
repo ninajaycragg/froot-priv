@@ -676,12 +676,12 @@ export default function Question1() {
           )}
         </div>
 
-        <div>
+        {/* <div>
           <button onClick={postUser}>post user</button>
         </div>
         <div>
           <button onClick={postBlog}>post blog</button>
-        </div>
+        </div> */}
       </div>
     </div >
   );

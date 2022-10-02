@@ -58,3 +58,24 @@
     font-size: 100%;
     width: 15%;
 }
+
+@media only screen and (max-width: 450px) {
+    .quizIntro-container {
+        width: 100%;
+        margin-top: 30%;
+    }
+
+    .quizIntro-title-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .quizIntro-text {
+        margin-left: 8%;
+        margin-right: 8%;
+    }
+
+    .quizIntro-enter {
+        margin-left: 5%;
+    }
+}

@@ -1,8 +1,8 @@
 .hamburger-menu {
     padding: 4%;
     width: 50%;
-    height: 100%;
-    /* background: pink; */
+    /* height: 100%; */
+    background: #FAF8F1;
 }
 
 .menu-toggle {

@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 // describes the home page
 export default function Home() {
   const router = useRouter();
-  const handleClick = () => {
+  const handleQuizClick = () => {
+    console.log("click");
     router.push('/quizIntro');
-    // router.push('/test');
   };
   return (
     <div className="index_body">
@@ -20,7 +20,9 @@ export default function Home() {
         <img className="index_hanginglingerie" src="/hanginglingerie.svg"></img>
         <div className="index_title_wrap">
           <h1 className="index_title">Froot.</h1>
-          <div className="index_description">THE BEST WAY TO FIND BRAS THAT FIT ON THE FIRST TRY.</div>
+          <div className="index_description_desktop">THE BEST WAY TO FIND BRAS THAT FIT ON THE FIRST TRY.</div>
+          <div className="index_description_mobile">THE BEST WAY TO FIND BRAS</div>
+          <div className="index_description_mobile">THAT FIT ON THE FIRST TRY.</div>
         </div>
         <img className="index_orangeslingerie" src="/orangeslingerie.svg"></img>
         <div className="index_imagestack">
@@ -28,16 +30,17 @@ export default function Home() {
           <img className="index_lingerieclothesline" src="/lingerieclothesline.svg"></img>
         </div>
       </div>
-      {/* <div className="index_description">THE BEST WAY TO FIND BRAS THAT FIT ON THE FIRST TRY.</div> */}
-      <div className="index_quiz_enter" onClick={handleClick}>
+      {/* handle click not working on mobile enter */}
+      <div className="index_quiz_enter" onClick={handleQuizClick}>
         <p className="neutralize">YOUR PERFECT BRA FITS HERE</p>
         <div className="general" style={{ width: '350px', height: '25%', alignItems: 'flex-start', marginLeft: 'auto', marginRight: 'auto' }}
-          onClick={handleClick}>
+          onClick={handleQuizClick}>
           <Image src="/sparkles.gif" width="50%" height="50%"></Image>
           <hr className="index_quiz_line" />
           <Image src="/sparkles.gif" width="50%" height="50%"></Image>
         </div>
       </div>
+      <img className="index_lingerieshadow_mobile" src="/lingerieshadow_mobile.svg"></img>
       <div className="index_r2">
         <img className="index_braflowers" src="/braflowers.svg"></img>
         <img className="index_dresser" src="/dresser.svg"></img>
