@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase-config';
+// import { createUserWithEmailAndPassword } from 'firebase/auth';
+// import { auth } from '../firebase-config';
 import { useRouter } from 'next/router';
 import globalVal from "./global";
 import { positions } from '@mui/system';
 import { Padding } from '@mui/icons-material';
+
 
 export default function Signup() {
   const [inputs, setInputs] = useState({});
@@ -16,63 +17,51 @@ export default function Signup() {
     const value = event.target.value;
     setInputs(values => ({ ...values, [name]: value }))
   }
+  const handleCheckboxChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.checked ? true : false;
+    setInputs(values => ({ ...values, [name]: value }))
+  }
   const router = useRouter();
 
   const signupUser = (event) => {
     event.preventDefault();
 
-    const suEmail = inputs["email"];
-    const suPass = inputs["password"];
-    createUserWithEmailAndPassword(auth, suEmail, suPass)
-      .then((userCredential) => {
-        // Create a mongodb user to save other user data
-        const newUser = {
-          firebaseUID: userCredential.user.uid,
-          email: inputs["email"],
-          firstName: inputs["firstName"],
-          lastName: inputs["lastName"],
-          questions: null,
-        };
+    // Create a mongodb user to save other user data
+    const newUser = {
+      email: inputs["email"],
+      password: inputs["password"],
+      firstName: inputs["firstName"],
+      lastName: inputs["lastName"],
+      questions: [],
+    };
 
-        globalVal.firebaseUID = userCredential.user.uid;
+    const fields = {
+      confirmPassword: inputs["confirmPassword"],
+      agree: inputs["agree"] ? true : false
+    }
 
-        fetch('http://localhost:5001/user/add', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newUser),
-        }).catch((error) => {
-          window.alert(error);
-          return;
-        });
-        router.push('/quiz');
+    let info = [];
+    info.push(newUser)
+    info.push(fields);
+
+    fetch('http://localhost:5001/user/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(info),
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.message) { window.alert(res.message) }
+        else router.push('/quiz');
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        switch (errorCode) {
-          case 'auth/email-already-in-use':
-            window.alert(`${suEmail} is already in use.`);
-            break;
-          case 'auth/invalid-email':
-            window.alert(`Email address ${suEmail} is invalid.`);
-            break;
-          case 'auth/missing-email':
-            window.alert("Please enter a valid email address.");
-            break;
-          case 'auth/operation-not-allowed':
-            window.alert(`Error during sign up.`);
-            break;
-          case 'auth/weak-password':
-            window.alert('Password is not strong enough. Add additional characters including special characters and numbers.');
-            break;
-          default:
-            window.alert(errorMessage);
-            break;
-        }
+        window.alert(error.message);
+        return;
       });
+
   };
 
   return (
@@ -235,7 +224,7 @@ export default function Signup() {
               type="checkbox"
               name="agree"
               value={inputs.agree || ""}
-              onChange={handleChange}
+              onChange={handleCheckboxChange}
             />
             I agree with Froot's Terms, Privacy Policy, and E-sign consent.
           </label>
