@@ -55,7 +55,10 @@ export default function Signup() {
       .then(res => res.json())
       .then(res => {
         if (res.message) { window.alert(res.message) }
-        else router.push('/quiz');
+        else {
+          globalVal.email = newUser.email;
+          router.push('/quiz');
+        }
       })
       .catch((error) => {
         window.alert(error.message);

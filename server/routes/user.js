@@ -51,7 +51,7 @@ userRoutes.route('/user/add').post(async (req, response) => {
 
 userRoutes.route('/user/update').put(function (req, response) {
   let db_connect = dbo.getDb();
-  let myQuery = { firebaseUID: req.body.firebaseUID };
+  let myQuery = { email: req.body.email };
   let newValues = {
     $set: { questions: req.body.questions }
   };

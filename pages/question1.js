@@ -374,7 +374,7 @@ export default function Question1() {
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newUser = {
       questions: answers,
-      firebaseUID: globalVal.firebaseUID
+      email: globalVal.email
     };
     // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
     // ('http://localhost:5000/user/add');
