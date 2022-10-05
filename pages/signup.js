@@ -283,7 +283,6 @@ export default function Signup() {
             </label>
             <br></br>
             <br></br>
-
             <div
               style={{
                 display: 'flex',
@@ -314,7 +313,6 @@ export default function Signup() {
                   }}
                 />
               </div>
-
               <div
                 style={{
                   flexDirection: 'column',
