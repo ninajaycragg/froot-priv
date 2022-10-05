@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import globalVal from "./global";
 import Button from '@mui/material/Button';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase-config';
 import { useRouter } from 'next/router';
 import { positions } from '@mui/system';
 import { Padding } from '@mui/icons-material';
 
 export default function Login() {
-    //TO BE CHANGED -------------------------------------
     const [inputs, setInputs] = useState({});
 
     const handleChange = (event) => {
@@ -16,13 +14,37 @@ export default function Login() {
         const value = event.target.value;
         setInputs(values => ({ ...values, [name]: value }))
     }
+    const router = useRouter();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(inputs);
-    }
-    //------------------------------------------------------
 
+        const loginUser = {
+            email: inputs["email"],
+            password: inputs["password"],
+        };
+
+        fetch('http://localhost:5001/user/auth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginUser),
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.message) { window.alert(res.message) }
+                else {
+                    globalVal.email = loginUser.email;
+                    router.push('/quiz');
+                }
+            })
+            .catch((error) => {
+                window.alert(error.message);
+                return;
+            });
+    }
     return (
         <div
             className="general"

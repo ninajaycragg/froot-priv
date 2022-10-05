@@ -62,5 +62,20 @@ function validateUser(user) {
     return schema.validate(user);
 }
 
+function validateUserLogin(user) {
+    const schema = Joi.object({
+        email: Joi.string().required().email().messages({
+            'string.empty': "Enter an email adress.",
+            'any.required': "Enter an email."
+        }),
+        password: Joi.string().required().messages({
+            'string.empty': "Enter a password.",
+            'any.required': "Enter a password."
+        })
+    });
+    return schema.validate(user);
+}
+
 exports.User = User;
 exports.validateUser = validateUser;
+exports.validateUserLogin = validateUserLogin;

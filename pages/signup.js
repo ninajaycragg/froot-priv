@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
-// import { createUserWithEmailAndPassword } from 'firebase/auth';
-// import { auth } from '../firebase-config';
 import { useRouter } from 'next/router';
 import globalVal from "./global";
 import { positions } from '@mui/system';

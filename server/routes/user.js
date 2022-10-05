@@ -3,11 +3,17 @@ const express = require('express');
 const userRoutes = express.Router();
 
 const dbo = require('../db/conn');
-const { User, validateUser } = require('../models/user');
+const { User, validateUser, validateUserLogin } = require('../models/user');
 const ObjectId = require('mongodb').ObjectId;
 var bcrypt = require('bcryptjs');
 
 userRoutes.route('/user/add').post(async (req, response) => {
+  // Validate account creation fields
+  const { error } = validateUser(req.body[0]);
+  if (error) {
+    return response.status(409).json({ message: error.details[0].message });
+  }
+
   let db_connect = dbo.getDb();
 
   let userExists = await db_connect.collection('users').findOne({ email: req.body[0].email });
@@ -23,11 +29,6 @@ userRoutes.route('/user/add').post(async (req, response) => {
     return response.status(409).json({ message: 'Email already in use!' });
   }
 
-  // Validate account creation fields
-  const { error } = validateUser(req.body[0]);
-  if (error) {
-    return response.status(409).json({ message: error.details[0].message });
-  }
   // Create user
   else {
     const salt = await bcrypt.genSalt(10);
@@ -46,6 +47,27 @@ userRoutes.route('/user/add').post(async (req, response) => {
       response.json(res);
     });
   }
+});
+
+userRoutes.route('/user/auth').post(async (req, response) => {
+  const { error } = validateUserLogin(req.body);
+  if (error) {
+    return response.status(409).json({ message: error.details[0].message });
+  }
+
+  let db_connect = dbo.getDb();
+
+  let user = await db_connect.collection('users').findOne({ email: req.body.email });
+  if (!user) {
+    return response.status(409).json({ message: 'Account does not exist.' });
+  }
+
+  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  if (!validPassword) {
+    return response.status(409).json({ message: 'Incorrect password.' });
+  }
+
+  response.send(true);
 });
 
 
