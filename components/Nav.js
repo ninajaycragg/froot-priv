@@ -78,28 +78,17 @@ export default function Nav() {
   else {
     return (
       <div className="default-nav">
-        <div style={{ width: '15%', margin: 'auto' }}>
+        <div className="default-nav-wrapper">
           <Link href="/">
             <Image src="/logo.svg" width="30rem" height="30rem"></Image>
           </Link>
         </div>
-        <div
-          style={{
-            width: '50%',
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            margin: 'auto',
-            fontSize: '80%',
-            fontWeight: '500',
-            fontFamily: 'Inter',
-            letterSpacing: '1px',
-          }}
-        >
-          <Link href="#">BREAST PROFILE</Link>
-          <Link href="/about">THE FROOT SALAD</Link>
-          <Link href="/quiz">QUIZ</Link>
-          <Link href="#">STORE</Link>
-          <Link href="/about">ABOUT US</Link>
+        <div className="default-nav-link-wrapper">
+          <Link className="default-nav-link" href="#">BREAST PROFILE</Link>
+          <Link className="default-nav-link" href="/about">THE FROOT SALAD</Link>
+          <Link className="default-nav-link" href="/quiz">QUIZ</Link>
+          <Link className="default-nav-link" href="#">STORE</Link>
+          <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
         <div
           style={{
