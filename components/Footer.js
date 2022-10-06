@@ -42,23 +42,8 @@ export default function Footer() {
     );
   } else {
     return (
-      <div
-        style={{
-          width: '100vw',
-          height: '150px',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: '#FAF8F1',
-        }}
-      >
-        <div
-          style={{
-            width: '100%',
-            height: '100px',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
+      <div className="footer_container">
+        <div className="footer">
           <div className="general" style={{ width: '50%', height: '100%' }}>
             <div className="column" style={{ height: '100%', width: '25%' }}>
               <div style={{ marginBottom: '5%', display: 'flex' }}>

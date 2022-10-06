@@ -2,64 +2,49 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+
+// describes the home page
 export default function Home() {
   const router = useRouter();
-  const handleClick = () => {
+  const handleQuizClick = () => {
+    console.log("click");
     router.push('/quizIntro');
   };
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: '#FAF8F1',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <h1
-        className="neutralize general"
-        style={{
-          fontSize: '1300%',
-          fontFamily: 'Tempios Headline',
-          fontStyle: 'italic',
-          fontWeight: '300',
-          width: '100%',
-          textAlign: 'center',
-          height: '50%',
-        }}
-      >
-        Froot
-      </h1>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          textAlign: 'center',
-          width: '100%',
-          height: '25%',
-          fontSize: '80%',
-          fontFamily: 'Inter',
-          letterSpacing: '1px',
-          fontWeight: '500',
-        }}
-        onClick={handleClick}
-      >
-        <p className="neutralize">
-THE EASIEST PLATFORM TO FIND BRAS THAT FIT.        </p>
-        <p className="neutralize">YOUR PERFECT BRA FITS HERE</p>
+    <div className="index_body">
+      <div className="index_r1">
+        <div className="index_imagestack">
+          <img className="index_hanginglaundry" src="/hanginglaundry.svg"></img>
+          <img className="index_brahangingsunset" src="/brahangingsunset.svg"></img>
+        </div>
+        <img className="index_hanginglingerie" src="/hanginglingerie.svg"></img>
+        <div className="index_title_wrap">
+          <h1 className="index_title">Froot.</h1>
+          <div className="index_description_desktop">THE BEST WAY TO FIND BRAS THAT FIT ON THE FIRST TRY.</div>
+          <div className="index_description_mobile">THE BEST WAY TO FIND BRAS</div>
+          <div className="index_description_mobile">THAT FIT ON THE FIRST TRY.</div>
+        </div>
+        <img className="index_orangeslingerie" src="/orangeslingerie.svg"></img>
+        <div className="index_imagestack">
+          <img className="index_lingerieshadow" src="/lingerieshadow.svg"></img>
+          <img className="index_lingerieclothesline" src="/lingerieclothesline.svg"></img>
+        </div>
       </div>
-      <div
-        className="general"
-        style={{ width: '350px', height: '25%', alignItems: 'flex-start' }}
-        onClick={handleClick}
-      >
-        <Image src="/sparkles.gif" width="50%" height="50%"></Image>
-        <hr style={{ width: '100%', marginRight: '2%', marginLeft: '2%', marginTop: '5%' }} />
-        <Image src="/sparkles.gif" width="50%" height="50%"></Image>
+      {/* handle click not working on mobile enter */}
+      <div className="index_quiz_enter" onClick={handleQuizClick}>
+        <p className="neutralize">YOUR PERFECT BRA FITS HERE</p>
+        <div className="general" style={{ width: '350px', height: '25%', alignItems: 'flex-start', marginLeft: 'auto', marginRight: 'auto' }}
+          onClick={handleQuizClick}>
+          <Image src="/sparkles.gif" width="50%" height="50%"></Image>
+          <hr className="index_quiz_line" />
+          <Image src="/sparkles.gif" width="50%" height="50%"></Image>
+        </div>
+      </div>
+      <img className="index_lingerieshadow_mobile" src="/lingerieshadow_mobile.svg"></img>
+      <div className="index_r2">
+        <img className="index_braflowers" src="/braflowers.svg"></img>
+        <img className="index_dresser" src="/dresser.svg"></img>
+        <img className="index_braclasp" src="/braclasp.svg"></img>
       </div>
     </div>
   );
