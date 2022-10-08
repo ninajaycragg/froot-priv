@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import globalVal from "./global";
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import { positions } from '@mui/system';
 import { Padding } from '@mui/icons-material';
+import PropTypes from 'prop-types';
 
 export default function Login() {
     const [inputs, setInputs] = useState({});
+    const [token, setToken] = useState({});
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -16,16 +18,15 @@ export default function Login() {
     }
     const router = useRouter();
 
-    const handleSubmit = (event) => {
+    function handleSubmit(event) {
         event.preventDefault();
-        console.log(inputs);
 
         const loginUser = {
             email: inputs["email"],
             password: inputs["password"],
         };
 
-        fetch('http://localhost:5001/user/auth', {
+        fetch('http://localhost:5001/user/loginUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,11 +34,13 @@ export default function Login() {
             body: JSON.stringify(loginUser),
         })
             .then(res => res.json())
-            .then(res => {
-                if (res.message) { window.alert(res.message) }
+            .then(data => {
+                if (!data.token) { window.alert(data.message) }
                 else {
                     globalVal.email = loginUser.email;
-                    router.push('/quiz');
+                    localStorage.setItem('token', data.token)
+                    // console.log(`in login fetch: ${localStorage.getItem('token')}`)
+                    setToken(data.token);
                 }
             })
             .catch((error) => {
@@ -45,6 +48,21 @@ export default function Login() {
                 return;
             });
     }
+
+    useEffect(() => {
+        // console.log(`useeffect: ${localStorage.getItem('token')}`);
+        fetch('http://localhost:5001/user/auth', {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(`data useefect: ${data.isLoggedIn}`);
+                data.isLoggedIn ? router.push('/quiz') : null
+            })
+    }, [token])
+
     return (
         <div
             className="general"
@@ -112,7 +130,7 @@ export default function Login() {
                 />
 
                 <form
-                    onSubmit={handleSubmit}
+                    onSubmit={event => handleSubmit(event)}
                     style={{
                         width: '60%',
                         height: '60%',
@@ -198,3 +216,7 @@ export default function Login() {
         </div>
     )
 }
+
+// Login.propTypes = {
+//     setToken: PropTypes.func.isRequired
+// }

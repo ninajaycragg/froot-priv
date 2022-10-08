@@ -10,6 +10,7 @@ import { autocompleteClasses } from '@mui/material';
 
 export default function Signup() {
   const [inputs, setInputs] = useState({});
+  // const [toLogin, setToLogin] = useState({});
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -23,7 +24,7 @@ export default function Signup() {
   }
   const router = useRouter();
 
-  const signupUser = (event) => {
+  function signupUser(event) {
     event.preventDefault();
 
     // Create a mongodb user to save other user data
@@ -56,7 +57,8 @@ export default function Signup() {
         if (res.message) { window.alert(res.message) }
         else {
           globalVal.email = newUser.email;
-          router.push('/quiz');
+          // setToLogin(true);
+          router.push('/login');
         }
       })
       .catch((error) => {
@@ -65,6 +67,18 @@ export default function Signup() {
       });
 
   };
+
+  useEffect(() => {
+    fetch('http://localhost:5001/user/auth', {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        data.isLoggedIn ? router.push('/quiz') : null
+      })
+  }, [])
 
   return (
     <div
@@ -134,7 +148,7 @@ export default function Signup() {
           <hr style={{ width: '60%', marginLeft: '0', marginBottom: '3%' }} />
 
           <form
-            onSubmit={signupUser}
+            onSubmit={event => signupUser(event)}
             style={{
               width: '60%',
               marginLeft: '0',

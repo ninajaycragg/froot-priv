@@ -49,7 +49,7 @@ export default function Home() {
         onClick={handleClick}
       >
         <p className="neutralize">
-THE EASIEST PLATFORM TO FIND BRAS THAT FIT.        </p>
+          THE EASIEST PLATFORM TO FIND BRAS THAT FIT.        </p>
         <p className="neutralize">YOUR PERFECT BRA FITS HERE</p>
       </div>
       <div

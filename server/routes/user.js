@@ -6,6 +6,8 @@ const dbo = require('../db/conn');
 const { User, validateUser, validateUserLogin } = require('../models/user');
 const ObjectId = require('mongodb').ObjectId;
 var bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { verifyJWT } = require('../../middleware/verifyJWT');
 
 userRoutes.route('/user/add').post(async (req, response) => {
   // Validate account creation fields
@@ -49,7 +51,8 @@ userRoutes.route('/user/add').post(async (req, response) => {
   }
 });
 
-userRoutes.route('/user/auth').post(async (req, response) => {
+// Login user
+userRoutes.route('/user/loginUser').post(async (req, response) => {
   const { error } = validateUserLogin(req.body);
   if (error) {
     return response.status(409).json({ message: error.details[0].message });
@@ -67,9 +70,25 @@ userRoutes.route('/user/auth').post(async (req, response) => {
     return response.status(409).json({ message: 'Incorrect password.' });
   }
 
-  response.send(true);
+  jwt.sign(
+    { email: user.email },
+    "secret",
+    { expiresIn: 86400 },
+    (err, token) => {
+      if (err) return response.json({ message: err })
+      return response.json({
+        message: "Success",
+        token: "Bearer " + token
+      })
+    }
+  )
+  // const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+  // response.json({ token: token });
 });
 
+userRoutes.route('/user/auth').get(verifyJWT, (req, res) => {
+  res.json({ isLoggedIn: true, email: req.user.email })
+})
 
 userRoutes.route('/user/update').put(function (req, response) {
   let db_connect = dbo.getDb();
