@@ -245,6 +245,17 @@
 
 }
 
+@media only screen and (max-width: 1000px) {
+    .question_block {
+        margin-top: 25%;
+    }
+
+    .question_count_container {
+        margin-top: 15%;
+    }
+}
+
+
 @media only screen and (max-width: 450px) {
     .question_block {
         width: 75%;

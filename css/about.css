@@ -71,7 +71,14 @@
     line-height: 200%;
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 468px) {
+    .about_title_container {
+        margin-top: 17%;
+    }
+
+}
+
+@media only screen and (max-width: 1000px) {
     .about_body {
         width: 80%;
         margin-left: auto;
@@ -80,6 +87,7 @@
 
     .about_title_container {
         width: 100%;
+        margin-top: 13%;
     }
 
     .about_image {

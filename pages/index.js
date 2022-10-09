@@ -40,7 +40,7 @@ export default function Home() {
           <Image src="/sparkles.gif" width="50%" height="50%"></Image>
         </div>
       </div>
-      <img className="index_lingerieshadow_mobile" src="/lingerieshadow_mobile.svg"></img>
+      <img className="index_lingerieshadow_mobile" src="/braclasp.svg"></img>
       <div className="index_r2">
         <img className="index_braflowers" src="/braflowers.svg"></img>
         <img className="index_dresser" src="/dresser.svg"></img>
