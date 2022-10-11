@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ButtonBase from '@mui/material/ButtonBase';
+import globalVal from "./global";
 
 // 27 questions
 let tog = 1
@@ -370,16 +371,20 @@ export default function Question1() {
     borderRadius: '5px',
   };
 
-  async function postUser() {
+  async function postUser(e) {
+    e.preventDefault();
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newUser = {
       questions: answers,
+      email: globalVal.email
     };
     // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
     // ('http://localhost:5000/user/add');
     // http://localhost:3000/api/hello
-    await fetch('http://localhost:5000/user/add', {
-      method: 'POST',
+    // 'http://localhost:5001/user/add'
+    //TODO: User must sign up before entering the quiz
+    await fetch('http://localhost:5001/user/update', {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
@@ -389,6 +394,7 @@ export default function Question1() {
       window.alert(error);
       return;
     });
+    window.alert(JSON.stringify(newUser));
   }
   async function postBlog() {
     // When a post request is sent to the create url, we'll add a new record to the database.
@@ -399,7 +405,7 @@ export default function Question1() {
     // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
     // ('http://localhost:5000/user/add');
     // http://localhost:3000/api/hello
-    await fetch('http://localhost:5000/blogPosts/add', {
+    await fetch('http://localhost:5001/blogPosts/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
