@@ -90,18 +90,9 @@ export default function Nav() {
           <Link className="default-nav-link" href="#">STORE</Link>
           <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
-        <div
-          style={{
-            width: '15%',
-            margin: 'auto',
-            display: 'flex',
-            justifyContent: 'space-evenly',
-          }}
-        >
-          <Image src="/userLogo.svg" height="20%" width="20%"></Image>
-          <Image src="/searchLogo.svg" height="20%" width="20%"></Image>
-          <Image src="/cartLogo.svg" height="20%" width="20%"></Image>
-        </div>
+        {/* <div className="icon-wrapper"> */}
+        <img className="user-logo" src="/userLogo.svg" />
+        {/* </div> */}
       </div>
     );
   }
