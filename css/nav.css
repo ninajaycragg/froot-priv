@@ -1,0 +1,14 @@
+.default-nav {
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 0.8%;
+    padding-bottom: 0.8%;
+    background-color: #FAF8F1;
+}
+
+@media only screen and (max-width: 450px) {
+    .default-nav {
+        visibility: hidden;
+    }
+}

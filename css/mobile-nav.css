@@ -1,0 +1,33 @@
+.hamburger-menu {
+    padding: 4%;
+    width: 50%;
+    /* height: 100%; */
+    background: #FAF8F1;
+}
+
+.menu-toggle {
+    margin-bottom: 10%;
+}
+
+.menu-items {
+    margin-left: 2%;
+}
+
+.navigation {
+    /* for tablet: width 50% */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    visibility: hidden
+        /* background-color: pink; */
+        /* filter: blur(8px);
+    -webkit-filter: blur(8px); */
+}
+
+/* for mobile view: visible during mobile view */
+@media only screen and (max-width: 450px) {
+    .navigation {
+        visibility: visible;
+    }
+}

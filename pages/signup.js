@@ -1,28 +1,84 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase-config';
 import { useRouter } from 'next/router';
+import globalVal from "./global";
 import { positions } from '@mui/system';
 import { Padding } from '@mui/icons-material';
 import { autocompleteClasses } from '@mui/material';
 
+
 export default function Signup() {
   const [inputs, setInputs] = useState({});
+  // const [toLogin, setToLogin] = useState({});
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs(values => ({ ...values, [name]: value }))
   }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(inputs);
+  const handleCheckboxChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.checked ? true : false;
+    setInputs(values => ({ ...values, [name]: value }))
   }
+  const router = useRouter();
 
+  function signupUser(event) {
+    event.preventDefault();
 
+    // Create a mongodb user to save other user data
+    const newUser = {
+      email: inputs["email"],
+      password: inputs["password"],
+      firstName: inputs["firstName"],
+      lastName: inputs["lastName"],
+      questions: [],
+    };
+
+    const fields = {
+      confirmPassword: inputs["confirmPassword"],
+      agree: inputs["agree"] ? true : false
+    }
+
+    let info = [];
+    info.push(newUser)
+    info.push(fields);
+
+    fetch('http://localhost:5001/user/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(info),
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.message) { window.alert(res.message) }
+        else {
+          globalVal.email = newUser.email;
+          // setToLogin(true);
+          router.push('/login');
+        }
+      })
+      .catch((error) => {
+        window.alert(error.message);
+        return;
+      });
+
+  };
+
+  useEffect(() => {
+    fetch('http://localhost:5001/user/auth', {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        data.isLoggedIn ? router.push('/quiz') : null
+      })
+  }, [])
 
   return (
     <div
@@ -37,13 +93,13 @@ export default function Signup() {
     >
       <div
         style={{
-            marginTop: '15%',
-            width: '100%',
-            height: '100%',
-            //backgroundColor: 'orange',
-            display: 'flex'
-            
-          }}
+          marginTop: '15%',
+          width: '100%',
+          height: '100%',
+          //backgroundColor: 'orange',
+          display: 'flex'
+
+        }}
       >
         <div
           style={{
@@ -56,12 +112,12 @@ export default function Signup() {
           }}
         >
           <div
-          style={{
-            width: 'auto',
-            height: '90%',
-            position: 'relative',
-            marginLeft: '30%'
-          }}
+            style={{
+              width: 'auto',
+              height: '90%',
+              position: 'relative',
+              marginLeft: '30%'
+            }}
           >
             <Image src="/createAccountImg.svg" layout="fill"></Image>
           </div>
@@ -92,7 +148,7 @@ export default function Signup() {
           <hr style={{ width: '60%', marginLeft: '0', marginBottom: '3%' }} />
 
           <form
-            onSubmit={handleSubmit}
+            onSubmit={event => signupUser(event)}
             style={{
               width: '60%',
               marginLeft: '0',
@@ -228,18 +284,17 @@ export default function Signup() {
                 type="checkbox"
                 name="agree"
                 value={inputs.agree || ""}
-                onChange={handleChange}
-                // style={{
-                //   lineHeight: '200%',
-                //   verticalAlign: 'bottom',
-                // }}
-                
+                onChange={handleCheckboxChange}
+              // style={{
+              //   lineHeight: '200%',
+              //   verticalAlign: 'bottom',
+              // }}
+
               />
               I agree with Froot's Terms, Privacy Policy, and E-sign consent.
             </label>
             <br></br>
             <br></br>
-            
             <div
               style={{
                 display: 'flex',
@@ -270,7 +325,6 @@ export default function Signup() {
                   }}
                 />
               </div>
-             
               <div
                 style={{
                   flexDirection: 'column',
@@ -283,7 +337,7 @@ export default function Signup() {
                   flexDirection: 'column',
                 }}
               >
-                <Image 
+                <Image
                   src="/sparkles.gif"
                   height="50%"
                   width="50%"

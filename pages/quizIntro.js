@@ -22,75 +22,29 @@ export default function QuizIntro() {
     router.push('/question1');
   };
   return (
-    <div
-      style={{
-        backgroundColor: '#FAF8F1',
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <div
-        style={{
-          width: '45%',
-          height: '40%',
-          marginTop: '15%',
-          textAlign: 'center',
-        }}
-      >
-        <div style={{width: '100%', width: '100%', display:'flex', justifyContent: 'center', alignItems:'center'}}>
+    <div className="quizIntro-body">
+      <div className="quizIntro-container">
+        <div className="quizIntro-title-wrapper">
           <Image src="/sparkles.gif" height="50%" width="50%"></Image>
-          <h1
-            style={{
-              margin: '0',
-              fontFamily: 'Tempios Headline',
-              fontWeight: '400',
-              fontSize: '200%',
-              fontStyle: 'italic'
-            }}
-          >
+          <h1 className="quizIntro-title">
             &nbsp;Welcome to Froot&nbsp;
           </h1>
           <Image src="/sparkles.gif" height="50%" width="50%"></Image>
         </div>
-        <p style={{ fontFamily: 'Inter', fontWeight: '300', lineHeight: '150%' }}>
-        The following questionnaire helps our team at Froot best understand your size, desired fit, and style. Please take this test in a private and comfortable setting as you will have to undress for the self-sizing portion of our quiz.
+        <p className="quizIntro-text">
+          The following questionnaire helps our team at Froot best understand your size, desired fit, and style. Please take this test in a private and comfortable setting as you will have to undress for the self-sizing portion of our quiz.
         </p>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-            justifyContent: 'center',
-            marginTop: '5%',
-          }}
+        <div className="quizIntro-button-wrap"
         >
           <Button
             onClick={handleClick}
             variant="outlined"
-            style={{
-              borderRadius: '5px',
-              width: '15%',
-              fontFamily: 'Inter',
-              backgroundColor: '#FAF8F1',
-              color: 'black',
-              padding: '1%',
-              border: '1px solid black',
-            }}
+            className="quizIntro-button"
           >
             START
           </Button>
 
-          <h1
-            style={{
-              color: '#670224',
-              fontFamily: 'Inter',
-              fontWeight: '400',
-              fontSize: '100%',
-              width: '15%',
-            }}
-          >
+          <h1 className="quizIntro-enter">
             press <b>Enter</b>
           </h1>
         </div>
