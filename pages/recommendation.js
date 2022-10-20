@@ -8,42 +8,42 @@ export default function Recommendation() {
     let arrRecommendations = [
         {
             brandName: "brand name",
-            braDescription: "description",
+            braDescription: "simple description of the bra brand from their website.",
             size: "30 F",
             price: "$60",
             type: "lingerie",
             feel: "comfort",
-            end: "high-end"
+            end: "high end"
         },
         {
             brandName: "brand name",
-            braDescription: "description",
+            braDescription: "simple description of the bra brand from their website.",
             size: "30 F",
             price: "$60",
             type: "lingerie",
             feel: "comfort",
-            end: "high-end"
+            end: "high end"
         }
     ]
     function braRecommendation(r) {
         return (
-            <>
-                <img src="lingerieshadow.svg"></img>
-                <>
-                    <div>{r.brandName}</div>
-                    <div>{r.braDescription}</div>
-                    <div>
-                        <div>{r.size}</div>
-                        <div>{r.size}</div>
-                        <div>{r.price}</div>
+            <div className="bra-rec-wrapper">
+                <img className="rec-bra-image" src="braRecommendation.jpeg"></img>
+                <div className="rec-bra-info">
+                    <div className="rec-bra-name">{r.brandName}</div>
+                    <div className="rec-bra-description">{r.braDescription}</div>
+                    <div className="rec-bra-info-wrap">
+                        <div className="rec-bra-info-button">{r.size}</div>
+                        <div className="rec-bra-info-button">{r.size}</div>
+                        <div className="rec-bra-info-button">{r.price}</div>
                     </div>
-                    <div>
-                        <div>{r.type}</div>
-                        <div>{r.feel}</div>
-                        <div>{r.end}</div>
+                    <div className="rec-bra-info-wrap">
+                        <div className="rec-bra-info-button">{r.type}</div>
+                        <div className="rec-bra-info-button">{r.feel}</div>
+                        <div className="rec-bra-info-button">{r.end}</div>
                     </div>
-                </>
-            </>
+                </div>
+            </div>
         )
     }
     return (
@@ -70,7 +70,7 @@ export default function Recommendation() {
                     <button className="rec-filter-button">Type</button>
                 </div>
                 <hr ></hr>
-                <div>{arrRecommendations.length.toString()} results</div>
+                <div className="rec-results">{arrRecommendations.length.toString()} results</div>
                 {
                     Array.from(arrRecommendations).map((r) => {
                         return (braRecommendation(r));

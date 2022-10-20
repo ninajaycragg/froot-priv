@@ -25,6 +25,7 @@
 
     color: #000000;
     text-align: center;
+    margin-bottom: 5%;
 }
 
 .recommendation-made {
@@ -37,6 +38,7 @@
     text-align: center;
 
     color: #000000;
+    margin-bottom: 5%;
 }
 
 .recommendation-description {
@@ -49,7 +51,7 @@
 
     /* text-align: center; */
     color: #000000;
-
+    margin-bottom: 6%;
 }
 
 .rec-img-wrapper {
@@ -58,21 +60,27 @@
     justify-content: center
 }
 
-.rec-down-arrow {}
+.rec-down-arrow {
+    margin-bottom: 9%;
+    margin-top: 3%;
+}
 
 .rec-bra-shadow-hand {
     width: 40%;
+    margin-bottom: 18%;
 }
 
 .rec-line {
     width: 150%;
     margin-left: -25%;
+    margin-bottom: 10%;
 }
 
 .rec-row2 {
     width: 75%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10%;
 }
 
 .rec-filter {
@@ -104,4 +112,78 @@
     padding-bottom: 1%;
     color: #000000;
     margin-right: 2%;
+}
+
+.rec-results {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 145%;
+    /* or 26px */
+
+    letter-spacing: 0.125em;
+    text-transform: uppercase;
+
+    color: #000000;
+    margin-bottom: 10%;
+}
+
+.bra-rec-wrapper {
+    display: flex;
+    margin-bottom: 5%;
+}
+
+.rec-bra-info {
+    margin-left: 10%;
+}
+
+.rec-bra-image {
+    width: 20%;
+}
+
+.rec-bra-name {
+    font-family: 'Tiempos Headline';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 115%;
+    /* or 41px */
+
+    display: flex;
+    align-items: flex-end;
+
+    color: #000000;
+    margin-bottom: 3%;
+}
+
+.rec-bra-description {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 145%;
+    /* or 26px */
+
+    letter-spacing: 0.125em;
+    text-transform: uppercase;
+
+    color: #000000;
+    margin-bottom: 3%;
+}
+
+.rec-bra-info-wrap {
+    display: flex;
+    margin-bottom: 3%;
+}
+
+.rec-bra-info-button {
+    border: 1px solid #000000;
+    border-radius: 55px;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-right: 3%;
+    white-space: nowrap;
 }
