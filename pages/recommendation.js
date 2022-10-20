@@ -69,7 +69,7 @@ export default function Recommendation() {
                     <button className="rec-filter-button">Cost</button>
                     <button className="rec-filter-button">Type</button>
                 </div>
-                <hr ></hr>
+                <hr className="rec-line2"></hr>
                 <div className="rec-results">{arrRecommendations.length.toString()} results</div>
                 {
                     Array.from(arrRecommendations).map((r) => {
