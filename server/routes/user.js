@@ -1,5 +1,4 @@
 const express = require('express');
-
 const userRoutes = express.Router();
 
 const dbo = require('../db/conn');
@@ -82,8 +81,6 @@ userRoutes.route('/user/loginUser').post(async (req, response) => {
       })
     }
   )
-  // const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  // response.json({ token: token });
 });
 
 userRoutes.route('/user/auth').get(verifyJWT, (req, res) => {
@@ -98,6 +95,45 @@ userRoutes.route('/user/update').put(function (req, response) {
   };
   db_connect.collection('users').updateOne(myQuery, newValues, function (err, res) {
     if (err) throw err;
+    response.json(res);
+  });
+});
+
+userRoutes.route('/user/editAccount').put(async function (req, response) {
+  let db_connect = dbo.getDb();
+
+  // check that the user exists in DB / get info
+  let user = await db_connect.collection('users').findOne({ email: req.body.origEmail });
+  if (!user) {
+    return response.status(409).json({ message: `Account does not exist. ${req.body.origEmail}` });
+  }
+  let myQuery = { email: user.email };
+
+  let new_email = user.email, new_firstName = user.firstName, new_lastName = user.lastName, new_password = user.password;
+
+  if (req.body.email !== undefined) {
+    new_email = req.body.email;
+  }
+  if (req.body.firstName !== undefined) {
+    new_firstName = req.body.firstName;
+  }
+  if (req.body.lastName !== undefined) {
+    new_lastName = req.body.lastName;
+  }
+
+  if (req.body.password !== undefined && req.body.password.length >= 5) {
+    const salt = await bcrypt.genSalt(10);
+    let suPassHash = await bcrypt.hash(req.body[0].password, salt);
+    new_password = suPassHash;
+  }
+
+  let newValues = {
+    $set: { email: new_email, firstName: new_firstName, lastName: new_lastName, password: new_password }
+  };
+  console.log(newValues);
+  db_connect.collection('users').updateOne(myQuery, newValues, function (err, res) {
+    if (err) throw err;
+    console.log("updated");
     response.json(res);
   });
 });

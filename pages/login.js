@@ -216,7 +216,3 @@ export default function Login() {
         </div>
     )
 }
-
-// Login.propTypes = {
-//     setToken: PropTypes.func.isRequired
-// }
