@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ButtonBase from '@mui/material/ButtonBase';
-import globalVal from "./global";
+import globalVal from "../middleware/global";
 
 // 27 questions
 let tog = 1

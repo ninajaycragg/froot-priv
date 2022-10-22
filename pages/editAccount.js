@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import globalVal from "./global";
+import globalVal from "../middleware/global";
 import Button from '@mui/material/Button';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import globalVal from "./global";
+import globalVal from "../middleware/global";
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import { positions } from '@mui/system';
