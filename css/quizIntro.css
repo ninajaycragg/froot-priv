@@ -11,6 +11,10 @@
     text-align: center;
 }
 
+.quizIntro-sparkles {
+    transform: matrix(-0.9, 0.44, 0.44, 0.9, 0, 0);
+}
+
 .quizIntro-title-wrapper {
     width: 100%;
     display: flex;
@@ -51,6 +55,12 @@
     border: 1px solid black;
 }
 
+.quizIntro-button:hover {
+    cursor: pointer;
+    background-color: #FAF8F1;
+    border: 1px solid black;
+}
+
 .quizIntro-enter {
     color: #670224;
     font-family: Inter;
@@ -61,7 +71,7 @@
 
 @media only screen and (max-width: 1000px) {
     .quizIntro-container {
-        margin-top: 25%;
+        margin-top: 15%;
     }
 
     .quizIntro-title-wrapper {

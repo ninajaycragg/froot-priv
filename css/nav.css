@@ -3,9 +3,8 @@
     justify-content: space-around;
     padding-top: 0.8%;
     padding-bottom: 0.8%;
-    background-color: #FAF8F1;
-    /* padding-left: 3%;
-    padding-right: 3%; */
+    position: absolute;
+    width: 100%;
 }
 
 .default-nav-wrapper {

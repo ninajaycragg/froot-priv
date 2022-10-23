@@ -4,42 +4,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 export default function Footer() {
   const router = useRouter();
-
-  if (router.pathname === '/question1') {
-    return (
-      <div
-        style={{
-          width: '100vw',
-          height: '75px',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: '#FAF8F1',
-        }}
-      >
-        <div style={{ height: '25px', width: '100%' }}>
-          <hr />
-        </div>
-        <div
-          className="column"
-          style={{
-            height: '25px',
-            width: '50%',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <p
-            className="neutralize"
-            style={{
-              fontSize: '75%',
-              width: '25%',
-            }}
-          >
-            &copy; 2022 Froot Inc.
-          </p>
-        </div>
-      </div>
-    );
+  if (router.pathname === '/quizIntro') {
+    return (<></>);
+  }
+  else if (router.pathname === '/question1' || router.pathname === '/questions') {
+    return (<></>);
   } else {
     return (
       <div className="footer_container">

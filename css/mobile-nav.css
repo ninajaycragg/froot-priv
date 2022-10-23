@@ -23,20 +23,18 @@
     position: absolute;
     z-index: 10;
     visibility: hidden;
-    /* padding-top: 3%;
-    padding-right: 3%;
-    padding-left: 3%; */
-    /* background-color: pink; */
-    /* filter: blur(8px);
-    -webkit-filter: blur(8px); */
+}
+
+.navigation_q1 {
+    /* for tablet: width 50% */
+    width: 100%;
+    position: absolute;
+    z-index: 10;
+    visibility: hidden;
 }
 
 .mobile-image-wrapper {
     display: flex;
-    /* justify-content: space-between; */
-    /* padding-top: 3%;
-    padding-right: 3%;
-    padding-left: 3%; */
 }
 
 .mobile-logo {
@@ -56,13 +54,32 @@
 
 /* for mobile view: visible during mobile view */
 @media only screen and (max-width: 1000px) {
+    .navigation_q1 {
+        visibility: visible;
+        position: absolute;
+        width: 50%;
+        margin-left: 50%;
+    }
+
     .navigation {
         visibility: visible;
+        position: absolute;
     }
 }
 
 @media only screen and (max-width: 468px) {
-    .navigation {
+    .navigation_q1 {
+        visibility: visible;
+        position: absolute;
         width: 100%;
+        margin-left: 0%;
+    }
+
+    .navigation {
+        visibility: visible;
+        /* position: absolute; */
+        display: block;
+        width: 100%;
+        margin-left: 0%;
     }
 }
