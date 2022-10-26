@@ -19,6 +19,14 @@ export default function Questions() {
 
     const questionsArray = [
         {
+            question: 'Figuring out your style',
+            subtext: true,
+            text: "The Froot team realizes that knowing a bit about who you are, not just your boobs, can help us find your perfect bra. So let's get to know you with a few key questions!",
+            type: 'break',
+            image: "hanging-pink-tops.jpeg",
+            select: 'one',
+        },
+        {
             question: 'What is your name?',
             subtext: true,
             text: 'It can be a nickname or a name you preferred to be called.',
@@ -494,7 +502,78 @@ export default function Questions() {
     useEffect(() => {
         setSel(multAnswers);
     }, [multAnswers]);
-    return (
+    if (questionsArray[index].type == "break") {
+        return (
+            <div className="question1-wrapper">
+                <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
+                <div className=
+                    {
+                        true ? "question1_body" : null
+                    }
+                >
+                    <div id="scroll"></div>
+                    {/* enable back button if index is not 0 */}
+                    {index === 0 ? null : (
+                        <Link href="#scroll">
+                            <Button
+                                onClick={handleBack}
+                                variant="outlined"
+                                className="question_back_button"
+                                startIcon={<ArrowBackIcon />}
+                            >
+                                back
+                            </Button>
+                        </Link>
+                    )}
+                    {/* Defining first intro question */}
+                    {/* end */}
+                    <div className="question_block">
+                        <div className="question_container">
+                            <div className="question_container2">
+                                {/* like the question title */}
+                                <h1 className="question_title">
+                                    {questionsArray[index].question}
+                                </h1>
+                                {/* denotes the paragraph (question body) */}
+                                <p
+                                    style={{
+                                        fontFamily: 'Inter',
+                                    }}
+                                >
+                                    {questionsArray[index].subtext ? questionsArray[index].text : ''}
+                                </p>
+                            </div>
+                        </div>
+                        <div className={
+                            questionsArray[index].type === 'break'
+                                ? "question_break_container"
+                                : "question_no_break_container"
+                        }
+                        >
+                            <div className="question_next_container">
+                                <Link href="#scroll">
+                                    <Button
+                                        onClick={handleClick}
+                                        variant="outlined"
+                                        className="question_next_button"
+                                        endIcon={<CheckIcon />}
+                                    >
+                                        OK
+                                    </Button>
+                                </Link>
+
+                                <h1 className="question_next_enter"
+                                >
+                                    press <b>Enter</b>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div >
+            </div>
+        )
+    }
+    else return (
         // come back and change this
         //example conditional change css
         <div className=

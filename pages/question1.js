@@ -157,8 +157,6 @@ export default function Question1() {
           </Link>
         )}
         {/* Defining first intro question */}
-        {/* <div className="question1_container"
-          ></div> */}
         {/* end */}
         <div className="question_block">
           <div className="question_container">

@@ -19,7 +19,7 @@ export default function QuizIntro() {
   });
 
   const handleClick = () => {
-    router.push('/question1');
+    router.push('/questions');
   };
   return (
     <div className="quizIntro-body">

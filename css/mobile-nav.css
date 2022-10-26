@@ -1,8 +1,37 @@
 .hamburger-menu {
     padding: 4%;
     width: 50%;
-    /* height: 100%; */
+    float: right;
     background: #FAF8F1;
+    padding-right: 0%;
+    height: 100vh;
+    background: transparent;
+    backdrop-filter: unset;
+    display: none;
+}
+
+.blur-hamburger {
+    padding: 4%;
+    width: 50%;
+    float: right;
+    background: #FAF8F1;
+    padding-right: 0%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(25px);
+}
+
+.blur-background {
+    backdrop-filter: blur(25px);
+    background: rgba(255, 255, 255, 0.5);
+    height: 100vh;
+}
+
+.no-blur {
+    z-index: -10;
+    backdrop-filter: none;
+    background: transparent;
+    height: 100vh;
 }
 
 .menu-toggle {
