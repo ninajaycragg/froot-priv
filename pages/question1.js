@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import CheckIcon from '@mui/icons-material/Check';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
@@ -34,64 +38,60 @@ export default function Question1() {
       select: 'one',
     },
     {
-      question: 'What is your email?',
-      subtext: true,
-      text: 'We want to give you your results and keep you in the loop!',
-      type: 'text',
-      select: 'one',
-    },
-    {
       question: 'How old are you?',
       subtext: true,
       text: 'This helps us understand your breast type.',
-      type: 'text',
+      type: 'dropdown',
+      options: ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"],
       select: 'one',
     },
     {
       question: 'What gender do you identify with?',
       subtext: true,
       text: 'Knowing this can help us find the fit that you want most easily.',
-      type: 'text',
-      select: 'one',
+      type: 'mcMult',
+      options: ["Cisgender", "Female", "Male", "Fluid", "Genderqueer", "Transsexual", "Non-binary", "Gender Neutral", "Other", "Prefer Not to Say"],
+      select: 'multiple',
     },
-    {
-      question: 'Are you currently pregnant or breastfeeding?',
-      subtext: true,
-      text: 'Your breasts change during this time. We want to make sure we consider these changes.',
-      type: 'mc',
-      options: ['Breastfeeding', 'Pregnant', 'Neither'],
-      select: 'one',
-    },
-    {
-      question: 'If you have had your breasts augmented, what was it for?',
-      subtext: true,
-      text: 'If not, write "N/A"',
-      type: 'text',
-      select: 'one',
-    },
+    // {
+    //   question: 'Are you currently pregnant or breastfeeding?',
+    //   subtext: true,
+    //   text: 'Your breasts change during this time. We want to make sure we consider these changes.',
+    //   type: 'mc',
+    //   options: ['Breastfeeding', 'Pregnant', 'Neither'],
+    //   select: 'one',
+    // },
+    // {
+    //   question: 'If you have had your breasts augmented, what was it for?',
+    //   subtext: true,
+    //   text: 'If not, write "N/A"',
+    //   type: 'text',
+    //   select: 'one',
+    // },
     {
       question:
         'Any medical concerns regarding your breasts that you would like us to know?',
       subtext: true,
-      text: 'If not, "write N/A"',
-      type: 'text',
-      select: 'one',
+      text: 'Select all that apply! Knowing this can help us recommend the right bra to you. If none do, select that.',
+      type: 'mcMult',
+      options: ["None", "Breast Augmentation", "Shoulder Pain", "Nerve Pain", "Sensitive Skin", "Mastectomy", "Breast Cancer", "Fabric / Material Allergy", "Back Issues", "Pregnant", "Breastfeeding", "Breast Pain", "Other", "Prefer not to say", "Breast Size Fluctiations"],
+      select: 'multiple',
     },
-    {
-      question: 'Any fabric or material you are allergic to?',
-      subtext: true,
-      text: 'Separate your answers with a comma. If none come to mind, write "N/A"',
-      type: 'text',
-      select: 'one',
-    },
-    {
-      question: 'Do you have sensitive skin?',
-      subtext: true,
-      text: 'This can affect what materials we recommend to you.',
-      type: 'mc',
-      options: ['Yes', 'No'],
-      select: 'one',
-    },
+    // {
+    //   question: 'Any fabric or material you are allergic to?',
+    //   subtext: true,
+    //   text: 'Separate your answers with a comma. If none come to mind, write "N/A"',
+    //   type: 'text',
+    //   select: 'one',
+    // },
+    // {
+    //   question: 'Do you have sensitive skin?',
+    //   subtext: true,
+    //   text: 'This can affect what materials we recommend to you.',
+    //   type: 'mc',
+    //   options: ['Yes', 'No'],
+    //   select: 'one',
+    // },
     {
       question: 'Figuring Out Your Style',
       subtext: true,
@@ -226,13 +226,13 @@ export default function Question1() {
       type: 'break',
       select: 'one',
     },
-    {
-      question: 'What is your current bra size?',
-      subtext: true,
-      text: 'Bra sizes consist of the cup and bandwidth (for example, 32C). If you do not know your bra size, feel free to say "not sure".',
-      type: 'text',
-      select: 'one',
-    },
+    // {
+    //   question: 'What is your current bra size?',
+    //   subtext: true,
+    //   text: 'Bra sizes consist of the cup and bandwidth (for example, 32C). If you do not know your bra size, feel free to say "not sure".',
+    //   type: 'text',
+    //   select: 'one',
+    // },
     {
       question: 'What is your breast fullness (top or bottom)?',
       subtext: true,
@@ -587,6 +587,26 @@ export default function Question1() {
             />
           </div>
         ) : null}
+        {questionsArray[index].type === 'dropdown' ? (
+          <div className="question_text_options_container"
+          >
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={sel}
+                label="Age"
+                onChange={handleChange}
+              >
+                {questionsArray[index].options.map((choices) => (
+                  <MenuItem value={choices}>{choices}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+          </div>
+        ) : null}
         {/* displays multiple choices or not */}
         {questionsArray[index].type === 'mc' ||
           questionsArray[index].type === 'mcIMG' ? (
@@ -598,6 +618,28 @@ export default function Question1() {
                 id={choices}
                 className={
                   sel === choices
+                    ? "question_mc_selected"
+                    : "question_mc"
+                }
+                onClick={() => handleChoose(choices)}
+              >
+                {choices}
+              </Button>
+            ))}
+          </div>
+        ) : null}
+
+        {questionsArray[index].type === 'mcMult' ? (
+          <div className="question_mc_container">
+            {questionsArray[index].options.map((choices) => (
+              <Button
+                variant="outlined"
+                key={choices}
+                id={choices}
+                className={
+                  sel === choices ||
+                    (questionsArray[index].select === 'multiple' &&
+                      multAnswers.includes(choices))
                     ? "question_mc_selected"
                     : "question_mc"
                 }
