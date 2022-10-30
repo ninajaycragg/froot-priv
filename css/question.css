@@ -37,9 +37,8 @@
     margin-right: 1%;
     margin-top: 30%;
 }
-.question_break_back_button{
-    
-}
+
+.question_break_back_button {}
 
 .question_count_container {
     width: 5%;
@@ -319,6 +318,10 @@
         margin-top: 15%;
     }
 
+    .question_next_enter {
+        margin-left: 13%;
+    }
+
     .question_body {
         margin-top: 0%;
         width: 85%;
@@ -372,7 +375,7 @@
     }
 
     .question1_body {
-        margin-top: 25%;
+        margin-top: 50%;
         width: 100%;
     }
 

@@ -21,7 +21,7 @@ export default function MobileNav() {
     // const user = auth.currentUser;
     return (
       <>
-        {/* <img className="delete-menu" src='/delete.svg' onClick={handleClose} /> */}
+        <img className="delete-menu" src='/delete.svg' onClick={handleToggle} />
         <div className="menu-items">
           {/* <img className="delete-menu" src='/delete.svg' /> */}
           <div className="item">Breast Profile</div>
@@ -41,7 +41,7 @@ export default function MobileNav() {
     // <div className="mobile-nav-wrapper">
     <div className={router.pathname === "/question1" ? "navigation_q1" : "navigation"}>
       <div className="mobile-img-wrapper">
-        <img className="menu-toggle" src={navbarOpen ? '/delete.svg' : '/mobile-menu-toggle.svg'} onClick={handleToggle}></img>
+        <img className={navbarOpen ? 'disappear' : 'menu-toggle'} src='/mobile-menu-toggle.svg' onClick={handleToggle}></img>
         <img className="mobile-logo" src='/mobile-logo.svg'></img>
       </div>
       <div className={navbarOpen ? "blur-hamburger" : "hamburger-menu"}>

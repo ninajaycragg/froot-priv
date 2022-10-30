@@ -13,6 +13,7 @@ import '../css/question.css';
 import '../css/footer.css';
 import '../css/mobile-nav.css';
 import '../css/nav.css';
+import '../css/startQuiz.css';
 
 function MyApp({ Component, pageProps, test }) {
   let router = useRouter();

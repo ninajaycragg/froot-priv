@@ -11,6 +11,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-top: 7%;
 }
 
 .index_r2 {
@@ -97,7 +98,8 @@
     font-family: Inter;
     letter-spacing: 1px;
     font-weight: 500;
-    margin-top: -5%;
+    margin-top: -8%;
+    margin-bottom: 4%;
 }
 
 .index_quiz_line {
@@ -116,6 +118,10 @@
 }
 
 @media only screen and (max-width: 1000px) {
+    .index_r1 {
+        margin-top: -5%;
+    }
+
     .index_hanginglaundry {
         /* visibility: hidden;
         display: none; */
@@ -194,6 +200,7 @@
 
     .index_quiz_enter {
         margin-top: -10%;
+        margin-bottom: 0%;
     }
 
     .index_lingerieshadow_mobile {
@@ -211,14 +218,22 @@
         font-style: normal;
         font-weight: 500;
         line-height: 82.5%;
-        padding-bottom: 2%;
-        margin-top: 5%;
+        /* padding-bottom: 2%; */
+        /* margin-top: 5%; */
         letter-spacing: 0.095em;
         font-size: 117%;
     }
 }
 
 @media only screen and (max-width: 450px) {
+    .index_r1 {
+        margin-top: 8%;
+    }
+
+    .index_title_wrap {
+        font-size: 75%;
+    }
+
     .index_hanginglaundry {
         visibility: hidden;
         display: none;

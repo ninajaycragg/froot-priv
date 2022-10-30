@@ -7,7 +7,7 @@ export default function Footer() {
   if (router.pathname === '/quizIntro') {
     return (<></>);
   }
-  else if (router.pathname === '/question1' || router.pathname === '/questions') {
+  else if (router.pathname === '/question1' || router.pathname === '/questions' || router.pathname === '/quiz') {
     return (<></>);
   } else {
     return (

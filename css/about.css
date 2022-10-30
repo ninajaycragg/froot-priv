@@ -20,6 +20,7 @@
     justify-content: center;
     flex-direction: column;
     text-align: left;
+    margin-top: 8%;
 }
 
 .about_title {
@@ -71,13 +72,6 @@
     line-height: 200%;
 }
 
-@media only screen and (max-width: 468px) {
-    .about_title_container {
-        margin-top: 17%;
-    }
-
-}
-
 @media only screen and (max-width: 1000px) {
     .about_body {
         width: 80%;
@@ -116,4 +110,12 @@
     .about_container_description {
         width: 100%;
     }
+}
+
+
+@media only screen and (max-width: 468px) {
+    .about_title_container {
+        margin-top: 25%;
+    }
+
 }
