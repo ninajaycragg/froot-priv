@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import CheckIcon from '@mui/icons-material/Check';
@@ -16,94 +17,65 @@ export default function Questions() {
     const [sel, setSel] = useState('');
     const [answers, setAnswers] = useState([]);
     const [multAnswers, setMult] = useState([]);
+    const router = useRouter();
+    function handleRedirection(e) {
+        e.preventDefault();
+        router.push('/about');
+    }
 
     const questionsArray = [
         {
-            question: 'Figuring out your style',
+            question: 'Let’s get to know you!',
             subtext: true,
             text: "The Froot team realizes that knowing a bit about who you are, not just your boobs, can help us find your perfect bra. So let's get to know you with a few key questions!",
             type: 'break',
-            image: "hanging-pink-tops.jpeg",
-            select: 'one',
+            image: '/LetGetToKnowYou.jpeg'
         },
-        {
-            question: 'What is your name?',
-            subtext: true,
-            text: 'It can be a nickname or a name you preferred to be called.',
-            type: 'text',
-            select: 'one',
-        },
-        {
-            question: 'What is your email?',
-            subtext: true,
-            text: 'We want to give you your results and keep you in the loop!',
-            type: 'text',
-            select: 'one',
-        },
-        {
-            question: 'How old are you?',
-            subtext: true,
-            text: 'This helps us understand your breast type.',
-            type: 'text',
-            select: 'one',
-        },
-        {
-            question: 'What gender do you identify with?',
-            subtext: true,
-            text: 'Knowing this can help us find the fit that you want most easily.',
-            type: 'text',
-            select: 'one',
-        },
-        {
-            question: 'Are you currently pregnant or breastfeeding?',
-            subtext: true,
-            text: 'Your breasts change during this time. We want to make sure we consider these changes.',
-            type: 'mc',
-            options: ['Breastfeeding', 'Pregnant', 'Neither'],
-            select: 'one',
-        },
-        {
-            question: 'If you have had your breasts augmented, what was it for?',
-            subtext: true,
-            text: 'If not, write "N/A"',
-            type: 'text',
-            select: 'one',
-        },
-        {
-            question:
-                'Any medical concerns regarding your breasts that you would like us to know?',
-            subtext: true,
-            text: 'If not, "write N/A"',
-            type: 'text',
-            select: 'one',
-        },
-        {
-            question: 'Any fabric or material you are allergic to?',
-            subtext: true,
-            text: 'Separate your answers with a comma. If none come to mind, write "N/A"',
-            type: 'text',
-            select: 'one',
-        },
-        {
-            question: 'Do you have sensitive skin?',
-            subtext: true,
-            text: 'This can affect what materials we recommend to you.',
-            type: 'mc',
-            options: ['Yes', 'No'],
-            select: 'one',
-        },
+        // {
+        //     question: 'What is your name?',
+        //     subtext: true,
+        //     text: 'It can be a nickname or a name you preferred to be called.',
+        //     type: 'text',
+        //     select: 'one',
+        // },
+        // {
+        //     question: 'How old are you?',
+        //     subtext: true,
+        //     text: 'This helps us understand your breast type.',
+        //     type: 'dropdown',
+        //     options: ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"],
+        //     select: 'one',
+        // },
+        // {
+        //     question: 'What gender do you identify with?',
+        //     subtext: true,
+        //     text: 'Select all that apply! This can affect how a bra fits and what we recommend!',
+        //     type: 'tag',
+        //     options: ["Cisgender", "Female", "Male", "Fluid", "Genderqueer", "Transsexual", "Non-binary", "Gender Neutral", "Other", "Prefer Not to Say"],
+        //     select: 'multiple',
+        // },
+        // {
+        //     question:
+        //         'Any medical concerns regarding your breasts that you would like us to know?',
+        //     subtext: true,
+        //     text: 'Select all that apply! Knowing this can help us recommend the right bra to you. If none do, select that.',
+        //     type: 'tag',
+        //     options: ["None", "Breast Augmentation", "Shoulder Pain", "Nerve Pain", "Sensitive Skin", "Mastectomy", "Breast Cancer", "Fabric / Material Allergy", "Back Issues", "Pregnant", "Breastfeeding", "Breast Pain", "Other", "Prefer not to say", "Breast Size Fluctiations"],
+        //     select: 'multiple',
+        // },
         {
             question: 'Figuring Out Your Style',
             subtext: true,
             text: 'Knowing the shape and size of your breasts is critical. But we also want to know what bras you actually want to wear.',
             type: 'break',
-            select: 'one',
+            image: '/hanging-pink-tops.jpeg'
         },
         {
             question: 'What types of bras are you looking for?',
             subtext: true,
-            text: 'We offer a lot of choices. Please pick as many as you like! Read more about each type on our website! Choose as many as you like.',
+            text: 'We offer a lot of choices. Please pick as many as you like! Read more about each type on our website!',
             type: 'image',
+            optionsText: 'Choose as many as you like.',
             options: [
                 'Push-up ~ Pulls breasts upward then inward bringing breasts closer.',
                 'Front-fastening ~ Opens in the front.',
@@ -141,12 +113,14 @@ export default function Questions() {
                 '/question12/bralette.png',
                 '/testing.png',
             ],
+            link: false,
         },
         {
-            question: "What's style(s) do you want your bras to have?",
+            question: "What style(s) do you want your bras to have?",
             subtext: true,
             text: "It's important to understand what you are interested in wearing, aesthetically! Choose as many as you like.",
             type: 'image',
+            optionsText: 'Choose as many as you like',
             options: [
                 'Romantic ~ Lots of lace.',
                 'Minimalist ~ Super simple. Muted Colors.',
@@ -164,12 +138,14 @@ export default function Questions() {
                 '/question13/modern.jpeg',
                 '/question13/classic.png',
             ],
+            link: false,
         },
         {
             question: 'Pick the colors you would like for your bra(s)',
             subtext: true,
             text: 'This will help us narrow down what colors of bras to recommend. We can always re-adjust this later. Choose as many as you like.',
             type: 'image',
+            optionsText: 'Choose as many as you like',
             options: [
                 'Skin Tones',
                 'Warm',
@@ -189,14 +165,8 @@ export default function Questions() {
                 '/question14/bright_yellows.png',
                 '/question14/whites.png',
             ],
+            link: false,
         },
-        // {
-        //   question:
-        //     'Out of the color palettes, which colors do you want specifically?',
-        //   subtext: true,
-        //   text: 'If you have no particular colors in mind, just say "surprise me"!',
-        //   type: 'text',
-        // },
         {
             question: 'Do you want your bras to have underwire?',
             subtext: true,
@@ -213,31 +183,19 @@ export default function Questions() {
             options: ['Yes, all of them', 'Some should', 'None at all'],
             select: 'one',
         },
-        // {
-        //   question:
-        //     'Anything you want us to know regarding how you want your bras to look like?',
-        //   subtext: false,
-        //   type: 'text',
-        // },
         {
             question: 'Factors Beyond Size Measuring',
             subtext: true,
             text: 'Before we measure you, there are a few other factors regarding your boobs the Froot team must ask about to find the best bra(s) for you. We explain these factors in-depth on our website.',
             type: 'break',
-            select: 'one',
-        },
-        {
-            question: 'What is your current bra size?',
-            subtext: true,
-            text: 'Bra sizes consist of the cup and bandwidth (for example, 32C). If you do not know your bra size, feel free to say "not sure".',
-            type: 'text',
-            select: 'one',
+            image: '/FactorsBeyondSizing.jpeg',
         },
         {
             question: 'What is your breast fullness (top or bottom)?',
             subtext: true,
             text: "Your nipples' location on your breasts indicates where most of your breast tissue is location. Pick the image that best represents your breasts. If you want more info regarding fullness, check out our article.",
             type: 'image',
+            optionsText: '',
             options: [
                 'Full on Bottom ~ Nipples are Above Dotted Line.',
                 'Full on Top ~ Nipples are Below Dotted Line.',
@@ -249,12 +207,14 @@ export default function Questions() {
                 '/question19/full_on_top.png',
                 '/question19/even_dist.png',
             ],
+            link: false,
         },
         {
             question: 'What is your breast fullness (outer or inner)?',
             subtext: true,
             text: "Your nipples' location on your breasts indicates where most of your breast tissue is located. Pick the image that best represents your breasts. If you want more info regarding fullness, check out our article.",
             type: 'image',
+            optionsText: '',
             options: [
                 'Outer Fullness ~ Nipples are Towards each other.',
                 'Inner Fullness ~ Nipples are Opposite of Each Other.',
@@ -266,12 +226,14 @@ export default function Questions() {
                 '/question20/inner_fullness.png',
                 '/question20/even_dist.png',
             ],
+            link: false,
         },
         {
-            question: 'Are your boobs soft or firm?',
+            question: 'Are your breasts soft or firm?',
             subtext: true,
             text: 'Use your fingers to tape on one of your breasts. Watch if your breast ripples in response to your touch. The results will determine the softness or firmness of your breast tissue. Breast firmness or softness may change',
             type: 'image',
+            optionsText: '',
             options: [
                 'Soft ~ Fingers do not bounce back, indent is made in your skin in response to finger.',
                 'Medium ~ Finger does not bounce back and ripple is super quick yet still noticeable.',
@@ -283,77 +245,110 @@ export default function Questions() {
                 '/question21/soft.gif',
                 '/question21/firm.png',
             ],
+            link: false,
         },
         {
-            question:
-                'Lay your hand on your chest, how many fingers fit between your breasts?',
+            question: 'Lay your hands on your chest, how many fingers fit between your breasts?',
             subtext: true,
-            text: 'Use your fingers to measure the space between your breast as shown in the image on the right.',
-            type: 'mcIMG',
-            image: '/betweenBreasts.svg',
+            text: 'Use your fingers to measure the space between your breast as shown in the image to your right.',
+            type: 'mc',
             options: ['0', '1', '2', '3+'],
             select: 'one',
         },
+        {
+            question:
+                'Let\'s determine your breast height',
+            subtext: true,
+            text: 'Your breast root is the point on the body where your breast tissue starts and ends.',
+            type: 'image',
+            optionsText: 'Breast Height',
+            imageNames: [
+                '/question20/outer_fullness.png',
+                '/question20/inner_fullness.png',
+                '/question20/even_dist.png',
+            ],
+            options: ['High', 'Medium', 'Low'],
+            link: true,
+            select: 'multiple',
+        },
+        {
+            question:
+                'Let\'s determine your breast projection',
+            subtext: true,
+            text: 'Project is how much your breasts stick out in proportion to how much surface area they take up on your chest.',
+            type: 'image',
+            optionsText: 'Breast Projection',
+            imageNames: [
+                '/question20/outer_fullness.png',
+                '/question20/inner_fullness.png',
+            ],
+            options: ['Shallow', 'Projected'],
+            link: true,
+            select: 'multiple',
+        },
+        {
+            question:
+                'Let\'s determine your breast width',
+            subtext: true,
+            text: 'Project is how much your breasts stick out in proportion to how much surface area they take up on your chest.',
+            type: 'image',
+            optionsText: 'Breast Width',
+            imageNames: [
+                '/question20/outer_fullness.png',
+                '/question20/inner_fullness.png',
+                '/question20/even_dist.png',
+            ],
+            options: ['Narrow Width', 'Medium Width', 'Wide Width'],
+            link: true,
+            select: 'multiple',
+        },
+        {
+            question:
+                'What is your breast type?',
+            subtext: true,
+            text: 'We offer a lot of choices. Please pick as many as you like! Read more about each type on our website!',
+            type: 'image',
+            optionSubtext: 'Choose as many as you would like.',
+            imageNames: [
+                '/question20/outer_fullness.png',
+                '/question20/inner_fullness.png',
+                '/question20/even_dist.png',
+            ],
+            options: ['Narrow Width', 'Medium Width', 'Wide Width'],
+            link: true,
+            select: 'multiple',
+        },
+
         {
             question: 'Measuring Your Breasts',
             subtext: true,
             text: 'For this portion of our quiz, you will need to be in a private setting in order to complete your self-sizing. All measurements should be taken on naked breasts. We will provide instructional videos for each step. Please take your soft measuring tape provided in the packaging and input your measurements according to the question. Please use inches when measuring. This will take about five minutes. Your responses are confidential.',
             type: 'break',
-            select: 'one',
+            image: '/MeasuringYourBreasts.jpeg',
         },
         {
-            question: 'Measure your under bust loosely (in inches)',
+            question: 'Have you taken the /ABraThatFits quiz?',
             subtext: true,
-            text: 'Sitting down, measure right underneath your breasts as depicted in the image. The tape should NOT dig in at all.',
-            type: 'textIMG',
-            image: '/loosely.svg',
+            text: 'This is the most accurate bra measurement that we base our sizes off of.',
+            type: 'mc',
+            options: ['Yes', 'No'],
             select: 'one',
         },
+        // {
+        //     question: 'Enter your /ABraThatFits size.',
+        //     subtext: true,
+        //     text: 'This should be based on your already taken quiz, please use US or UK sizes.',
+        //     type: 'dropdown',
+        //     options: ['A', 'B', 'C', 'D', 'E', 'F'],
+        //     select: 'one',
+        // },
         {
-            question: 'Measure your under bust normally (in inches)',
+            question: 'Quiz Complete!',
             subtext: true,
-            text: 'Sitting down, measure right underneath your breast as depicted in the image. The tape should dig in a little, the tape should be as snug as you want the bra to be.',
-            type: 'textIMG',
-            image: '/loosely.svg',
-            select: 'one',
-        },
-        {
-            question: 'Measure your under bust tightly (in inches)',
-            subtext: true,
-            text: 'Sitting down, measure right underneath your breast as depicted in the first image. The tape should be as tight as possible.',
-            type: 'textIMG',
-            image: '/loosely.svg',
-            select: 'one',
-        },
-        {
-            question: 'Measure your standing bust (in inches)',
-            subtext: true,
-            text: 'Stand up straight and measure loosely around the fullest part of your breasts as depicted in the image.',
-            type: 'textIMG',
-            image: '/loosely.svg',
-            select: 'one',
-        },
-        {
-            question: 'Measure your bust while you lean over (in inches)',
-            subtext: true,
-            text: 'Bend over at a 90-degree angle and measure loosely around the fullest part of your breasts as depicted in the image.',
-            type: 'textIMG',
-            image: '/bent.svg',
-            select: 'one',
-        },
-        {
-            question: 'Measure your bust while you lie on the ground (in inches)',
-            subtext: true,
-            text: 'Lie on your back and measure loosely around the fullest part of your breasts as depicted in the image below.',
-            type: 'textIMG',
-            image: '/laying.svg',
-            select: 'one',
-        },
-        {
-            question: 'All done!',
-            subtext: false,
+            text: 'Now it is time to get your results! Create your account and if you need to change any of your answers in the future you can access the quiz through your profile.',
             type: 'break',
-            select: 'one',
+            image: '/QuizComplete.jpeg',
+            // select: 'one',
         },
     ];
 
@@ -502,6 +497,7 @@ export default function Questions() {
     useEffect(() => {
         setSel(multAnswers);
     }, [multAnswers]);
+    console.log(questionsArray[index].question);
     if (questionsArray[index].type == "break") {
         return (
             <div className="question1-wrapper">
@@ -512,19 +508,6 @@ export default function Questions() {
                     }
                 >
                     <div id="scroll"></div>
-                    {/* enable back button if index is not 0 */}
-                    {index === 0 ? null : (
-                        <Link href="#scroll">
-                            <Button
-                                onClick={handleBack}
-                                variant="outlined"
-                                className="question_back_button"
-                                startIcon={<ArrowBackIcon />}
-                            >
-                                back
-                            </Button>
-                        </Link>
-                    )}
                     {/* Defining first intro question */}
                     {/* end */}
                     <div className="question_block">
@@ -550,24 +533,49 @@ export default function Questions() {
                                 : "question_no_break_container"
                         }
                         >
-                            <div className="question_next_container">
+                            {index === questionsArray.length - 1 ? (
+                                <Button
+                                    // onClick={postUser}
+                                    variant="filled"
+                                    className="question_end_button"
+                                >
+                                    Submit
+                                </Button>
+                            ) : (
+                                <div className="question_next_container">
+                                    <Link href="#scroll">
+                                        <Button
+                                            onClick={handleClick}
+                                            variant="outlined"
+                                            className="question_next_button"
+                                            endIcon={<CheckIcon />}
+                                        >
+                                            OK
+                                        </Button>
+                                    </Link>
+
+                                    <h1 className="question_next_enter"
+                                    >
+                                        press <b>Enter</b>
+                                    </h1>
+                                </div>
+                            )}
+                        </div>
+                        {/* enable back button if index is not 0 */}
+                        {index === 0 ? null : (
+                            <div className="question_back_button_wrap">
                                 <Link href="#scroll">
                                     <Button
-                                        onClick={handleClick}
+                                        onClick={handleBack}
                                         variant="outlined"
-                                        className="question_next_button"
-                                        endIcon={<CheckIcon />}
+                                        className="question_back_button"
+                                        startIcon={<ArrowBackIcon />}
                                     >
-                                        OK
+                                        back
                                     </Button>
                                 </Link>
-
-                                <h1 className="question_next_enter"
-                                >
-                                    press <b>Enter</b>
-                                </h1>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div >
             </div>
@@ -657,7 +665,7 @@ export default function Questions() {
                 {/* displays image */}
                 {questionsArray[index].type === 'image' ? (
                     <>
-                        <div className="question_choose">Choose as many as you would like.</div>
+                        <div className="question_choose">{questionsArray[index].optionsText}</div>
                         <div className="question_images_container"
                         >
                             {questionsArray[index].options.map((choices) => (
@@ -695,6 +703,7 @@ export default function Questions() {
                         </div>
                     </>
                 ) : null}
+                {questionsArray[index].type === 'image' && questionsArray[index].link ? <div className="quiz-link">More Info ></div> : null}
                 <div className={
                     questionsArray[index].type === 'break'
                         ? "question_break_container"
@@ -703,13 +712,14 @@ export default function Questions() {
                 >
                     {/* if next question is valid, not the end: display next button */}
                     {index === questionsArray.length - 1 ? (
-                        <Button
-                            onClick={postUser}
+                        <><Button
+                            // onClick={postUser}
                             variant="filled"
                             className="question_end_button"
                         >
                             Submit
                         </Button>
+                            <Button onClick={router.push('\about')}>Push to go to about</Button></>
                     ) : (
                         <div className="question_next_container">
                             <Link href="#scroll">
