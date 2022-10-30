@@ -4,7 +4,7 @@ const nextConfig = {
 };
 
 module.exports = {
-  nextConfig,
+  reactStrictMode: true,
 
   async headers() {
     return [

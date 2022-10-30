@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
-import globalVal from "./global";
+import globalVal from "../middleware/global";
 import { positions } from '@mui/system';
 import { Padding } from '@mui/icons-material';
 import { autocompleteClasses } from '@mui/material';
