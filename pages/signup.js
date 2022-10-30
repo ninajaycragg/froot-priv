@@ -27,7 +27,7 @@ export default function Signup() {
   function signupUser(event) {
     event.preventDefault();
 
-    // Create a mongodb user to save other user data
+    // Create a mongodb user to save other user data data
     const newUser = {
       email: inputs["email"],
       password: inputs["password"],
