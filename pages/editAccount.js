@@ -48,7 +48,7 @@ export default function editAccount() {
             .then(data => {
                 if (data.message) { window.alert(data.message) }
                 else {
-                    if (inputs["email"].length != 0) {
+                    if (inputs["email"] !== undefined && inputs["email"].length != 0) {
                         globalVal.email = inputs["email"];
                     }
                     window.alert("Successfully updated your profile!");
