@@ -138,4 +138,34 @@ userRoutes.route('/user/editAccount').put(async function (req, response) {
   });
 });
 
+userRoutes.route('/user/brands').post(async (req, response) => {
+  let db_connect = dbo.getDb();
+
+  // check that the user exists in DB / get info
+  let user = await db_connect.collection('users').findOne({ email: req.body.email });
+  if (!user) {
+    console.log('AHHHHHHHHHHH', req.body.email);
+    return response.status(409).json({ message: `Account does not exist. ${req.body.email}` });
+  }
+
+  let braSize = user.questions[0];
+  let band = braSize.substr(0, 2);
+  let cup = braSize.substr(2);
+
+  if (cup.length > 1 && cup.charAt(0) != 'A') {
+    if (cup.length == 2) {
+      cup = cup.charAt(0) - 1;
+    }
+    else {
+      cup = cup.charAt(0) - 2;
+    }
+  }
+
+  console.log('Bra Size:', braSize);
+
+  return response.json({
+    bra: braSize
+  })
+});
+
 module.exports = userRoutes;
