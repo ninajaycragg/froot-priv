@@ -1,26 +1,40 @@
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
-import { signOut } from 'firebase/auth';
+// import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import { auth } from '../firebase-config';
+// import { auth } from '../firebase-config';
+import React, { useEffect } from 'react';
+import globalVal from "../middleware/global";
+import next from 'next';
 
 export default function Nav() {
-  const user = auth.currentUser;
+  const [user, setUser] = React.useState([""]);
+
+  useEffect(() => {
+    fetch('http://localhost:5001/user/auth', {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUser(data.email);
+        // window.alert(user);
+      })
+  }, [globalVal])
+
+  // const user = auth.currentUser;
   const router = useRouter();
 
   const handleClick = (e) => {
     e.preventDefault();
-    signOut(auth)
-      .then(() => {
-        router.push('/quiz');
-      })
-      .catch((error) => {
-        // An error happened.
-      });
+    localStorage.removeItem('token');
+
+    router.push('/login').then(() => router.reload());
   };
   // logged in nav
-  if (user) {
+  if (user !== undefined) {
     return (
       <div
         style={{

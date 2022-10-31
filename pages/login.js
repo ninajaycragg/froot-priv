@@ -59,7 +59,12 @@ export default function Login() {
             .then(res => res.json())
             .then(data => {
                 // console.log(`data useefect: ${data.isLoggedIn}`);
-                data.isLoggedIn ? router.push('/quiz') : null
+                if (data.isLoggedIn) {
+                    router.push('/quiz').then(() => router.reload());
+                }
+                else {
+                    null;
+                }
             })
     }, [token])
 
