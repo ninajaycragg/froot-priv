@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import CheckIcon from '@mui/icons-material/Check';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
@@ -15,8 +18,10 @@ let tog = 1
 export default function Questions() {
     const [index, setIndex] = useState(0);
     const [sel, setSel] = useState('');
+    const [sel2, setSel2] = useState('');
     const [answers, setAnswers] = useState([]);
     const [multAnswers, setMult] = useState([]);
+    const [hasTaken, setHasTaken] = useState(false);
     const router = useRouter();
     function handleRedirection(e) {
         e.preventDefault();
@@ -38,31 +43,31 @@ export default function Questions() {
         //     type: 'text',
         //     select: 'one',
         // },
-        // {
-        //     question: 'How old are you?',
-        //     subtext: true,
-        //     text: 'This helps us understand your breast type.',
-        //     type: 'dropdown',
-        //     options: ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"],
-        //     select: 'one',
-        // },
-        // {
-        //     question: 'What gender do you identify with?',
-        //     subtext: true,
-        //     text: 'Select all that apply! This can affect how a bra fits and what we recommend!',
-        //     type: 'tag',
-        //     options: ["Cisgender", "Female", "Male", "Fluid", "Genderqueer", "Transsexual", "Non-binary", "Gender Neutral", "Other", "Prefer Not to Say"],
-        //     select: 'multiple',
-        // },
-        // {
-        //     question:
-        //         'Any medical concerns regarding your breasts that you would like us to know?',
-        //     subtext: true,
-        //     text: 'Select all that apply! Knowing this can help us recommend the right bra to you. If none do, select that.',
-        //     type: 'tag',
-        //     options: ["None", "Breast Augmentation", "Shoulder Pain", "Nerve Pain", "Sensitive Skin", "Mastectomy", "Breast Cancer", "Fabric / Material Allergy", "Back Issues", "Pregnant", "Breastfeeding", "Breast Pain", "Other", "Prefer not to say", "Breast Size Fluctiations"],
-        //     select: 'multiple',
-        // },
+        {
+            question: 'How old are you?',
+            subtext: true,
+            text: 'This helps us understand your breast type.',
+            type: 'dropdown',
+            options: ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"],
+            select: 'one',
+        },
+        {
+            question: 'What gender do you identify with?',
+            subtext: true,
+            text: 'Select all that apply! This can affect how a bra fits and what we recommend!',
+            type: 'tag',
+            options: ["Cisgender", "Female", "Male", "Fluid", "Genderqueer", "Transsexual", "Non-binary", "Gender Neutral", "Other", "Prefer Not to Say"],
+            select: 'multiple',
+        },
+        {
+            question:
+                'Any medical concerns regarding your breasts that you would like us to know?',
+            subtext: true,
+            text: 'Select all that apply! Knowing this can help us recommend the right bra to you. If none do, select that.',
+            type: 'tag',
+            options: ["None", "Breast Augmentation", "Shoulder Pain", "Nerve Pain", "Sensitive Skin", "Mastectomy", "Breast Cancer", "Fabric / Material Allergy", "Back Issues", "Pregnant", "Breastfeeding", "Breast Pain", "Other", "Prefer not to say", "Breast Size Fluctiations"],
+            select: 'multiple',
+        },
         {
             question: 'Figuring Out Your Style',
             subtext: true,
@@ -334,14 +339,27 @@ export default function Questions() {
             options: ['Yes', 'No'],
             select: 'one',
         },
-        // {
-        //     question: 'Enter your /ABraThatFits size.',
-        //     subtext: true,
-        //     text: 'This should be based on your already taken quiz, please use US or UK sizes.',
-        //     type: 'dropdown',
-        //     options: ['A', 'B', 'C', 'D', 'E', 'F'],
-        //     select: 'one',
-        // },
+        {
+            question: 'Let\'s figure out your bra size',
+            subtext: true,
+            text: 'Please fill this out according to your size.',
+            type: 'iframe'
+        },
+        {
+            question: 'Enter your /ABraThatFits size.',
+            subtext: true,
+            text: 'This should be based on your already taken quiz, please use US or UK sizes.',
+            type: 'multDropdowns',
+            options: [{
+                key: "Band Size",
+                value: ['28', '30', '32', '34', '36', '38', '40', '42', '44', '46']
+            }, {
+                key: "Cup Size",
+                value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'DDD']
+            }
+            ],
+            select: 'one',
+        },
         {
             question: 'Quiz Complete!',
             subtext: true,
@@ -426,11 +444,22 @@ export default function Questions() {
         setSel(e.target.value);
     };
 
+    const handleOtherDropdown = (e) => {
+        setSel2(e.target.value);
+    };
+
     const handleClick = () => {
         // setAnswers([...answers, sel]);
+        //window.alert(index);
         if (index <= answers.length) {
             const newAnswers = [...answers];
-            newAnswers[index] = sel;
+            if (index == answers.length - 1) {
+                const temp = [sel, sel2];
+                newAnswers[index] = temp;
+            }
+            else {
+                newAnswers[index] = sel;
+            }
             setAnswers(newAnswers);
             setIndex((index += 1));
             setSel('');
@@ -444,14 +473,21 @@ export default function Questions() {
                 setMult(answers[index]);
                 setSel(multAnswers);
             } else {
-                setSel(answers[index]);
+                if (index == answers.length - 1) {
+                    setSel(answers[index][0]);
+                    setSel2(answers[index][1]);
+                }
+                else {
+                    setSel(answers[index]);
+                }
             }
         } else {
             if (questionsArray[index].select === 'multiple') {
                 setMult([]);
                 setSel([]);
             } else {
-                setSel('');
+                setSel([]);
+                setSel2([]);
             }
         }
     };
@@ -470,14 +506,23 @@ export default function Questions() {
     });
 
     const handleChoose = (i) => {
+        if (questionsArray[index].question == 'Have you taken the /ABraThatFits quiz?'
+            && i == 'Yes') {
+            setHasTaken(true);
+        }
+        else if (questionsArray[index].question == 'Have you taken the /ABraThatFits quiz?'
+            && i == 'No') {
+            setHasTaken(false);
+        }
+
         if (questionsArray[index].select === 'multiple') {
             if (multAnswers.includes(i)) {
                 const copy = multAnswers.filter((choice) => choice !== i);
                 setMult(copy);
-                // setSel(multAnswers);
+                setSel(multAnswers);
             } else {
                 setMult([...multAnswers, i]);
-                // setSel(multAnswers);
+                setSel(multAnswers);
             }
         } else if (i !== sel) {
             setSel(i);
@@ -485,12 +530,21 @@ export default function Questions() {
     };
 
     const handleBack = () => {
+        if (hasTaken) {
+            setIndex(index -= 1);
+        }
         setIndex((index -= 1));
         if (questionsArray[index].select === 'multiple') {
             setMult(answers[index]);
             setSel(multAnswers);
         } else {
-            setSel(answers[index]);
+            if (index == answers.length - 1) {
+                setSel(answers[index][0]);
+                setSel2(answers[index][1]);
+            }
+            else {
+                setSel(answers[index]);
+            }
         }
     };
     //onclick change color: setCSS on click?
@@ -581,6 +635,10 @@ export default function Questions() {
             </div>
         )
     }
+    else if (questionsArray[index].type == 'iframe' && hasTaken) {
+        setIndex((index += 1));
+        return (null);
+    }
     else return (
         // come back and change this
         //example conditional change css
@@ -641,6 +699,84 @@ export default function Questions() {
                         />
                     </div>
                 ) : null}
+                {questionsArray[index].type === 'dropdown' ? (
+                    <div className="question_text_options_container"
+                    >
+                        <Select
+                            className="question_dropdown"
+                            value={sel}
+                            label="Age"
+                            onChange={handleChange}
+                        >
+                            {questionsArray[index].options.map((choices) => (
+                                <MenuItem value={choices}>{choices}</MenuItem>
+                            ))}
+                        </Select>
+
+                    </div>
+                ) : null}
+                {questionsArray[index].type === 'multDropdowns' ? (
+                    <div className="question_dropdown_options_container">
+                        {/* {questionsArray[index].options.map((choices) => ( */}
+                        <div className="question_dropdown_sub_options_container"
+                        >
+                            <InputLabel id={questionsArray[index].options[0].key}>{questionsArray[index].options[0].key}</InputLabel>
+                            <Select
+                                labelId={questionsArray[index].options[0].key}
+                                className="question_dropdown"
+                                value={sel}
+                                onChange={handleChange}
+                            >
+                                {questionsArray[index].options[0].value.map((choice) => (
+                                    <MenuItem value={choice}>{choice}</MenuItem>
+                                ))}
+                            </Select>
+                        </div>
+                        <div className="question_dropdown_sub_options_container"
+                        >
+                            <InputLabel id={questionsArray[index].options[1].key}>{questionsArray[index].options[1].key}</InputLabel>
+                            <Select
+                                labelId={questionsArray[index].options[1].key}
+                                className="question_dropdown"
+                                value={sel2}
+                                onChange={handleOtherDropdown}
+                            >
+                                {questionsArray[index].options[1].value.map((choice) => (
+                                    <MenuItem value={choice}>{choice}</MenuItem>
+                                ))}
+                            </Select>
+                        </div>
+                        {/* ))} */}
+
+
+                    </div>
+                ) : null}
+                {questionsArray[index].type === 'tag' ? (
+                    <div className="question_tags_container">
+                        {questionsArray[index].options.map((choices) => (
+                            <Button
+                                variant="outlined"
+                                key={choices}
+                                id={choices}
+                                className={
+                                    sel === choices || (questionsArray[index].select === 'multiple' &&
+                                        multAnswers.includes(choices))
+                                        ? "question_tag_selected"
+                                        : "question_tag"
+                                }
+                                onClick={() => handleChoose(choices)}
+                            >
+                                {choices}
+                            </Button>
+                        ))}
+                    </div>
+                ) : null}
+                {questionsArray[index].type == 'iframe' ? (
+                    <div>
+                        <iframe src="https://www.abrathatfits.org/calculator.php" height={500} width={500} />
+                    </div>
+                ) : null}
+
                 {/* displays multiple choices or not */}
                 {questionsArray[index].type === 'mc' ||
                     questionsArray[index].type === 'mcIMG' ? (
