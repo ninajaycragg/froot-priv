@@ -26,7 +26,7 @@ export default function Login() {
             password: inputs["password"],
         };
 
-        fetch('https://froot-priv-wmj71oanp-your-froot.vercel.app/user/loginUser', {
+        fetch('/user/loginUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
