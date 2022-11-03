@@ -43,13 +43,6 @@ export default function Questions() {
             type: 'break',
             image: '/LetGetToKnowYou.jpeg'
         },
-        // {
-        //     question: 'What is your name?',
-        //     subtext: true,
-        //     text: 'It can be a nickname or a name you preferred to be called.',
-        //     type: 'text',
-        //     select: 'one',
-        // },
         {
             question: 'How old are you?',
             subtext: true,
@@ -896,6 +889,7 @@ export default function Questions() {
                                 back
                             </Button>
                         </Link>
+                        
                     </div>
                 )}
             </div>

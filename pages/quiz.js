@@ -1,8 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
-import Image from 'next/image';
-import { auth } from '../firebase-config';
+import Image from 'next/image'; import globalVal from "../middleware/global";
 
 export default function Quiz() {
   return (
