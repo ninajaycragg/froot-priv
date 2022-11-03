@@ -68,7 +68,6 @@ userRoutes.route('/user/loginUser').post(async (req, response) => {
   if (!validPassword) {
     return response.status(409).json({ message: 'Incorrect password.' });
   }
-  console.log("FDFDFD");
 
   jwt.sign(
     { email: user.email },
