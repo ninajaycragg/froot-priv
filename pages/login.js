@@ -26,7 +26,7 @@ export default function Login() {
             password: inputs["password"],
         };
 
-        fetch('http://localhost:5001/user/loginUser', {
+        fetch(`https://froot-priv.vercel.app/user/loginUser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function Login() {
 
     useEffect(() => {
         // console.log(`useeffect: ${localStorage.getItem('token')}`);
-        fetch('http://localhost:5001/user/auth', {
+        fetch(`https://froot-priv.vercel.app/user/auth`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
@@ -59,7 +59,12 @@ export default function Login() {
             .then(res => res.json())
             .then(data => {
                 // console.log(`data useefect: ${data.isLoggedIn}`);
-                data.isLoggedIn ? router.push('/quiz') : null
+                if (data.isLoggedIn) {
+                    router.push('/quiz').then(() => router.reload());
+                }
+                else {
+                    null;
+                }
             })
     }, [token])
 
