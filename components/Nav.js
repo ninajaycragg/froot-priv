@@ -1,12 +1,28 @@
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
-import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import { auth } from '../firebase-config';
+import React, { useEffect } from 'react';
+import globalVal from "../middleware/global";
+import next from 'next';
 
 export default function Nav() {
-  const user = auth.currentUser;
+  const [user, setUser] = React.useState([""]);
+
+  useEffect(() => {
+    fetch('https://froot-priv.vercel.app/user/auth', {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUser(data.email);
+        // window.alert(user);
+      })
+  }, [globalVal])
+
+  // const user = auth.currentUser;
   const router = useRouter();
 
   const handleClick = (e) => {
@@ -20,7 +36,7 @@ export default function Nav() {
       });
   };
   // logged in nav
-  if (user) {
+  if (user !== undefined) {
     return (
       <div
         style={{
