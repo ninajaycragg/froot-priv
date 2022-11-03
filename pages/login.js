@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { positions } from '@mui/system';
 import { Padding } from '@mui/icons-material';
 import PropTypes from 'prop-types';
-
+import fetch from 'node-fetch';
 export default function Login() {
     const [inputs, setInputs] = useState({});
     const [token, setToken] = useState({});
