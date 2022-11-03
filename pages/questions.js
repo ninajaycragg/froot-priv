@@ -30,6 +30,13 @@ export default function Questions() {
 
     const questionsArray = [
         {
+            question: 'Welcome to Froot',
+            subtext: true,
+            text: "The following questionnaire helps our team at Froot best understand your size, desired fit, and style. Please take this test in a private and comfortable setting as you will have to undress for the self-sizing portion of our quiz.",
+            type: 'break',
+            image: '/WelcomeToFroot.jpeg'
+        },
+        {
             question: 'Let’s get to know you!',
             subtext: true,
             text: "The Froot team realizes that knowing a bit about who you are, not just your boobs, can help us find your perfect bra. So let's get to know you with a few key questions!",
@@ -591,7 +598,7 @@ export default function Questions() {
                                 <Button
                                     // onClick={postUser}
                                     variant="filled"
-                                    className="question_end_button"
+                                    className="question_end__button"
                                 >
                                     Submit
                                 </Button>
@@ -622,8 +629,8 @@ export default function Questions() {
                                     <Button
                                         onClick={handleBack}
                                         variant="outlined"
-                                        className="question_back_button"
-                                        startIcon={<ArrowBackIcon />}
+                                        className="question_back_break_button"
+                                        endIcon={<ArrowBackIcon />}
                                     >
                                         back
                                     </Button>
@@ -876,13 +883,6 @@ export default function Questions() {
                         </div>
                     )}
                 </div>
-
-                {/* <div>
-          <button onClick={postUser}>post user</button>
-        </div>
-        <div>
-          <button onClick={postBlog}>post blog</button>
-        </div> */}
                 {/* enable back button if index is not 0 */}
                 {index === 0 ? null : (
                     <div className="question_back_button_wrap">

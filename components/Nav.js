@@ -13,7 +13,7 @@ export default function Nav() {
     e.preventDefault();
     signOut(auth)
       .then(() => {
-        router.push('/quiz');
+        router.push('/questions');
       })
       .catch((error) => {
         // An error happened.

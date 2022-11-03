@@ -42,7 +42,7 @@
 .menu-toggle {
     margin-bottom: 10%;
     float: right;
-    padding-top: 3%;
+    padding-top: 5%;
     padding-right: 3%;
     padding-left: 3%;
 }
@@ -77,9 +77,9 @@
     /* margin-top: 1%;
     margin-left: 2%; */
     /* padding: -4%; */
-    padding-top: 3%;
-    padding-right: 3%;
-    padding-left: 3%;
+    padding-top: 5%;
+    padding-right: 5%;
+    padding-left: 5%;
 }
 
 .delete-menu {
@@ -116,13 +116,23 @@
         display: block;
         width: 100%;
         margin-left: 0%;
-        padding-right: 3%;
-        padding-left: 5%;
-        padding-top: 5%;
+        /* padding-right: 3%; */
+        /* padding-left: 5%;
+        padding-top: 5%; */
     }
 
     .delete-menu {
         width: 8%;
         margin-left: 85%;
+    }
+
+    .mobile-logo {
+        padding-left: 7%;
+        padding-top: 6%;
+    }
+
+    .menu-toggle {
+        padding-right: 6%;
+        padding-top: 5%;
     }
 }

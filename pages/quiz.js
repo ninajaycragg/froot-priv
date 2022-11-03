@@ -32,7 +32,7 @@ export default function Quiz() {
           size="small"
           className="start-button"
         >
-          <Link href={'/quizIntro'}>Start the Quiz</Link>
+          <Link href={'/questions'}>Start the Quiz</Link>
         </Button>
       </div>
     </div>

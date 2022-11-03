@@ -8,7 +8,7 @@ export default function Home() {
   const router = useRouter();
   const handleQuizClick = () => {
     console.log("click");
-    router.push('/quizIntro');
+    router.push('/questions');
   };
   return (
     <div className="index_body">

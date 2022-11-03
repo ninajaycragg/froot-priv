@@ -28,7 +28,7 @@ export default function MobileNav() {
           <hr />
           <div className="item">The Froot Salad</div>
           <hr />
-          <Link href="/quizIntro">Quiz</Link>
+          <Link href="/quiz">Quiz</Link>
           <hr />
           <div className="item">Store</div>
           <hr />
