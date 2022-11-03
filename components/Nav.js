@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
-// import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
-// import { auth } from '../firebase-config';
 import React, { useEffect } from 'react';
 import globalVal from "../middleware/global";
 import next from 'next';
@@ -12,7 +10,7 @@ export default function Nav() {
   const [user, setUser] = React.useState([""]);
 
   useEffect(() => {
-    fetch('http://localhost:5001/user/auth', {
+    fetch('https://froot-priv-wmj71oanp-your-froot.vercel.app/user/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }

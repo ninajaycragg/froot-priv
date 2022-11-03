@@ -26,7 +26,7 @@ export default function Login() {
             password: inputs["password"],
         };
 
-        fetch('http://localhost:5001/user/loginUser', {
+        fetch('https://froot-priv-wmj71oanp-your-froot.vercel.app/user/loginUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function Login() {
 
     useEffect(() => {
         // console.log(`useeffect: ${localStorage.getItem('token')}`);
-        fetch('http://localhost:5001/user/auth', {
+        fetch('https://froot-priv-wmj71oanp-your-froot.vercel.app/user/auth', {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
