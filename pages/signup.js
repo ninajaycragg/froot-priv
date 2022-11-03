@@ -45,7 +45,7 @@ export default function Signup() {
     info.push(newUser)
     info.push(fields);
 
-    fetch('https://froot-priv-wmj71oanp-your-froot.vercel.app/user/add', {
+    fetch('http://localhost:5001/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    fetch('https://froot-priv-wmj71oanp-your-froot.vercel.app/user/auth', {
+    fetch('http://localhost:5001/user/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }
