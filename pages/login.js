@@ -26,7 +26,7 @@ export default function Login() {
             password: inputs["password"],
         };
 
-        fetch('user/loginUser', {
+        fetch('https://data.mongodb-api.com/app/data-fhwnd/endpoint/data/v1/user/loginUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function Login() {
 
     useEffect(() => {
         // console.log(`useeffect: ${localStorage.getItem('token')}`);
-        fetch('user/auth', {
+        fetch('https://data.mongodb-api.com/app/data-fhwnd/endpoint/data/v1/user/auth', {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
