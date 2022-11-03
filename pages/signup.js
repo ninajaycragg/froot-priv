@@ -45,7 +45,7 @@ export default function Signup() {
     info.push(newUser)
     info.push(fields);
 
-    fetch('https://froot-priv.vercel.app/user/add', {
+    fetch('https://froot-priv-git-accountbackend-your-froot.vercel.app/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    fetch('https://froot-priv.vercel.app/user/auth', {
+    fetch('https://froot-priv-git-accountbackend-your-froot.vercel.app/user/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }
