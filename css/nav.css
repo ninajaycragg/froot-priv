@@ -1,14 +1,56 @@
 .default-nav {
-    width: 100vw;
     display: flex;
     justify-content: space-around;
-    padding-top: 0.8%;
+    padding-top: 2%;
     padding-bottom: 0.8%;
-    background-color: #FAF8F1;
+    position: absolute;
+    width: 100%;
 }
 
-@media only screen and (max-width: 450px) {
+.default-nav-wrapper {
+    width: 15%;
+    margin: auto;
+}
+
+.icon-wrapper {
+    width: 15%;
+    display: flex;
+    /* margin-left: 5%; */
+
+}
+
+.user-logo {
+    width: 2%;
+    margin-right: 5%;
+    margin-left: 13%;
+}
+
+.default-nav-link-wrapper {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    font-size: 80%;
+    font-weight: 500;
+    font-family: Inter;
+    letter-spacing: 1px;
+}
+
+.default-nav-link {
+    margin: 50%;
+    /* font-size: 3%; */
+}
+
+.default-nav-icon-wrapper {
+    width: 15%;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@media only screen and (max-width: 1000px) {
     .default-nav {
         visibility: hidden;
+        display: none;
     }
 }
