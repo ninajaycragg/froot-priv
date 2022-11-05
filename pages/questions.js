@@ -599,9 +599,9 @@ export default function Questions() {
                                 <div className="question_next_container">
                                     <Link href="#scroll">
                                         <Button
+                                            className="question_next_button"
                                             onClick={handleClick}
                                             variant="outlined"
-                                            className="question_next_button"
                                             endIcon={<CheckIcon />}
                                         >
                                             OK
