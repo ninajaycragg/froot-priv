@@ -225,6 +225,16 @@
 
 }
 
+.css-79xub {
+    background-color: transparent;
+    color: black;
+}
+
+.css-79xub:hover {
+    background-color: transparent;
+    color: black;
+}
+
 .question_next_button:hover {
     cursor: pointer;
     background-color: #FAF8F1;
