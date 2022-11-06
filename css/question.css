@@ -228,11 +228,14 @@
 .css-79xub {
     background-color: transparent;
     color: black;
+    border: 1px solid black;
 }
 
 .css-79xub:hover {
+    cursor: pointer;
     background-color: transparent;
     color: black;
+    border: 1px solid black;
 }
 
 .question_next_button:hover {
