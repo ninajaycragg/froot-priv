@@ -52,7 +52,7 @@
 }
 
 .question_count {
-    font-family: Inter;
+    font-family: 'Inter';
     font-weight: 700;
     font-size: 100%;
     margin-top: 8%;
@@ -84,7 +84,7 @@
 
 .question_title {
     font-size: 150%;
-    font-family: Tiempos Headline;
+    font-family: 'Tiempos Headline';
     font-weight: 400;
     font-style: italic;
     margin-top: 0;
@@ -155,7 +155,7 @@
     margin: 0;
     margin-top: 20px;
     margin-bottom: 20px;
-    font-family: Inter;
+    font-family: 'Inter';
     font-weight: 700;
     font-size: 14px;
 }
@@ -167,7 +167,7 @@
     font-weight: 400;
     margin: 0;
     padding: 0;
-    font-family: Inter;
+    font-family: 'Inter';
     font-weight: 400;
     font-size: 15px;
 }
@@ -204,10 +204,20 @@
 
 }
 
-.question_next_button {
+/* .question_next_button {
     border-radius: 5px;
     width: 15%;
-    font-family: Inter;
+    font-family: 'Inter';
+    background-color: #FAF8F1;
+    color: black;
+    padding: 1%;
+    border: 1px solid black;
+
+} */
+.question_next_button {
+    border-radius: 5px;
+    width: 17%;
+    font-family: 'Inter';
     background-color: #FAF8F1;
     color: black;
     padding: 1%;
@@ -223,7 +233,7 @@
 
 .question_next_enter {
     color: #670224;
-    font-family: Inter;
+    font-family: 'Inter';
     font-weight: 400;
     font-size: 100%;
     margin-left: 2%;
@@ -239,7 +249,7 @@
 .question_back_button {
     border-radius: 5px;
     width: 6%;
-    font-family: Inter;
+    font-family: 'Inter';
     background-color: #FAF8F1;
     color: black;
     padding: 0.5%;
@@ -253,7 +263,7 @@
 .question_back_break_button {
     border-radius: 5px;
     width: 6%;
-    font-family: Inter;
+    font-family: 'Inter';
     background-color: #FAF8F1;
     color: black;
     padding: 0.5%;
@@ -289,14 +299,14 @@
 .question_text_box {
     width: 100%;
     margin-bottom: 5%;
-    font-family: Inter;
+    font-family: 'Inter';
     margin-top: 20px;
 }
 
 .question_dropdown {
     width: 50%;
     margin-bottom: 5%;
-    font-family: Inter;
+    font-family: 'Inter';
     margin-top: 20px;
 }
 
@@ -318,7 +328,7 @@
     padding-left: 5%;
     padding-right: 5%;
     text-transform: capitalize;
-    font-family: Inter;
+    font-family: 'Inter';
     border: none
 }
 
@@ -330,7 +340,7 @@
     padding-left: 5%;
     padding-right: 5%;
     text-transform: capitalize;
-    font-family: 'Inter';
+    font-family: '' Inter'';
     border: 1px solid black;
 }
 
@@ -350,7 +360,7 @@
     padding-left: 5%;
     padding-right: 5%;
     text-transform: capitalize;
-    font-family: Inter;
+    font-family: 'Inter';
     border: none
 }
 

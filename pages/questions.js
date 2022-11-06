@@ -606,6 +606,8 @@ export default function Questions() {
                                         >
                                             OK
                                         </Button>
+                                        {/* <div className="question_next_button"
+                                            onClick={handleClick}>OK</div> */}
                                     </Link>
 
                                     <h1 className="question_next_enter"
@@ -867,6 +869,8 @@ export default function Questions() {
                                 >
                                     OK
                                 </Button>
+                                {/* <div className="question_next_button"
+                                    onClick={handleClick} endIcon={<CheckIcon />}> OK</div> */}
                             </Link>
 
                             <h1 className="question_next_enter"
@@ -877,21 +881,23 @@ export default function Questions() {
                     )}
                 </div>
                 {/* enable back button if index is not 0 */}
-                {index === 0 ? null : (
-                    <div className="question_back_button_wrap">
-                        <Link href="#scroll">
-                            <Button
-                                onClick={handleBack}
-                                variant="outlined"
-                                className="question_back_button"
-                                endIcon={<ArrowBackIcon />}
-                            >
-                                back
-                            </Button>
-                        </Link>
-                    </div>
-                )}
-            </div>
+                {
+                    index === 0 ? null : (
+                        <div className="question_back_button_wrap">
+                            <Link href="#scroll">
+                                <Button
+                                    onClick={handleBack}
+                                    variant="outlined"
+                                    className="question_back_button"
+                                    endIcon={<ArrowBackIcon />}
+                                >
+                                    back
+                                </Button>
+                            </Link>
+                        </div>
+                    )
+                }
+            </div >
         </div >
     );
 }
