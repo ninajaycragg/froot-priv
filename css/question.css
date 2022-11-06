@@ -201,7 +201,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-
+    color: black;
 }
 
 /* .question_next_button {
@@ -226,14 +226,15 @@
 }
 
 .css-79xub {
-    background-color: transparent;
+    transition: none;
+    background: transparent;
     color: black;
     border: 1px solid black;
 }
 
 .css-79xub:hover {
     cursor: pointer;
-    background-color: transparent;
+    background: transparent;
     color: black;
     border: 1px solid black;
 }
