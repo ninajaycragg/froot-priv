@@ -10,7 +10,7 @@ export default function Nav() {
   const [user, setUser] = React.useState([""]);
 
   useEffect(() => {
-    fetch('https://froot-priv-git-accountbackend-your-froot.vercel.app/user/auth', {
+    fetch('/user/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }
