@@ -16,7 +16,7 @@ export default function Nav() {
         'Authorization': localStorage.getItem('token')
       }
     })
-      .then(res => res.json())
+      .then(res => res.text()).then(console.log)
       .then(data => {
         setUser(data.email);
         // window.alert(user);
