@@ -841,6 +841,7 @@ export default function Questions() {
                         </div>
                     </>
                 ) : null}
+                <div className="sample-button">sample button</div>
                 {questionsArray[index].type === 'image' && questionsArray[index].link ? <div className="quiz-link">More Info ></div> : null}
                 <div className={
                     questionsArray[index].type === 'break'
