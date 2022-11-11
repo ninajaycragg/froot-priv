@@ -1,7 +1,7 @@
 import { connectToDatabase } from "../../server/db/conn";
 var bcrypt = require('bcryptjs');
 const { User, validateUser } = require('../../server/models/user');
-export default async function handler(req, res) {
+export default async function handler(req, response) {
 
     const db = await connectToDatabase();
     const db_connect = db.database;
