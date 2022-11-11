@@ -33,7 +33,7 @@ export default function Login() {
             },
             body: JSON.stringify(loginUser),
         })
-            .then(res => res.text()).then(console.log)
+            .then(res => res.json())
             .then(data => {
                 if (!data.token) { window.alert(data.message) }
                 else {
