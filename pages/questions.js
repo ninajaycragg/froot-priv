@@ -807,8 +807,7 @@ export default function Questions() {
                         <div className="question_images_container"
                         >
                             {questionsArray[index].options.map((choices) => (
-                                <ButtonBase
-                                    component="div"
+                                <div
                                     onClick={() => handleChoose(choices)}
                                     key={choices}
                                     id={choices}
@@ -836,12 +835,11 @@ export default function Questions() {
                                     <h3 className="question_image_text">
                                         {choices.split('~')[1]}
                                     </h3>
-                                </ButtonBase>
+                                </div>
                             ))}
                         </div>
                     </>
                 ) : null}
-                <div className="sample-button">sample button</div>
                 {questionsArray[index].type === 'image' && questionsArray[index].link ? <div className="quiz-link">More Info ></div> : null}
                 <div className={
                     questionsArray[index].type === 'break'
@@ -862,16 +860,8 @@ export default function Questions() {
                     ) : (
                         <div className="question_next_container">
                             <Link href="#scroll">
-                                <Button
-                                    onClick={handleClick}
-                                    variant="outlined"
-                                    className="question_next_button"
-                                    endIcon={<CheckIcon />}
-                                >
-                                    OK
-                                </Button>
-                                {/* <div className="question_next_button"
-                                    onClick={handleClick} endIcon={<CheckIcon />}> OK</div> */}
+                                <div className="sample-button" onClick={handleClick}>OK <CheckIcon />
+                                </div>
                             </Link>
 
                             <h1 className="question_next_enter"
@@ -886,14 +876,8 @@ export default function Questions() {
                     index === 0 ? null : (
                         <div className="question_back_button_wrap">
                             <Link href="#scroll">
-                                <Button
-                                    onClick={handleBack}
-                                    variant="outlined"
-                                    className="question_back_button"
-                                    endIcon={<ArrowBackIcon />}
-                                >
-                                    back
-                                </Button>
+                                <div className="question-back-button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                </div>
                             </Link>
                         </div>
                     )

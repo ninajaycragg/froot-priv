@@ -52,15 +52,16 @@
 }
 
 .sample-button {
+    display: flex;
+    justify-content: space-evenly;
     border: 1px solid black;
-    border-radius: 3%;
+    border-radius: 7px;
     width: 20%;
     padding-left: 2%;
     padding-right: 2%;
     padding-top: 1%;
     padding-bottom: 1%;
     text-align: center;
-    margin-bottom: 3%;
 }
 
 .question_count {
@@ -212,6 +213,7 @@
 .question_next_container {
     display: flex;
     align-items: center;
+    vertical-align: middle;
     width: 100%;
     color: black;
 }
@@ -272,7 +274,7 @@
     margin-bottom: 10%;
 }
 
-.question_back_button {
+/* .question_back_button {
     border-radius: 5px;
     width: 6%;
     font-family: 'Inter';
@@ -284,6 +286,20 @@
     margin-left: 50%;
     padding-left: 3%;
     padding-right: 3%;
+} */
+
+.question-back-button {
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    border-radius: 7px;
+    width: 13%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    float: right;
+    text-align: center;
 }
 
 .question_back_break_button {
@@ -412,6 +428,7 @@
 }
 
 @media only screen and (max-width: 1000px) {
+
     .question_block {
         margin-top: 25%;
     }
@@ -455,9 +472,16 @@
         margin-bottom: 20%;
     }
 
-    .question_back_button {
+    .question-back-button {
         padding-left: 7%;
         padding-right: 7%;
+        width: 20%;
+        border-radius: 5px;
+    }
+
+    .sample-button {
+        width: 25%;
+        border-radius: 5px;
     }
 
     .question_back_break_button {
@@ -509,10 +533,20 @@
         margin-left: 17%;
     }
 
-    .question_back_button {
+    .question-back-button {
         padding-left: 12%;
         padding-right: 12%;
-        /* margin-right: 5%; */
+        padding-top: 2%;
+        padding-bottom: 2%;
+        width: 30%;
+    }
+
+    .sample-button {
+        width: 40%;
+        padding-top: 3%;
+        padding-bottom: 3%;
+        padding-left: 2%;
+        padding-right: 2%;
     }
 
     .question_images_container {
