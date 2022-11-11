@@ -2,7 +2,7 @@
 // const { MongoClient } = require('mongodb');
 var bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { User, validateUser, validateUserLogin } = require('../../server/models/user');
+const { validateUserLogin } = require('../../server/models/user');
 import { connectToDatabase } from "../../server/db/conn";
 
 export default async function handler(req, res) {
