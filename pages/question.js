@@ -29,7 +29,7 @@ export default function Question() {
       q4: q4,
     };
 
-    await fetch('http://localhost:5000/user/add', {
+    await fetch('/api/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

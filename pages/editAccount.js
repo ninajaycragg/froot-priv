@@ -27,7 +27,7 @@ export default function editAccount() {
             firstName: inputs["firstName"],
             lastName: inputs["lastName"],
         };
-        await fetch('https://froot-priv.vercel.app/user/auth', {
+        await fetch('/api/auth', {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
@@ -37,7 +37,7 @@ export default function editAccount() {
                 info.origEmail = data.email;
             })
 
-        fetch('https://froot-priv.vercel.app/user/editAccount', {
+        fetch('/api/editAccount', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

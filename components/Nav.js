@@ -7,10 +7,11 @@ import globalVal from "../middleware/global";
 import next from 'next';
 
 export default function Nav() {
-  const [user, setUser] = React.useState([""]);
+  const [user, setUser] = React.useState(undefined);
+  console.log(`user: ${user}`);
 
   useEffect(() => {
-    fetch('https://froot-priv.vercel.app/user/auth', {
+    fetch('/api/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }
@@ -18,6 +19,7 @@ export default function Nav() {
       .then(res => res.json())
       .then(data => {
         setUser(data.email);
+        console.log(`user now: ${user}`);
         // window.alert(user);
       })
   }, [globalVal])

@@ -26,7 +26,7 @@ export default function Login() {
             password: inputs["password"],
         };
 
-        fetch(`https://froot-priv.vercel.app/user/loginUser`, {
+        fetch(`/api/loginUser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function Login() {
 
     useEffect(() => {
         // console.log(`useeffect: ${localStorage.getItem('token')}`);
-        fetch(`https://froot-priv.vercel.app/user/auth`, {
+        fetch(`/api/auth`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
