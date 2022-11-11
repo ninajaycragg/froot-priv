@@ -8,17 +8,18 @@ import next from 'next';
 
 export default function Nav() {
   const [user, setUser] = React.useState(undefined);
-  console.log(user);
+  console.log(`user: ${user}`);
 
   useEffect(() => {
-    fetch('/user/auth', {
+    fetch('/api/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }
     })
-      .then(res => res.text()).then(console.log)
+      .then(res => res.json())
       .then(data => {
         setUser(data.email);
+        console.log(`user now: ${user}`);
         // window.alert(user);
       })
   }, [globalVal])
