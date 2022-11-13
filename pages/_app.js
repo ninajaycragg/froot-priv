@@ -12,6 +12,7 @@ import '../css/question.css';
 import '../css/footer.css';
 import '../css/mobile-nav.css';
 import '../css/nav.css';
+import '../css/recommendation.css'
 
 function MyApp({ Component, pageProps, test }) {
   console.log(Component);
