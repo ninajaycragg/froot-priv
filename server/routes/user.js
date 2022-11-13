@@ -148,10 +148,10 @@ userRoutes.route('/user/brands').post(async (req, response) => {
   // check that the user exists in DB / get info
   let user = await db_connect.collection('users').findOne({ email: req.body.email });
   if (!user) {
-    console.log('AHHHHHHHHHHH', req.body.email);
     return response.status(409).json({ message: `Account does not exist. ${req.body.email}` });
   }
 
+  //change to whatever index bra size is 
   let braSize = user.questions[0];
   let band = parseInt(braSize.substr(0, 2));
   let cup = braSize.substr(2);
@@ -212,9 +212,9 @@ userRoutes.route('/user/brands').post(async (req, response) => {
 
 
 
-  return response.json({
-    bra: braSize
-  })
+  // return response.json({
+  //   bra: braSize
+  // })
 });
 
 module.exports = userRoutes;

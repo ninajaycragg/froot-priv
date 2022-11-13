@@ -34,13 +34,6 @@ export default function Results() {
     })
       .then(res => res.text())
       .then(data => { window.alert(data) });
-    // .then(data => {
-    //   window.alert(data)
-    // })
-    // .catch((error) => {
-    //   window.alert(error.message);
-    //   return;
-    // });
 
   }, []);
 

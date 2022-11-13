@@ -123,7 +123,7 @@ export default function Nav() {
             justifyContent: 'space-evenly',
           }}
         >
-          <Image src="/userLogo.svg" height="20%" width="20%"></Image>
+          <a href='/login'><Image src="/userLogo.svg" height="20%" width="20%"></Image></a>
           <Image src="/searchLogo.svg" height="20%" width="20%"></Image>
           <Image src="/cartLogo.svg" height="20%" width="20%"></Image>
         </div>
