@@ -378,7 +378,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    margin-bottom: 1%;
+    margin-bottom: 7%;
     margin-top: 1%;
 }
 
@@ -386,10 +386,11 @@
     background: linear-gradient(180deg, rgba(103, 2, 36, 0.83) -10%, #670224 87.03%, rgba(103, 2, 36, 0) 188.18%, rgba(103, 2, 36, 0.95) 188.18%);
     color: white;
     margin: 1%;
-    padding: 1%;
-    border-radius: 55px;
+    border-radius: 56px;
     padding-left: 5%;
     padding-right: 5%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
     text-transform: capitalize;
     font-family: 'Inter';
     border: none
@@ -402,8 +403,10 @@
     margin: 1%;
     padding-left: 5%;
     padding-right: 5%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
     text-transform: capitalize;
-    font-family: '' Inter'';
+    font-family: 'Inter';
     border: 1px solid black;
 }
 
@@ -574,6 +577,10 @@
     .question_next_enter {
         visibility: hidden;
         display: none;
+    }
+
+    .question_tags_container {
+        margin-bottom: 10%;
     }
 
     .question_body {
