@@ -383,16 +383,13 @@ export default function Question1() {
     // http://localhost:3000/api/hello
     // 'https://froot-priv-wmj71oanp-your-froot.vercel.app/user/add'
     //TODO: User must sign up before entering the quiz
-    fetch('/api/update', {
+    await fetch('/api/update', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
       },
-    }).then(res => res.json())
-      .then(data => {
-        window.alert("saved");
-      })
+    }).then(res => res.json()).then(data => { })
       .catch((error) => {
         window.alert(error);
         return;
