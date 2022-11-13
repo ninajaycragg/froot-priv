@@ -1,25 +1,35 @@
-const { MongoClient } = require('mongodb');
-const Db = process.env.MONGODB_URI;
-const client = new MongoClient(Db, {
-  useNewUrlParser: true,
+
+import { MongoClient } from "mongodb";
+
+const uri = process.env.MONGODB_URI;
+const options = {
   useUnifiedTopology: true,
-});
-
-var _db;
-
-module.exports = {
-  connectToServer: function (callback) {
-    client.connect(function (err, db) {
-      // Verify we got a good "db" object
-      if (db) {
-        _db = db.db('froot1');
-        console.log('Successfully connected to MongoDB.');
-      }
-      return callback(err);
-    });
-  },
-
-  getDb: function () {
-    return _db;
-  },
+  useNewUrlParser: true,
 };
+
+let mongoClient = null;
+let database = null;
+
+if (!process.env.MONGODB_URI) {
+  throw new Error('Please add your Mongo URI to .env.local')
+}
+
+export async function connectToDatabase() {
+  try {
+    if (mongoClient && database) {
+      return { mongoClient, database };
+    }
+
+    if (!global._mongoClient) {
+      mongoClient = await (new MongoClient(uri, options)).connect();
+      global._mongoClient = mongoClient;
+    } else {
+      mongoClient = global._mongoClient;
+    }
+
+    database = await mongoClient.db('froot1');
+    return { mongoClient, database };
+  } catch (e) {
+    console.error(e);
+  }
+}

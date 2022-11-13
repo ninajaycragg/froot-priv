@@ -1,5 +1,4 @@
 .about_body {
-    width: 100vw;
     height: 180vh;
     background: #FAF8F1;
     display: flex;
@@ -51,7 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 .about_container_title {
@@ -77,11 +76,13 @@
         width: 80%;
         margin-left: auto;
         margin-right: auto;
+        height: fit-content;
+        margin-bottom: 20%;
     }
 
     .about_title_container {
         width: 100%;
-        margin-top: 13%;
+        margin-top: 23%;
     }
 
     .about_image {
@@ -109,13 +110,30 @@
 
     .about_container_description {
         width: 100%;
+        font-size: 130%;
     }
 }
 
 
 @media only screen and (max-width: 468px) {
     .about_title_container {
-        margin-top: 25%;
+        margin-top: 30%;
+    }
+
+    .about_story {
+        line-height: 1em;
+    }
+
+    .about_container_title {
+        line-height: 1em;
+    }
+
+    .about_container_description {
+        font-size: 100%;
+    }
+
+    .about_body {
+        margin-bottom: 0%;
     }
 
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
@@ -10,7 +10,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ButtonBase from '@mui/material/ButtonBase';
+// import ButtonBase from '@mui/material/ButtonBase';
 
 // 27 questions
 let tog = 1
@@ -564,7 +564,7 @@ export default function Questions() {
                     <div id="scroll"></div>
                     {/* Defining first intro question */}
                     {/* end */}
-                    <div className="question_block">
+                    <div className="question_break_block">
                         <div className="question_container">
                             <div className="question_container2">
                                 {/* like the question title */}
@@ -588,26 +588,19 @@ export default function Questions() {
                         }
                         >
                             {index === questionsArray.length - 1 ? (
-                                <Button
+                                <div
                                     // onClick={postUser}
                                     variant="filled"
-                                    className="question_end__button"
+                                    className="question-end-button"
+                                    role="button"
                                 >
-                                    Submit
-                                </Button>
+                                    Get Recommendations!
+                                </div>
                             ) : (
                                 <div className="question_next_container">
                                     <Link href="#scroll">
-                                        <Button
-                                            className="question_next_button"
-                                            onClick={handleClick}
-                                            variant="outlined"
-                                            endIcon={<CheckIcon />}
-                                        >
-                                            OK
-                                        </Button>
-                                        {/* <div className="question_next_button"
-                                            onClick={handleClick}>OK</div> */}
+                                        <div className="question-break-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                                        </div>
                                     </Link>
 
                                     <h1 className="question_next_enter"
@@ -617,21 +610,6 @@ export default function Questions() {
                                 </div>
                             )}
                         </div>
-                        {/* enable back button if index is not 0 */}
-                        {index === 0 ? null : (
-                            <div className="question_back_button_wrap">
-                                <Link href="#scroll">
-                                    <Button
-                                        onClick={handleBack}
-                                        variant="outlined"
-                                        className="question_back_break_button"
-                                        endIcon={<ArrowBackIcon />}
-                                    >
-                                        back
-                                    </Button>
-                                </Link>
-                            </div>
-                        )}
                     </div>
                 </div >
             </div>
@@ -642,21 +620,12 @@ export default function Questions() {
         return (null);
     }
     else return (
-        // come back and change this
-        //example conditional change css
-        <div className=
-            // className="question_body"
-            // style="question_body"
-            {
-                true ? "question_body" : null
-            }
-        >
+        <div className="question_body">
             <div id="scroll"></div>
-            {/* Defining first intro question */}
             <div className="question_count_container">
                 <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
-                <ArrowForwardIcon className="question_count_arrow" /></div>
-            {/* end */}
+                <ArrowForwardIcon className="question_count_arrow" />
+            </div>
             <div className="question_block">
                 <div className="question_container">
                     <div className="question_container2">
@@ -674,7 +643,7 @@ export default function Questions() {
                         </p>
                     </div>
                     {/* here displays image if available or nothing at all */}
-                    {questionsArray[index].type === 'textIMG' ||
+                    {/* {questionsArray[index].type === 'textIMG' ||
                         questionsArray[index].type === 'mcIMG' ? (
                         <div className="question_text_images_container">
                             <Image
@@ -683,7 +652,7 @@ export default function Questions() {
                                 objectFit="contain"
                             ></Image>
                         </div>
-                    ) : null}
+                    ) : null} */}
                 </div>
                 {/* displays question text or nothing */}
                 {questionsArray[index].type === 'text' ||
@@ -756,7 +725,7 @@ export default function Questions() {
                 {questionsArray[index].type === 'tag' ? (
                     <div className="question_tags_container">
                         {questionsArray[index].options.map((choices) => (
-                            <Button
+                            <div
                                 variant="outlined"
                                 key={choices}
                                 id={choices}
@@ -769,7 +738,7 @@ export default function Questions() {
                                 onClick={() => handleChoose(choices)}
                             >
                                 {choices}
-                            </Button>
+                            </div>
                         ))}
                     </div>
                 ) : null}
@@ -780,12 +749,12 @@ export default function Questions() {
                 ) : null}
 
                 {/* displays multiple choices or not */}
-                {questionsArray[index].type === 'mc' ||
-                    questionsArray[index].type === 'mcIMG' ? (
+                {questionsArray[index].type === 'mc' ? (
                     <div className="question_mc_container">
                         {questionsArray[index].options.map((choices) => (
-                            <Button
+                            <div
                                 variant="outlined"
+                                role="button"
                                 key={choices}
                                 id={choices}
                                 className={
@@ -796,7 +765,7 @@ export default function Questions() {
                                 onClick={() => handleChoose(choices)}
                             >
                                 {choices}
-                            </Button>
+                            </div>
                         ))}
                     </div>
                 ) : null}
@@ -848,35 +817,24 @@ export default function Questions() {
                 }
                 >
                     {/* if next question is valid, not the end: display next button */}
-                    {index === questionsArray.length - 1 ? (
-                        <><Button
-                            // onClick={postUser}
-                            variant="filled"
-                            className="question_end_button"
-                        >
-                            Submit
-                        </Button>
-                            <Button onClick={router.push('\about')}>Push to go to about</Button></>
-                    ) : (
-                        <div className="question_next_container">
-                            <Link href="#scroll">
-                                <div className="sample-button" onClick={handleClick}>OK <CheckIcon />
-                                </div>
-                            </Link>
+                    <div className="question_next_container">
+                        <Link href="#scroll">
+                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                            </div>
+                        </Link>
 
-                            <h1 className="question_next_enter"
-                            >
-                                press <b>Enter</b>
-                            </h1>
-                        </div>
-                    )}
+                        <h1 className="question_next_enter"
+                        >
+                            press <b>Enter</b>
+                        </h1>
+                    </div>
                 </div>
                 {/* enable back button if index is not 0 */}
                 {
                     index === 0 ? null : (
                         <div className="question_back_button_wrap">
                             <Link href="#scroll">
-                                <div className="question-back-button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                <div className="question-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
                                 </div>
                             </Link>
                         </div>

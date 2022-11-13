@@ -26,13 +26,13 @@ export default function Quiz() {
         >
           Bras that fit you are out there. We&apos;ll help you find them.
         </h1>
-        <Button
+        <div
           variant="filled"
           size="small"
           className="start-button"
         >
           <Link href={'/questions'}>Start the Quiz</Link>
-        </Button>
+        </div>
       </div>
     </div>
   );
