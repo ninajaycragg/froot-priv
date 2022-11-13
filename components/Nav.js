@@ -9,7 +9,7 @@ import globalVal from "../middleware/global";
 import next from 'next';
 
 export default function Nav() {
-  const [user, setUser] = React.useState([""]);
+  const [user, setUser] = React.useState(undefined);
 
   useEffect(() => {
     fetch('http://localhost:5001/user/auth', {

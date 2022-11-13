@@ -8,6 +8,10 @@ var bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { verifyJWT } = require('../../middleware/verifyJWT');
 
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:5001/froot1";
+
+
 userRoutes.route('/user/add').post(async (req, response) => {
   // Validate account creation fields
   const { error } = validateUser(req.body[0]);
@@ -149,9 +153,11 @@ userRoutes.route('/user/brands').post(async (req, response) => {
   }
 
   let braSize = user.questions[0];
-  let band = braSize.substr(0, 2);
+  let band = parseInt(braSize.substr(0, 2));
   let cup = braSize.substr(2);
 
+  //converts double or tripple cup size to singular
+  //Assumes user input is validated
   if (cup.length > 1 && cup.charAt(0) != 'A') {
     if (cup.length == 2) {
       cup = cup.charAt(0) - 1;
@@ -161,7 +167,34 @@ userRoutes.route('/user/brands').post(async (req, response) => {
     }
   }
 
-  console.log('Bra Size:', braSize);
+  //sets cupNum for query
+  let cupNum;
+  if (cup == 'AAAA') {
+    cupNum = -2;
+  }
+  else if (cup == 'AAA') {
+    cupNum = -1;
+  }
+  else if (cup == 'AA') {
+    cupNum = 0;
+  }
+  else {
+    cupNum = cup.charCodeAt(0) - 64;
+  }
+
+  // band_min < band < band_max
+  var query = {
+    $and: [{ band_min: { $lte: band } }, { band_max: { $gte: band } },
+    { cupNum_min: { $lte: cupNum } }, { cupNum_max: { $gte: cupNum } },]
+  };
+
+  var dbo1 = dbo.getDb();
+
+  dbo1.collection("brands").find(query).toArray(function (err, result) {
+    if (err) throw err;
+    console.log(result);
+    //dbo1.close();
+  });
 
   return response.json({
     bra: braSize
