@@ -183,18 +183,34 @@ userRoutes.route('/user/brands').post(async (req, response) => {
   }
 
   // band_min < band < band_max
-  var query = {
+  var queryBraSize = {
     $and: [{ band_min: { $lte: band } }, { band_max: { $gte: band } },
     { cupNum_min: { $lte: cupNum } }, { cupNum_max: { $gte: cupNum } },]
   };
 
+  var querySisterSize = {
+    $and: [{ band_min: { $lte: band + 1 } }, { band_max: { $gte: band + 1 } },
+    { cupNum_min: { $lte: cupNum - 1 } }, { cupNum_max: { $gte: cupNum - 1 } },]
+  };
+
   var dbo1 = dbo.getDb();
 
-  dbo1.collection("brands").find(query).toArray(function (err, result) {
+  dbo1.collection("brands").find(queryBraSize).toArray(function (err, result) {
+    if (err) throw err;
+    console.log(result);
+  });
+
+  dbo1.collection("brands").find(querySisterSize).toArray(function (err, result) {
     if (err) throw err;
     console.log(result);
     //dbo1.close();
   });
+
+
+
+
+
+
 
   return response.json({
     bra: braSize
