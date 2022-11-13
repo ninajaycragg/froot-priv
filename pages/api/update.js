@@ -10,6 +10,7 @@ export default async function handler(req, response) {
     };
     db_connect.collection('users').updateOne(myQuery, newValues, function (err, res) {
         if (err) throw err;
+        console.log("updated");
         response.json(res);
     });
 }

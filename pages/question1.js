@@ -383,7 +383,7 @@ export default function Question1() {
     // http://localhost:3000/api/hello
     // 'https://froot-priv-wmj71oanp-your-froot.vercel.app/user/add'
     //TODO: User must sign up before entering the quiz
-    await fetch('/api/update', {
+    fetch('/api/update', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
