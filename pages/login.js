@@ -39,6 +39,7 @@ export default function Login() {
                 else {
                     globalVal.email = loginUser.email;
                     localStorage.setItem('token', data.token)
+                    localStorage.setItem('email', loginUser.email)
                     // console.log(`in login fetch: ${localStorage.getItem('token')}`)
                     setToken(data.token);
                 }
