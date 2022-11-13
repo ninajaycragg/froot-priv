@@ -26,6 +26,28 @@
     backdrop-filter: blur(25px);
 }
 
+.mobile-sign-in-wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    margin-bottom: 10%;
+    margin-right: 10%;
+}
+
+.mobile-sign-in {
+    width: fit-content;
+    margin-bottom: 3%;
+    font-family: 'Inter';
+    text-align: center;
+    margin-right: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 0.5%;
+    padding-top: 0.5%;
+    border-radius: 55px;
+
+}
+
 .blur-background {
     backdrop-filter: blur(25px);
     background: rgba(255, 255, 255, 0.5);

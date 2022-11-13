@@ -1,7 +1,5 @@
 import React, { useState } from "react"
 import Link from 'next/link';
-// import Burger from './Burger.js';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 export default function MobileNav() {
@@ -33,6 +31,12 @@ export default function MobileNav() {
           <div className="item">Store</div>
           <hr />
           <Link href="/about">About Us</Link>
+        </div>
+        <div className="mobile-sign-in-wrapper">
+          <hr />
+          <div className="mobile-sign-in">Sign In</div>
+          <hr />
+          <div className="mobile-sign-in">Sign Up</div>
         </div>
       </>
     )
