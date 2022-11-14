@@ -26,7 +26,7 @@ export default async function handler(req, response) {
 
     if (req.body.password !== undefined && req.body.password.length >= 5) {
         const salt = await bcrypt.genSalt(10);
-        let suPassHash = await bcrypt.hash(req.body[0].password, salt);
+        let suPassHash = await bcrypt.hash(req.body.password, salt);
         new_password = suPassHash;
     }
 

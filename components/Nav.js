@@ -8,20 +8,19 @@ import next from 'next';
 
 export default function Nav() {
   const [user, setUser] = React.useState(undefined);
-  console.log(`user: ${user}`);
 
-  useEffect(() => {
-    fetch('https://froot-priv.vercel.app/user/auth', {
-      headers: {
-        'Authorization': localStorage.getItem('token')
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setUser(data.email);
-        // window.alert(user);
-      })
-  }, [globalVal])
+  // useEffect(() => {
+  //   fetch('https://froot-priv.vercel.app/user/auth', {
+  //     headers: {
+  //       'Authorization': localStorage.getItem('token')
+  //     }
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setUser(data.email);
+  //       // window.alert(user);
+  //     })
+  // }, [globalVal])
 
   // const user = auth.currentUser;
   const router = useRouter();

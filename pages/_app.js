@@ -14,6 +14,7 @@ import '../css/footer.css';
 import '../css/mobile-nav.css';
 import '../css/nav.css';
 import '../css/startQuiz.css';
+import '../css/recommendation.css'
 
 function MyApp({ Component, pageProps, test }) {
   let router = useRouter();

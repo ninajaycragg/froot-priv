@@ -25,7 +25,7 @@ export default function Questions() {
     const router = useRouter();
     function handleRedirection(e) {
         e.preventDefault();
-        router.push('/about');
+        router.push('/recommendation');
     }
 
     const questionsArray = [
@@ -593,6 +593,7 @@ export default function Questions() {
                                     variant="filled"
                                     className="question-end-button"
                                     role="button"
+                                    onClick={handleRedirection}
                                 >
                                     Get Recommendations!
                                 </div>
@@ -612,7 +613,7 @@ export default function Questions() {
                         </div>
                     </div>
                 </div >
-            </div>
+            </div >
         )
     }
     else if (questionsArray[index].type == 'iframe' && hasTaken) {
