@@ -404,6 +404,8 @@ export default function Questions() {
         //     return;
         // });
 
+        // window.alert(answers);
+
         await fetch('/api/auth', {
             headers: {
                 'Authorization': localStorage.getItem('token')
@@ -482,7 +484,7 @@ export default function Questions() {
     const handleClick = () => {
         if (index <= answers.length) {
             const newAnswers = [...answers];
-            if (index == questionsArray.length - 2) {
+            if (questionsArray[index].question == 'Enter your /ABraThatFits size.') {
                 const temp = [sel, sel2];
                 newAnswers[index] = temp;
             }
@@ -493,7 +495,14 @@ export default function Questions() {
             setIndex((index += 1));
             setSel('');
         } else {
-            setAnswers([...answers, sel]);
+            if (questionsArray[index].question == 'Enter your /ABraThatFits size.') {
+                const temp = [sel, sel2];
+                setAnswers([...answers, temp]);
+                setSel2('');
+            }
+            else {
+                setAnswers([...answers, sel]);
+            }
             setIndex((index += 1));
             setSel('');
         }
@@ -502,7 +511,7 @@ export default function Questions() {
                 setMult(answers[index]);
                 setSel(multAnswers);
             } else {
-                if (index == questionsArray.length - 2) {
+                if (questionsArray[index].question == 'Enter your /ABraThatFits size.') {
                     setSel(answers[index][0]);
                     setSel2(answers[index][1]);
                 }
