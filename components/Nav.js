@@ -10,18 +10,18 @@ export default function Nav() {
   const [user, setUser] = React.useState(undefined);
   console.log(`user: ${user}`);
 
-  // useEffect(() => {
-  //   fetch('https://froot-priv.vercel.app/user/auth', {
-  //     headers: {
-  //       'Authorization': localStorage.getItem('token')
-  //     }
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setUser(data.email);
-  //       // window.alert(user);
-  //     })
-  // }, [globalVal])
+  useEffect(() => {
+    fetch('https://froot-priv.vercel.app/user/auth', {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUser(data.email);
+        // window.alert(user);
+      })
+  }, [globalVal])
 
   // const user = auth.currentUser;
   const router = useRouter();
@@ -52,7 +52,7 @@ export default function Nav() {
           <Link className="default-nav-link" href="#">STORE</Link>
           <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
-        <img className="user-logo" src="/userLogo.svg" />
+        <img className="user-logo" href="/userProfile" src="/userLogo.svg" />
       </div>
     );
   }
@@ -74,8 +74,8 @@ export default function Nav() {
         </div>
         {/* <div className="icon-wrapper"> */}
         {/* <img className="user-logo" src="/userLogo.svg" /> */}
-        <div className="default-nav-sign-in">Sign In</div>
-        <div className="default-nav-sign-in">Sign Up</div>
+        <div className="default-nav-sign-in" href="/login">Sign In</div>
+        <div className="default-nav-sign-in" href="/signup">Sign Up</div>
         {/* </div> */}
       </div>
     );
