@@ -388,7 +388,7 @@ export default function Questions() {
 
     async function postUser() {
         // When a post request is sent to the create url, we'll add a new record to the database.
-        const temp = "";
+        var temp = "";
         // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
         // ('http://localhost:5000/user/add');
         // http://localhost:3000/api/hello
@@ -428,7 +428,7 @@ export default function Questions() {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.message) { window.alert(data.message) }
+
             })
             .catch((error) => {
                 window.alert(error.message);
