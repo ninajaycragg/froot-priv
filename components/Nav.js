@@ -9,8 +9,9 @@ import next from 'next';
 export default function Nav() {
   const [user, setUser] = React.useState(undefined);
 
+  // const user = auth.currentUser;
   useEffect(() => {
-    fetch('https://froot-priv.vercel.app/user/auth', {
+    fetch('/api/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }
@@ -23,6 +24,13 @@ export default function Nav() {
   }, [globalVal])
   // const user = auth.currentUser;
   const router = useRouter();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+
+    router.push('/login').then(() => router.reload());
+  };
   function handleSignin(e) {
     e.preventDefault();
     router.push("/login");
@@ -32,16 +40,6 @@ export default function Nav() {
     router.push("/signup");
   }
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    signOut(auth)
-      .then(() => {
-        router.push('/questions');
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
   // logged in nav
   if (user !== undefined) {
     return (
@@ -59,6 +57,7 @@ export default function Nav() {
           <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
         <img className="user-logo" href="/userProfile" src="/userLogo.svg" />
+        <div className="default-nav-sign-in" onClick={handleLogout}>Logout</div>
       </div>
     );
   }
