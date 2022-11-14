@@ -389,8 +389,11 @@ export default function Question1() {
         'Content-Type': 'application/json',
         // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
       },
-    }).then(res => res.json()).then(data => { })
-      .catch((error) => {
+      body: JSON.stringify(newUser),
+    }).then(res => res.json())
+      .then(data => {
+        window.alert("saved");
+      }).catch((error) => {
         window.alert(error);
         return;
       });
