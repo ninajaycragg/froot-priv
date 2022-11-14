@@ -23,18 +23,14 @@ export default function Nav() {
       })
   }, [globalVal])
   // const user = auth.currentUser;
+  const router = useRouter();
 
   const handleLogout = (e) => {
     e.preventDefault();
-    signOut(auth)
-      .then(() => {
-        router.push('/questions');
-      })
-      .catch((error) => {
-        // An error happened.
-      });
+    localStorage.removeItem('token');
+
+    router.push('/login').then(() => router.reload());
   };
-  const router = useRouter();
   function handleSignin(e) {
     e.preventDefault();
     router.push("/login");
