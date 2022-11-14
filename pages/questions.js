@@ -482,7 +482,7 @@ export default function Questions() {
     const handleClick = () => {
         if (index <= answers.length) {
             const newAnswers = [...answers];
-            if (index == answers.length - 1) {
+            if (index == answers.length) {
                 const temp = [sel, sel2];
                 newAnswers[index] = temp;
             }
@@ -502,7 +502,7 @@ export default function Questions() {
                 setMult(answers[index]);
                 setSel(multAnswers);
             } else {
-                if (index == answers.length - 1) {
+                if (index == answers.length) {
                     setSel(answers[index][0]);
                     setSel2(answers[index][1]);
                 }
