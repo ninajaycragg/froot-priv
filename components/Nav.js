@@ -8,8 +8,8 @@ import next from 'next';
 
 export default function Nav() {
   const [user, setUser] = React.useState(undefined);
-  console.log(`user: ${user}`);
 
+  // const user = auth.currentUser;
   useEffect(() => {
     fetch('/api/auth', {
       headers: {
@@ -25,66 +25,41 @@ export default function Nav() {
   }, [globalVal])
 
   // const user = auth.currentUser;
-  const router = useRouter();
 
-  const handleClick = (e) => {
+  const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem('token');
 
     router.push('/login').then(() => router.reload());
   };
+  const router = useRouter();
+  function handleSignin(e) {
+    e.preventDefault();
+    router.push("/login");
+  }
+  function handleSignup(e) {
+    e.preventDefault();
+    router.push("/signup");
+  }
+
   // logged in nav
   if (user !== undefined) {
     return (
-      <div
-        style={{
-          width: '100vw',
-          display: 'flex',
-          justifyContent: 'space-around',
-          paddingTop: '0.8%',
-          paddingBottom: '0.8%',
-        }}
-      >
-        <div style={{ width: '33.3%', paddingLeft: '2.78%', margin: 'auto' }}>
+      <div className="default-nav">
+        <div className="default-nav-wrapper">
           <Link href="/">
-            <a style={{ fontWeight: '700' }}>FROOT</a>
+            <Image src="/logo.svg" width="30rem" height="30rem"></Image>
           </Link>
         </div>
-        <div
-          style={{
-            width: '33.3%',
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            margin: 'auto',
-          }}
-        >
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/quiz">Quiz</Link>
+        <div className="default-nav-link-wrapper">
+          <Link className="default-nav-link" href="#">BREAST PROFILE</Link>
+          <Link className="default-nav-link" href="/about">THE FROOT SALAD</Link>
+          <Link className="default-nav-link" href="/quiz">QUIZ</Link>
+          <Link className="default-nav-link" href="#">STORE</Link>
+          <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
-        <div
-          style={{
-            width: '33.3%',
-            textAlign: 'right',
-            paddingRight: '2.78%',
-            margin: 'auto',
-          }}
-        >
-          <Button
-            variant="outlined"
-            size="small"
-            disableElevation
-            color="inherit"
-            style={{
-              textTransform: 'capitalize',
-              paddingLeft: '5%',
-              paddingRight: '5%',
-            }}
-            onClick={handleClick}
-          >
-            Sign Out
-          </Button>
-        </div>
+        <img className="user-logo" href="/userProfile" src="/userLogo.svg" />
+        <div className="default-nav-sign-in" onClick={handleLogout}>Logout</div>
       </div>
     );
   }
@@ -92,42 +67,24 @@ export default function Nav() {
   else {
     return (
       <div className="default-nav">
-        <div style={{ width: '15%', margin: 'auto' }}>
+        <div className="default-nav-wrapper">
           <Link href="/">
             <Image src="/logo.svg" width="30rem" height="30rem"></Image>
           </Link>
         </div>
-        <div
-          style={{
-            width: '50%',
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            margin: 'auto',
-            fontSize: '80%',
-            fontWeight: '500',
-            fontFamily: 'Inter',
-            letterSpacing: '1px',
-          }}
-        >
-          <Link href="#">BREAST PROFILE</Link>
-          <Link href="/about">THE FROOT SALAD</Link>
-          <Link href="/quiz">QUIZ</Link>
-          <Link href="#">STORE</Link>
-          <Link href="/about">ABOUT US</Link>
+        <div className="default-nav-link-wrapper">
+          <Link className="default-nav-link" href="#">BREAST PROFILE</Link>
+          <Link className="default-nav-link" href="/about">THE FROOT SALAD</Link>
+          <Link className="default-nav-link" href="/quiz">QUIZ</Link>
+          <Link className="default-nav-link" href="#">STORE</Link>
+          <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
-        <div
-          style={{
-            width: '15%',
-            margin: 'auto',
-            display: 'flex',
-            justifyContent: 'space-evenly',
-          }}
-        >
-          <Image src="/userLogo.svg" height="20%" width="20%"></Image>
-          <Image src="/searchLogo.svg" height="20%" width="20%"></Image>
-          <Image src="/cartLogo.svg" height="20%" width="20%"></Image>
-        </div>
-      </div>
+        {/* <div className="icon-wrapper"> */}
+        {/* <img className="user-logo" src="/userLogo.svg" /> */}
+        <div className="default-nav-sign-in" onClick={handleSignin}>Sign In</div>
+        <div className="default-nav-sign-in" onClick={handleSignup}>Sign Up</div>
+        {/* </div> */}
+      </div >
     );
   }
 }
