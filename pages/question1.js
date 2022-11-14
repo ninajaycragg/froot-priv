@@ -376,7 +376,7 @@ export default function Question1() {
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newUser = {
       questions: answers,
-      email: globalVal.email
+      email: answers.length >= 2 ? answers[2] : globalVal.email
     };
     // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
     // ('http://localhost:5000/user/add');
@@ -390,10 +390,13 @@ export default function Question1() {
         // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
       },
       body: JSON.stringify(newUser),
-    }).catch((error) => {
-      window.alert(error);
-      return;
-    });
+    }).then(res => res.json())
+      .then(data => {
+        window.alert("saved");
+      }).catch((error) => {
+        window.alert(error);
+        return;
+      });
     window.alert(JSON.stringify(newUser));
   }
   async function postBlog() {
