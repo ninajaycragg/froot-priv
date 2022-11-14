@@ -9,34 +9,34 @@ import next from 'next';
 export default function Nav() {
   const [user, setUser] = React.useState(undefined);
 
-  // useEffect(() => {
-  //   fetch('/api/auth', {
-  //     headers: {
-  //       'Authorization': localStorage.getItem('token')
-  //     }
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setUser(data.email);
-  //       // window.alert(user);
-  //     })
-  // }, [globalVal])
+  useEffect(() => {
+    fetch('/api/auth', {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUser(data.email);
+        // window.alert(user);
+      })
+  }, [globalVal])
   const router = useRouter();
 
-  // const handleLogout = (e) => {
-  //   e.preventDefault();
-  //   localStorage.removeItem('token');
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
 
-  //   router.push('/login').then(() => router.reload());
-  // };
-  // function handleSignin(e) {
-  //   e.preventDefault();
-  //   router.push("/login");
-  // }
-  // function handleSignup(e) {
-  //   e.preventDefault();
-  //   router.push("/signup");
-  // }
+    router.push('/login').then(() => router.reload());
+  };
+  function handleSignin(e) {
+    e.preventDefault();
+    router.push("/login");
+  }
+  function handleSignup(e) {
+    e.preventDefault();
+    router.push("/signup");
+  }
 
   // logged in nav
   if (user !== undefined) {
