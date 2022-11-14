@@ -104,7 +104,7 @@ userRoutes.route('/user/update').put(function (req, response) {
 });
 
 
-userRoutes.route('/user/getUser').get(function (req, response) {
+userRoutes.route('/user/getUser').put(function (req, response) {
   let db_connect = dbo.getDb();
   let user = await db_connect.collection('users').findOne({ email: req.body.email });
   if (!user) {

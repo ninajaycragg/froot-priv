@@ -129,7 +129,7 @@ export default function Recommendation() {
 
     const fetchUser = async () => {
         await fetch(`/api/getUser`, {
-            method: 'GET',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
