@@ -128,8 +128,6 @@ export default function Recommendation() {
     }
 
     const fetchUser = async () => {
-        window.alert(localStorage.getItem('email'));
-
         await fetch(`/api/getUser`, {
             method: 'PUT',
             headers: {
