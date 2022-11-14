@@ -128,10 +128,14 @@ export default function Recommendation() {
     }
 
     const fetchUser = async () => {
-        await fetch('/api/auth', {
+        await fetch(`/api/getUser`, {
+            method: 'GET',
             headers: {
-                'Authorization': localStorage.getItem('token')
-            }
+                'Content-Type': 'application/json',
+            },
+            body: {
+                email: localStorage.getItem('email')
+            },
         })
             .then(res => res.json())
             .then(data => {

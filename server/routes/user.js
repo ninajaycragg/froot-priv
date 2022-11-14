@@ -103,6 +103,16 @@ userRoutes.route('/user/update').put(function (req, response) {
   });
 });
 
+
+userRoutes.route('/user/getUser').get(function (req, response) {
+  let db_connect = dbo.getDb();
+  let user = await db_connect.collection('users').findOne({ email: req.body.email });
+  if (!user) {
+    return response.status(409).json({ message: 'Account does not exist.' });
+  }
+  response.json(user);
+});
+
 userRoutes.route('/user/editAccount').put(async function (req, response) {
   let db_connect = dbo.getDb();
 
