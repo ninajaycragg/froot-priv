@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image"
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 
 export default function Recommendation() {
+    const [data, setData] = useState([]);
+    const [userLoaded, setUserLoaded] = useState(false);
     let name = "Nina";
     let size = ['30F', '32E'];
     let arrProfile = [
@@ -124,6 +126,31 @@ export default function Recommendation() {
             </div>
         )
     }
+
+    const fetchUser = async () => {
+        await fetch('/api/auth', {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                window.alert(data);
+                return { success: true, data: data };
+
+            })
+    }
+
+    useEffect(() => {
+        (async () => {
+            setUserLoaded(false);
+            let res = await fetchUser();
+            if (res.success) {
+                setData(res.data);
+                setUserLoaded(true);
+            }
+        })();
+    }, []);
     return (
         // <div className="recommendation-wrapper">
         <>
