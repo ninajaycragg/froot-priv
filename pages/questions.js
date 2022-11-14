@@ -24,6 +24,7 @@ export default function Questions() {
     const [hasTaken, setHasTaken] = useState(false);
     const router = useRouter();
     function handleRedirection(e) {
+        window.alert(localStorage.getItem('email'));
         e.preventDefault();
         router.push('/recommendation');
     }
