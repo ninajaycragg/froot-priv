@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
-// import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
-// import { auth } from '../firebase-config';
 import React, { useEffect } from 'react';
 import globalVal from "../middleware/global";
 import next from 'next';
@@ -12,7 +10,7 @@ export default function Nav() {
   const [user, setUser] = React.useState(undefined);
 
   useEffect(() => {
-    fetch('http://localhost:5001/user/auth', {
+    fetch('/api/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }
@@ -20,6 +18,7 @@ export default function Nav() {
       .then(res => res.json())
       .then(data => {
         setUser(data.email);
+        console.log(`user now: ${user}`);
         // window.alert(user);
       })
   }, [globalVal])

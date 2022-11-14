@@ -45,7 +45,7 @@ export default function Signup() {
     info.push(newUser)
     info.push(fields);
 
-    fetch('http://localhost:5001/user/add', {
+    fetch('/api/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    fetch('http://localhost:5001/user/auth', {
+    fetch('/api/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }

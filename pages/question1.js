@@ -381,9 +381,9 @@ export default function Question1() {
     // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
     // ('http://localhost:5000/user/add');
     // http://localhost:3000/api/hello
-    // 'http://localhost:5001/user/add'
+    // 'https://froot-priv-wmj71oanp-your-froot.vercel.app/user/add'
     //TODO: User must sign up before entering the quiz
-    await fetch('http://localhost:5001/user/update', {
+    await fetch('/api/update', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -405,7 +405,7 @@ export default function Question1() {
     // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
     // ('http://localhost:5000/user/add');
     // http://localhost:3000/api/hello
-    await fetch('http://localhost:5001/blogPosts/add', {
+    await fetch('/api/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
