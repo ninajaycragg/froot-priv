@@ -139,10 +139,13 @@ export default function Recommendation() {
         })
             .then(res => res.json())
             .then(data => {
-                window.alert(data);
+                window.alert("success!");
                 return { success: true, data: data };
 
-            })
+            }).catch((error) => {
+                window.alert(error.message);
+                return { success: false };;
+            });
     }
 
     useEffect(() => {
