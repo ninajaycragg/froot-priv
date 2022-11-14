@@ -25,6 +25,7 @@ export default function Questions() {
     const router = useRouter();
     function handleRedirection(e) {
         window.alert(localStorage.getItem('email'));
+        postUser();
         e.preventDefault();
         router.push('/recommendation');
     }
@@ -387,23 +388,52 @@ export default function Questions() {
 
     async function postUser() {
         // When a post request is sent to the create url, we'll add a new record to the database.
-        const newUser = {
-            questions: answers,
-        };
+        const temp = "";
         // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
         // ('http://localhost:5000/user/add');
         // http://localhost:3000/api/hello
-        await fetch('http://localhost:5000/user/add', {
-            method: 'POST',
+        // await fetch('http://localhost:5000/user/add', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
+        //     },
+        //     body: JSON.stringify(newUser),
+        // }).catch((error) => {
+        //     window.alert(error);
+        //     return;
+        // });
+
+        await fetch('/api/auth', {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                temp = data.email;
+            })
+
+        const newUser = {
+            questions: answers,
+            email: temp
+        };
+
+        fetch('/api/update', {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
             },
             body: JSON.stringify(newUser),
-        }).catch((error) => {
-            window.alert(error);
-            return;
-        });
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.message) { window.alert(data.message) }
+            })
+            .catch((error) => {
+                window.alert(error.message);
+                return;
+            });
     }
     async function postBlog() {
         // When a post request is sent to the create url, we'll add a new record to the database.
