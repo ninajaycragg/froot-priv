@@ -24,7 +24,7 @@ export default function Questions() {
     const [hasTaken, setHasTaken] = useState(false);
     const router = useRouter();
     function handleRedirection(e) {
-        window.alert(localStorage.getItem('email'));
+        //window.alert(localStorage.getItem('email'));
         postUser();
         e.preventDefault();
         router.push('/recommendation');
@@ -482,7 +482,7 @@ export default function Questions() {
     const handleClick = () => {
         if (index <= answers.length) {
             const newAnswers = [...answers];
-            if (index == answers.length) {
+            if (index == questionsArray.length - 2) {
                 const temp = [sel, sel2];
                 newAnswers[index] = temp;
             }
@@ -502,7 +502,7 @@ export default function Questions() {
                 setMult(answers[index]);
                 setSel(multAnswers);
             } else {
-                if (index == answers.length) {
+                if (index == questionsArray.length - 2) {
                     setSel(answers[index][0]);
                     setSel2(answers[index][1]);
                 }
