@@ -11,7 +11,7 @@ export default function Nav() {
 
   // const user = auth.currentUser;
   useEffect(() => {
-    fetch('/api/auth', {
+    fetch('https://froot-priv.vercel.app/user/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }
@@ -19,18 +19,20 @@ export default function Nav() {
       .then(res => res.json())
       .then(data => {
         setUser(data.email);
-        console.log(`user now: ${user}`);
         // window.alert(user);
       })
   }, [globalVal])
-
   // const user = auth.currentUser;
 
   const handleLogout = (e) => {
     e.preventDefault();
-    localStorage.removeItem('token');
-
-    router.push('/login').then(() => router.reload());
+    signOut(auth)
+      .then(() => {
+        router.push('/questions');
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   };
   const router = useRouter();
   function handleSignin(e) {
