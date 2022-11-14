@@ -11,7 +11,7 @@ export default function Nav() {
 
   // const user = auth.currentUser;
   useEffect(() => {
-    fetch('https://froot-priv.vercel.app/user/auth', {
+    fetch('/api/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
       }
