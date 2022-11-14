@@ -449,8 +449,6 @@ export default function Questions() {
     };
 
     const handleClick = () => {
-        // setAnswers([...answers, sel]);
-        //window.alert(index);
         if (index <= answers.length) {
             const newAnswers = [...answers];
             if (index == answers.length - 1) {

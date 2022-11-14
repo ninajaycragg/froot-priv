@@ -9,21 +9,28 @@ import next from 'next';
 export default function Nav() {
   const [user, setUser] = React.useState(undefined);
 
-  // useEffect(() => {
-  //   fetch('https://froot-priv.vercel.app/user/auth', {
-  //     headers: {
-  //       'Authorization': localStorage.getItem('token')
-  //     }
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setUser(data.email);
-  //       // window.alert(user);
-  //     })
-  // }, [globalVal])
-
+  useEffect(() => {
+    fetch('https://froot-priv.vercel.app/user/auth', {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUser(data.email);
+        // window.alert(user);
+      })
+  }, [globalVal])
   // const user = auth.currentUser;
   const router = useRouter();
+  function handleSignin(e) {
+    e.preventDefault();
+    router.push("/login");
+  }
+  function handleSignup(e) {
+    e.preventDefault();
+    router.push("/signup");
+  }
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -73,10 +80,10 @@ export default function Nav() {
         </div>
         {/* <div className="icon-wrapper"> */}
         {/* <img className="user-logo" src="/userLogo.svg" /> */}
-        <div className="default-nav-sign-in" href="/login">Sign In</div>
-        <div className="default-nav-sign-in" href="/signup">Sign Up</div>
+        <div className="default-nav-sign-in" onClick={handleSignin}>Sign In</div>
+        <div className="default-nav-sign-in" onClick={handleSignup}>Sign Up</div>
         {/* </div> */}
-      </div>
+      </div >
     );
   }
 }
