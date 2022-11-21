@@ -139,7 +139,7 @@ export default function Recommendation() {
             },
         })
             .then(res => {
-                window.alert(res);
+                window.alert(res.email);
                 return { success: true };
 
             }).catch((error) => {
