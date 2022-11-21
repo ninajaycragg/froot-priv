@@ -104,9 +104,10 @@ userRoutes.route('/user/update').put(function (req, response) {
 });
 
 
-userRoutes.route('/user/getuser').put(function (req, response) {
+userRoutes.route('/user/getuser').put(async (req, response) => {
   let db_connect = dbo.getDb();
   let user = await db_connect.collection('users').findOne({ email: req.body.email });
+  console.log(user);
   if (!user) {
     return response.status(409).json({ message: 'Account does not exist.' });
   }
