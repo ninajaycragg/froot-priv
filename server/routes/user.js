@@ -112,7 +112,7 @@ userRoutes.route('/user/getUser').put(function (req, response) {
   if (!user) {
     return response.status(409).json({ message: 'Account does not exist.' });
   }
-  return response.json(user);
+  return response.json({ email: user.email });
 });
 
 userRoutes.route('/user/editAccount').put(async function (req, response) {

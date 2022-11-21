@@ -139,8 +139,8 @@ export default function Recommendation() {
         })
             .then(res => res.json())
             .then(data => {
-                window.alert("success!");
-                return { success: true, data: data };
+                window.alert(data);
+                return { success: true };
 
             }).catch((error) => {
                 window.alert(error.message);
