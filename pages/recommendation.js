@@ -138,14 +138,13 @@ export default function Recommendation() {
                 email: localStorage.getItem('email')
             },
         })
-            .then(res => res.json())
-            .then(data => {
-                window.alert(data);
+            .then(res => {
+                window.alert(res);
                 return { success: true };
 
             }).catch((error) => {
                 window.alert(error.message);
-                return { success: false };;
+                return { success: false };
             });
     }
 
