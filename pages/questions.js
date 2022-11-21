@@ -420,6 +420,7 @@ export default function Questions() {
             questions: answers,
             email: temp
         };
+        localStorage.setItem('quizData', newUser);
 
         fetch('/api/update', {
             method: 'PUT',

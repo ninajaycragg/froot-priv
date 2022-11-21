@@ -129,20 +129,22 @@ export default function Recommendation() {
 
     const fetchUser = async () => {
 
-        var temp = "";
-
-        await fetch('/api/auth', {
-            headers: {
-                'Authorization': localStorage.getItem('token')
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                temp = data.email;
-            })
+        var temp = localStorage.getItem('quizData');
 
         window.alert(temp);
-        return { success: true };
+
+        // await fetch('/api/auth', {
+        //     headers: {
+        //         'Authorization': localStorage.getItem('token')
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         temp = data.email;
+        //     })
+
+        // window.alert(temp);
+        // return { success: true };
         // window.alert(localStorage.getItem('email'));
         // const tempBody = {
         //     email: localStorage.getItem('email')
