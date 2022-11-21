@@ -128,27 +128,42 @@ export default function Recommendation() {
     }
 
     const fetchUser = async () => {
-        window.alert(localStorage.getItem('email'));
-        const tempBody = {
-            email: localStorage.getItem('email')
-        }
-        console.log(tempBody);
-        await fetch(`/api/getuser`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(tempBody)
-        })
-            .then(res => {
-                console.log("here is the response");
-                console.log(res);
-                return { success: true };
 
-            }).catch((error) => {
-                window.alert(error.message);
-                return { success: false };
-            });
+        var temp = "";
+
+        await fetch('/api/auth', {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                temp = data.email;
+            })
+
+        window.alert(temp);
+        return { success: true };
+        // window.alert(localStorage.getItem('email'));
+        // const tempBody = {
+        //     email: localStorage.getItem('email')
+        // }
+        // console.log(tempBody);
+        // await fetch(`/api/getuser`, {
+        //     method: 'PUT',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(tempBody)
+        // })
+        //     .then(res => {
+        //         console.log("here is the response");
+        //         console.log(res);
+        //         return { success: true };
+
+        //     }).catch((error) => {
+        //         window.alert(error.message);
+        //         return { success: false };
+        //     });
     }
 
     useEffect(() => {
