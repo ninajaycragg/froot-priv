@@ -317,11 +317,19 @@ export default function Questions() {
             type: 'image',
             optionSubtext: 'Choose as many as you would like.',
             imageNames: [
-                '/question20/outer_fullness.png',
-                '/question20/inner_fullness.png',
+                '/question20/even_dist.png',
+                '/question20/even_dist.png',
+                '/question20/even_dist.png',
+                '/question20/even_dist.png',
+                '/question20/even_dist.png',
+                '/question20/even_dist.png',
+                '/question20/even_dist.png',
+                '/question20/even_dist.png',
+                '/question20/even_dist.png',
+                '/question20/even_dist.png',
                 '/question20/even_dist.png',
             ],
-            options: ['Narrow Width', 'Medium Width', 'Wide Width'],
+            options: ['Round', 'Athletic', 'East West', 'Side Set', 'Bell', 'Tear Drop', 'Tubular', 'Relaxed', 'Asymetric', 'Mastectomy', 'Other'],
             link: true,
             select: 'multiple',
         },
@@ -354,10 +362,10 @@ export default function Questions() {
             type: 'multDropdowns',
             options: [{
                 key: "Band Size",
-                value: ['28', '30', '32', '34', '36', '38', '40', '42', '44', '46']
+                value: ['24', '26', '28', '30', '32', '34', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60']
             }, {
                 key: "Cup Size",
-                value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'DDD']
+                value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO']
             }
             ],
             select: 'one',
@@ -420,7 +428,7 @@ export default function Questions() {
             questions: answers,
             email: temp
         };
-        localStorage.setItem('quizData', newUser);
+        localStorage.setItem('quizData', JSON.stringify(newUser));
 
         fetch('/api/update', {
             method: 'PUT',

@@ -6,8 +6,10 @@ import { useRouter } from "next/router";
 export default function Recommendation() {
     const [data, setData] = useState([]);
     const [userLoaded, setUserLoaded] = useState(false);
+    const [size, setSize] = useState([]);
+    const [breastShape, setBreastShape] = useState([]);
     let name = "Nina";
-    let size = ['30F', '32E'];
+    //let size = ['30F', '32E'];
     let arrProfile = [
         {
             attribute: 'Teardrop',
@@ -35,6 +37,12 @@ export default function Recommendation() {
         },
         {
             attribute: 'Asymmetric',
+            description: 'One breast is larger than the other.',
+            link: 'Shape',
+            image: '/asymmetric.svg'
+        },
+        {
+            attribute: 'Athletic',
             description: 'One breast is larger than the other.',
             link: 'Shape',
             image: '/asymmetric.svg'
@@ -130,8 +138,41 @@ export default function Recommendation() {
     const fetchUser = async () => {
 
         var temp = localStorage.getItem('quizData');
+        const split_string = temp.split(",");
+        let json = JSON.parse(temp);
+        let sizeArr = json.questions[json.questions.length - 1];
+        var str = sizeArr[0] + sizeArr[1];
+        size.push(str);
+        var i;
+        let d = ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO'];
+        if (sizeArr[0] != '60') {
+            i = parseInt(sizeArr[0]);
+            i += 2;
+        }
 
-        window.alert(temp);
+        for (var t = 0; t < d.length; t++) {
+            if (d[t] == sizeArr[1]) {
+                if (t == 0) {
+                    break;
+                }
+                t--;
+                break;
+            }
+        }
+        var sisterSize = i.toString() + d[t];
+        size.push(sisterSize);
+
+        let breastShapes = json.questions[19];
+
+        for (const x of breastShapes) {
+            for (const y of arrProfile) {
+                if (x == y.attribute) {
+                    breastShape.push(y);
+                }
+            }
+        }
+
+        return { success: true, data: json.question };
 
         // await fetch('/api/auth', {
         //     headers: {
@@ -223,7 +264,7 @@ export default function Recommendation() {
                     </div>
                     <div className="rec-profile-scroll">
                         {
-                            Array.from(arrProfile).map((r) => {
+                            Array.from(breastShape).map((r) => {
                                 return (breastProfile(r));
                             })
                         }
