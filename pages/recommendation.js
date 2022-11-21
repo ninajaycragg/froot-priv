@@ -129,17 +129,19 @@ export default function Recommendation() {
 
     const fetchUser = async () => {
         window.alert(localStorage.getItem('email'));
+        const tempBody = {
+            email: localStorage.getItem('email')
+        }
         await fetch(`/api/getUser`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: {
-                email: localStorage.getItem('email')
-            },
+            body: JSON.stringify(tempBody)
         })
             .then(res => {
                 window.alert(res.email);
+                console.log(res);
                 return { success: true };
 
             }).catch((error) => {
