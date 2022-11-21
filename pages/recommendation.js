@@ -132,7 +132,8 @@ export default function Recommendation() {
         const tempBody = {
             email: localStorage.getItem('email')
         }
-        await fetch(`/api/getUser`, {
+        console.log(tempBody);
+        await fetch(`/api/getuser`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -140,7 +141,7 @@ export default function Recommendation() {
             body: JSON.stringify(tempBody)
         })
             .then(res => {
-                window.alert(res.email);
+                console.log("here is the response");
                 console.log(res);
                 return { success: true };
 
