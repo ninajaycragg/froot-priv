@@ -3,6 +3,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+// All of the fields a user should have when creating a new one
 const User = mongoose.model('User', new mongoose.Schema({
     email: {
         type: String,
@@ -37,6 +38,7 @@ const User = mongoose.model('User', new mongoose.Schema({
     }
 }));
 
+// Validation when creating a user
 function validateUser(user) {
     const schema = Joi.object({
         email: Joi.string().min(5).max(255).required().email().messages({
@@ -62,6 +64,7 @@ function validateUser(user) {
     return schema.validate(user);
 }
 
+// Validating a user when logging in
 function validateUserLogin(user) {
     const schema = Joi.object({
         email: Joi.string().required().email().messages({
@@ -76,6 +79,7 @@ function validateUserLogin(user) {
     return schema.validate(user);
 }
 
+// export functions
 exports.User = User;
 exports.validateUser = validateUser;
 exports.validateUserLogin = validateUserLogin;
