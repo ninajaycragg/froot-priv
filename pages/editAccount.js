@@ -27,6 +27,7 @@ export default function editAccount() {
             firstName: inputs["firstName"],
             lastName: inputs["lastName"],
         };
+        // Ensure that a user is already logged in
         await fetch('/api/auth', {
             headers: {
                 'Authorization': localStorage.getItem('token')
@@ -36,7 +37,7 @@ export default function editAccount() {
             .then(data => {
                 info.origEmail = data.email;
             })
-
+        
         fetch('/api/editAccount', {
             method: 'PUT',
             headers: {
