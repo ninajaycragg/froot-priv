@@ -35,6 +35,7 @@ export default function Signup() {
       questions: [],
     };
 
+    // check necessary fields
     const fields = {
       confirmPassword: inputs["confirmPassword"],
       agree: inputs["agree"] ? true : false
@@ -44,6 +45,7 @@ export default function Signup() {
     info.push(newUser)
     info.push(fields);
 
+    // send info to api
     fetch('/api/add', {
       method: 'POST',
       headers: {
@@ -53,7 +55,7 @@ export default function Signup() {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.message) { window.alert(res.message) }
+        if (res.message) { window.alert(res.message) } // if there is an error, alert the user
         else {
           globalVal.email = newUser.email;
           // setToLogin(true);
@@ -68,6 +70,7 @@ export default function Signup() {
   };
 
   useEffect(() => {
+    // if already logged in, cannot create a new account
     fetch('/api/auth', {
       headers: {
         'Authorization': localStorage.getItem('token')
