@@ -34,13 +34,9 @@ export default function Nav() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    signOut(auth)
-      .then(() => {
-        router.push('/questions');
-      })
-      .catch((error) => {
-        // An error happened.
-      });
+    localStorage.removeItem('token');
+
+    router.push('/login').then(() => router.reload());
   };
   // logged in nav
   if (user !== undefined) {
@@ -59,7 +55,23 @@ export default function Nav() {
           <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
         <img className="user-logo" href="/userProfile" src="/userLogo.svg" />
+
+        <Button
+          variant="outlined"
+          size="small"
+          disableElevation
+          color="inherit"
+          style={{
+            textTransform: 'capitalize',
+            paddingLeft: '5%',
+            paddingRight: '5%',
+          }}
+          onClick={handleClick}
+        >
+          Sign Out
+        </Button>
       </div>
+
     );
   }
   // default nav
