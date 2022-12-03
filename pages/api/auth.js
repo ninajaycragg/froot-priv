@@ -1,4 +1,4 @@
-
+// This file contains the backend code to check if a user is logged in to the website.
 const jwt = require('jsonwebtoken');
 
 export default function handler(req, res) {
