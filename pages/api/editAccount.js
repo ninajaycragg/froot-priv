@@ -1,3 +1,4 @@
+// This file contains the backend code to edit a user's information and re-add it to the MongoDB 'users' collection.
 import { connectToDatabase } from "../../server/db/conn";
 var bcrypt = require('bcryptjs');
 
