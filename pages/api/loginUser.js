@@ -1,5 +1,4 @@
-// const express = require('express');
-// const { MongoClient } = require('mongodb');
+// This file contains the backend code to login a user to the website.
 var bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validateUserLogin } = require('../../server/models/user');
