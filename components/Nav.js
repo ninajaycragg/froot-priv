@@ -9,6 +9,7 @@ import next from 'next';
 export default function Nav() {
   const [user, setUser] = React.useState(undefined);
 
+  // Check if a user is logged in
   useEffect(() => {
     fetch('api/auth', {
       headers: {
