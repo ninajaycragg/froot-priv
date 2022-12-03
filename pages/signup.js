@@ -10,7 +10,6 @@ import { autocompleteClasses } from '@mui/material';
 
 export default function Signup() {
   const [inputs, setInputs] = useState({});
-  // const [toLogin, setToLogin] = useState({});
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -86,7 +85,6 @@ export default function Signup() {
       style={{
         width: '100vw',
         height: '100vh',
-        //backgroundColor: 'green',
         display: 'flex',
         backgroundColor: '#FAF8F1',
       }}
@@ -96,17 +94,14 @@ export default function Signup() {
           marginTop: '15%',
           width: '100%',
           height: '100%',
-          //backgroundColor: 'orange',
           display: 'flex'
 
         }}
       >
         <div
           style={{
-            // backgroundColor: 'red',
             width: '50%',
             height: '60%',
-            //display: 'flex',
             flexDirection: 'column',
             position: 'relative'
           }}
@@ -129,7 +124,6 @@ export default function Signup() {
             height: '60%',
             display: 'flex',
             flexDirection: 'column',
-            // backgroundColor: 'blue'
           }}
         >
           <div className="general" style={{ justifyContent: 'left' }}>
@@ -154,7 +148,6 @@ export default function Signup() {
               marginLeft: '0',
               marginBottom: '10%',
               fontFamily: 'Inter',
-              //fontSize: '70%',
             }}
           >
 
@@ -285,16 +278,14 @@ export default function Signup() {
                 name="agree"
                 value={inputs.agree || ""}
                 onChange={handleCheckboxChange}
-              // style={{
-              //   lineHeight: '200%',
-              //   verticalAlign: 'bottom',
-              // }}
-
               />
+
               I agree with Froot's Terms, Privacy Policy, and E-sign consent.
             </label>
+
             <br></br>
             <br></br>
+
             <div
               style={{
                 display: 'flex',
@@ -302,6 +293,7 @@ export default function Signup() {
                 width: '100%',
               }}
             >
+
               <div>
                 <input
                   type="submit"
@@ -321,10 +313,10 @@ export default function Signup() {
                     lineHeight: '100%',
                     fontFamily: 'Inter',
                     border: '0px'
-
                   }}
                 />
               </div>
+
               <div
                 style={{
                   flexDirection: 'column',
