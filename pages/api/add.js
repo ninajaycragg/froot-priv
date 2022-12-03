@@ -1,3 +1,5 @@
+// This file contains the backend code to add a user to the MongoDB 'users' collection.
+
 import { connectToDatabase } from "../../server/db/conn";
 var bcrypt = require('bcryptjs');
 const { User, validateUser } = require('../../server/models/user');
@@ -11,8 +13,6 @@ export default async function handler(req, response) {
     if (error) {
         return response.status(409).json({ message: error.details[0].message });
     }
-
-    // let db_connect = dbo.getDb();
 
     let userExists = await db_connect.collection('users').findOne({ email: req.body[0].email });
 
@@ -29,6 +29,7 @@ export default async function handler(req, response) {
 
     // Create user
     else {
+        // Encrypt password
         const salt = await bcrypt.genSalt(10);
         let suPassHash = await bcrypt.hash(req.body[0].password, salt);
         let newUser = new User({
