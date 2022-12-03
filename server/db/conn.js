@@ -13,7 +13,7 @@ let database = null;
 if (!process.env.MONGODB_URI) {
   throw new Error('Please add your Mongo URI to .env.local')
 }
-
+// Function necessary to connect to MongoDB
 export async function connectToDatabase() {
   try {
     if (mongoClient && database) {
@@ -27,7 +27,7 @@ export async function connectToDatabase() {
       mongoClient = global._mongoClient;
     }
 
-    database = await mongoClient.db('froot1');
+    database = await mongoClient.db('froot1'); // The database we need
     return { mongoClient, database };
   } catch (e) {
     console.error(e);
