@@ -55,21 +55,8 @@ export default function Nav() {
           <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
         <img className="user-logo" href="/userProfile" src="/userLogo.svg" />
+        <div className="default-nav-sign-in" onClick={handleClick}>Sign Out</div>
 
-        <Button
-          variant="outlined"
-          size="small"
-          disableElevation
-          color="inherit"
-          style={{
-            textTransform: 'capitalize',
-            paddingLeft: '5%',
-            paddingRight: '5%',
-          }}
-          onClick={handleClick}
-        >
-          Sign Out
-        </Button>
       </div>
 
     );
