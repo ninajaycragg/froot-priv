@@ -35,12 +35,13 @@ export default function Login() {
         })
             .then(res => res.json())
             .then(data => {
-                if (!data.token) { window.alert(data.message) }
+                if (!data.token) { window.alert(data.message) } // if an error occurs, print the message
                 else {
                     globalVal.email = loginUser.email;
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('email', loginUser.email)
                     // console.log(`in login fetch: ${localStorage.getItem('token')}`)
+                    // Set the token in storage
                     setToken(data.token);
                 }
             })
@@ -52,6 +53,7 @@ export default function Login() {
 
     useEffect(() => {
         // console.log(`useeffect: ${localStorage.getItem('token')}`);
+        // if a user is already logged in, don't let them access the login page
         fetch(`/api/auth`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
