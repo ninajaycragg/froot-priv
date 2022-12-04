@@ -47,6 +47,13 @@ https://mui.com/material-ui/getting-started/overview/
 
 Connection to MongoDB can be established by navigating into the server folder and running: node server
 
+# Adding external css
+
+Add css stylesheets to folder /css.
+Link css to /pages/_app.js
+Call classname in divs using classname="[insert name of class]"
+
+
 # Goals / Issues
 
 Currently working on getting the application connected to the server/MongoDB when it's deployed on Vercel. Having a hard time figuring out how to do it when it's not being ran locally. 

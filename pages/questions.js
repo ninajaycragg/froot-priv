@@ -23,11 +23,14 @@ export default function Questions() {
     const [multAnswers, setMult] = useState([]);
     const [hasTaken, setHasTaken] = useState(false);
     const router = useRouter();
+
+    // Route to recommendation page upon completion of quiz
     function handleRedirection(e) {
         e.preventDefault();
         router.push('/recommendation');
     }
 
+    // Array of questions
     const questionsArray = [
         {
             question: 'Welcome to Froot',
@@ -371,83 +374,18 @@ export default function Questions() {
     ];
 
     // end of question array
-    const mult = {
-        backgroundColor: 'white',
-        width: '353px',
-        height: '377px',
-        marginBottom: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '20px',
-        border: '1px solid black',
-        borderRadius: '5px',
-    };
 
-    async function postUser() {
-        // When a post request is sent to the create url, we'll add a new record to the database.
-        const newUser = {
-            questions: answers,
-        };
-        // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
-        // ('http://localhost:5000/user/add');
-        // http://localhost:3000/api/hello
-        await fetch('http://localhost:5000/user/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
-            },
-            body: JSON.stringify(newUser),
-        }).catch((error) => {
-            window.alert(error);
-            return;
-        });
-    }
-    async function postBlog() {
-        // When a post request is sent to the create url, we'll add a new record to the database.
-        const post = {
-            title: 'teehee',
-            content: 'testContent',
-        };
-        // ('https://froot-priv-83didmdgb-maarywang.vercel.app/user/add');
-        // ('http://localhost:5000/user/add');
-        // http://localhost:3000/api/hello
-        await fetch('http://localhost:5000/blogPosts/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Authorization: `Bearer ${process.env.VERCEL_ACCESS_TOKEN}`,
-            },
-            body: JSON.stringify(post),
-        }).catch((error) => {
-            window.alert(error);
-            return;
-        });
-    }
-
-    // const postUser = async () => {
-    //   const newUser = {
-    //     questions: answers,
-    //   };
-    //   const res = await fetch('https://api.vercel.com/api/hello', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(newUser),
-    //   });
-    //   console.log(res);
-    // };
-
+    // function to grab change on text input
     const handleChange = (e) => {
         setSel(e.target.value);
     };
 
+    // function to grab selection of dropdown menu
     const handleOtherDropdown = (e) => {
         setSel2(e.target.value);
     };
 
+    // function to grab selection of question answers
     const handleClick = () => {
         if (index <= answers.length) {
             const newAnswers = [...answers];
@@ -527,6 +465,7 @@ export default function Questions() {
         }
     };
 
+    // function to handle going back a question
     const handleBack = () => {
         if (hasTaken) {
             setIndex(index -= 1);
@@ -545,11 +484,13 @@ export default function Questions() {
             }
         }
     };
-    //onclick change color: setCSS on click?
+
     useEffect(() => {
         setSel(multAnswers);
     }, [multAnswers]);
     console.log(questionsArray[index].question);
+
+    // Setting display of break style questions
     if (questionsArray[index].type == "break") {
         return (
             <div className="question1-wrapper">
@@ -614,10 +555,12 @@ export default function Questions() {
             </div >
         )
     }
+    // setting display of iframe embed question if hasTaken
     else if (questionsArray[index].type == 'iframe' && hasTaken) {
         setIndex((index += 1));
         return (null);
     }
+    // setting frontend display of all other types of questions (dropdown, mc, image, tag)
     else return (
         <div className="question_body">
             <div id="scroll"></div>
@@ -641,17 +584,6 @@ export default function Questions() {
                             {questionsArray[index].subtext ? questionsArray[index].text : ''}
                         </p>
                     </div>
-                    {/* here displays image if available or nothing at all */}
-                    {/* {questionsArray[index].type === 'textIMG' ||
-                        questionsArray[index].type === 'mcIMG' ? (
-                        <div className="question_text_images_container">
-                            <Image
-                                src={questionsArray[index].image}
-                                layout="fill"
-                                objectFit="contain"
-                            ></Image>
-                        </div>
-                    ) : null} */}
                 </div>
                 {/* displays question text or nothing */}
                 {questionsArray[index].type === 'text' ||

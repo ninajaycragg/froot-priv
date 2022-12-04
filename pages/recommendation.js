@@ -3,6 +3,7 @@ import Image from "next/image"
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 
+// Defining the recommendation page
 export default function Recommendation() {
     let name = "Nina";
     let size = ['30F', '32E'];

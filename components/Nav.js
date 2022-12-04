@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import globalVal from "../middleware/global";
 import next from 'next';
 
+// describes the desktop menu
 export default function Nav() {
   const [user, setUser] = React.useState(undefined);
 
@@ -78,11 +79,8 @@ export default function Nav() {
           <Link className="default-nav-link" href="#">STORE</Link>
           <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
-        {/* <div className="icon-wrapper"> */}
-        {/* <img className="user-logo" src="/userLogo.svg" /> */}
         <div className="default-nav-sign-in" onClick={handleSignin}>Sign In</div>
         <div className="default-nav-sign-in" onClick={handleSignup}>Sign Up</div>
-        {/* </div> */}
       </div >
     );
   }

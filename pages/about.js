@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 
+// Defining the about page
 export default function About() {
   return (
     <div className="about_body">

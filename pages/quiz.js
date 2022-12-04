@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import Image from 'next/image'; import globalVal from "../middleware/global";
 
+// Defining the Quiz Intro page before entering quiz
 export default function Quiz() {
   return (
     <div
