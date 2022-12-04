@@ -206,15 +206,6 @@ userRoutes.route('/user/brands').post(async (req, response) => {
     //dbo1.close();
   });
 
-
-
-
-
-
-
-  // return response.json({
-  //   bra: braSize
-  // })
 });
 
 module.exports = userRoutes;
