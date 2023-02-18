@@ -740,7 +740,7 @@ export default function Questions() {
                         </div>
                     </>
                 ) : null}
-                {questionsArray[index].type === 'image' && questionsArray[index].link ? <div className="quiz-link">More Info ></div> : null}
+                {questionsArray[index].type === 'image' && questionsArray[index].link ? <div className="quiz-link">More Info </div> : null}
                 <div className={
                     questionsArray[index].type === 'break'
                         ? "question_break_container"
