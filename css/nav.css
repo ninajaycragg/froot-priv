@@ -64,6 +64,10 @@
     letter-spacing: 1px;
 }
 
+.default-nav-link-wrapper a:hover {
+    font-weight: 700;
+}
+
 .default-nav-link {
     margin: 50%;
     /* font-size: 3%; */
