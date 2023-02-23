@@ -9,9 +9,9 @@ const jwt = require('jsonwebtoken');
 const { verifyJWT } = require('../../middleware/verifyJWT');
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:5001/froot1";
+var url = 'mongodb://localhost:5001/froot1';
 
-
+// user creation logic
 userRoutes.route('/user/add').post(async (req, response) => {
   // Validate account creation fields
   const { error } = validateUser(req.body[0]);
@@ -21,14 +21,20 @@ userRoutes.route('/user/add').post(async (req, response) => {
 
   let db_connect = dbo.getDb();
 
-  let userExists = await db_connect.collection('users').findOne({ email: req.body[0].email });
+  let userExists = await db_connect
+    .collection('users')
+    .findOne({ email: req.body[0].email });
 
   // Check necessary fields
   if (req.body[1].confirmPassword !== req.body[0].password) {
-    return response.status(409).json({ message: 'Confirm password does not match your password.' });
+    return response
+      .status(409)
+      .json({ message: 'Confirm password does not match your password.' });
   }
   if (req.body[1].agree === false) {
-    return response.status(409).json({ message: 'Please agree to the terms and conditions of Froot.' });
+    return response
+      .status(409)
+      .json({ message: 'Please agree to the terms and conditions of Froot.' });
   }
   if (userExists) {
     return response.status(409).json({ message: 'Email already in use!' });
@@ -46,11 +52,13 @@ userRoutes.route('/user/add').post(async (req, response) => {
       questions: req.body[0].questions,
     });
 
-    await db_connect.collection('users').insertOne(newUser, function (err, res) {
-      if (err) throw err;
-      console.log("User added to database.");
-      response.json(res);
-    });
+    await db_connect
+      .collection('users')
+      .insertOne(newUser, function (err, res) {
+        if (err) throw err;
+        console.log('User added to database.');
+        response.json(res);
+      });
   }
 });
 
@@ -64,7 +72,9 @@ userRoutes.route('/user/login').post(async (req, response) => {
 
   let db_connect = dbo.getDb();
 
-  let user = await db_connect.collection('users').findOne({ email: req.body.email });
+  let user = await db_connect
+    .collection('users')
+    .findOne({ email: req.body.email });
   if (!user) {
     return response.status(409).json({ message: 'Account does not exist.' });
   }
@@ -76,45 +86,54 @@ userRoutes.route('/user/login').post(async (req, response) => {
 
   jwt.sign(
     { email: user.email },
-    "secret",
+    'secret',
     { expiresIn: 86400 },
     (err, token) => {
-      if (err) return response.json({ message: err })
+      if (err) return response.json({ message: err });
       return response.json({
-        message: "Success",
-        token: "Bearer " + token
-      })
+        message: 'Success',
+        token: 'Bearer ' + token,
+      });
     }
-  )
+  );
 });
 
 userRoutes.route('/user/auth').get(verifyJWT, (req, res) => {
-  res.json({ isLoggedIn: true, email: req.user.email })
-})
+  res.json({ isLoggedIn: true, email: req.user.email });
+});
 
 userRoutes.route('/user/update').put(function (req, response) {
   let db_connect = dbo.getDb();
   let myQuery = { email: req.body.email };
   let newValues = {
-    $set: { questions: req.body.questions }
+    $set: { questions: req.body.questions },
   };
-  db_connect.collection('users').updateOne(myQuery, newValues, function (err, res) {
-    if (err) throw err;
-    response.json(res);
-  });
+  db_connect
+    .collection('users')
+    .updateOne(myQuery, newValues, function (err, res) {
+      if (err) throw err;
+      response.json(res);
+    });
 });
 
 userRoutes.route('/user/editAccount').put(async function (req, response) {
   let db_connect = dbo.getDb();
 
   // check that the user exists in DB / get info
-  let user = await db_connect.collection('users').findOne({ email: req.body.origEmail });
+  let user = await db_connect
+    .collection('users')
+    .findOne({ email: req.body.origEmail });
   if (!user) {
-    return response.status(409).json({ message: `Account does not exist. ${req.body.origEmail}` });
+    return response
+      .status(409)
+      .json({ message: `Account does not exist. ${req.body.origEmail}` });
   }
   let myQuery = { email: user.email };
 
-  let new_email = user.email, new_firstName = user.firstName, new_lastName = user.lastName, new_password = user.password;
+  let new_email = user.email,
+    new_firstName = user.firstName,
+    new_lastName = user.lastName,
+    new_password = user.password;
 
   if (req.body.email !== undefined) {
     new_email = req.body.email;
@@ -133,26 +152,37 @@ userRoutes.route('/user/editAccount').put(async function (req, response) {
   }
 
   let newValues = {
-    $set: { email: new_email, firstName: new_firstName, lastName: new_lastName, password: new_password }
+    $set: {
+      email: new_email,
+      firstName: new_firstName,
+      lastName: new_lastName,
+      password: new_password,
+    },
   };
   console.log(newValues);
-  db_connect.collection('users').updateOne(myQuery, newValues, function (err, res) {
-    if (err) throw err;
-    console.log("updated");
-    response.json(res);
-  });
+  db_connect
+    .collection('users')
+    .updateOne(myQuery, newValues, function (err, res) {
+      if (err) throw err;
+      console.log('updated');
+      response.json(res);
+    });
 });
 
 userRoutes.route('/user/brands').post(async (req, response) => {
   let db_connect = dbo.getDb();
 
   // check that the user exists in DB / get info
-  let user = await db_connect.collection('users').findOne({ email: req.body.email });
+  let user = await db_connect
+    .collection('users')
+    .findOne({ email: req.body.email });
   if (!user) {
-    return response.status(409).json({ message: `Account does not exist. ${req.body.email}` });
+    return response
+      .status(409)
+      .json({ message: `Account does not exist. ${req.body.email}` });
   }
 
-  //change to whatever index bra size is 
+  //change to whatever index bra size is
   let braSize = user.questions[0];
   let band = parseInt(braSize.substr(0, 2));
   let cup = braSize.substr(2);
@@ -162,8 +192,7 @@ userRoutes.route('/user/brands').post(async (req, response) => {
   if (cup.length > 1 && cup.charAt(0) != 'A') {
     if (cup.length == 2) {
       cup = cup.charAt(0) - 1;
-    }
-    else {
+    } else {
       cup = cup.charAt(0) - 2;
     }
   }
@@ -172,41 +201,51 @@ userRoutes.route('/user/brands').post(async (req, response) => {
   let cupNum;
   if (cup == 'AAAA') {
     cupNum = -2;
-  }
-  else if (cup == 'AAA') {
+  } else if (cup == 'AAA') {
     cupNum = -1;
-  }
-  else if (cup == 'AA') {
+  } else if (cup == 'AA') {
     cupNum = 0;
-  }
-  else {
+  } else {
     cupNum = cup.charCodeAt(0) - 64;
   }
 
   // band_min < band < band_max
   var queryBraSize = {
-    $and: [{ band_min: { $lte: band } }, { band_max: { $gte: band } },
-    { cupNum_min: { $lte: cupNum } }, { cupNum_max: { $gte: cupNum } },]
+    $and: [
+      { band_min: { $lte: band } },
+      { band_max: { $gte: band } },
+      { cupNum_min: { $lte: cupNum } },
+      { cupNum_max: { $gte: cupNum } },
+    ],
   };
 
   var querySisterSize = {
-    $and: [{ band_min: { $lte: band + 1 } }, { band_max: { $gte: band + 1 } },
-    { cupNum_min: { $lte: cupNum - 1 } }, { cupNum_max: { $gte: cupNum - 1 } },]
+    $and: [
+      { band_min: { $lte: band + 1 } },
+      { band_max: { $gte: band + 1 } },
+      { cupNum_min: { $lte: cupNum - 1 } },
+      { cupNum_max: { $gte: cupNum - 1 } },
+    ],
   };
 
   var dbo1 = dbo.getDb();
 
-  dbo1.collection("brands").find(queryBraSize).toArray(function (err, result) {
-    if (err) throw err;
-    console.log(result);
-  });
+  dbo1
+    .collection('brands')
+    .find(queryBraSize)
+    .toArray(function (err, result) {
+      if (err) throw err;
+      console.log(result);
+    });
 
-  dbo1.collection("brands").find(querySisterSize).toArray(function (err, result) {
-    if (err) throw err;
-    console.log(result);
-    //dbo1.close();
-  });
-
+  dbo1
+    .collection('brands')
+    .find(querySisterSize)
+    .toArray(function (err, result) {
+      if (err) throw err;
+      console.log(result);
+      //dbo1.close();
+    });
 });
 
 module.exports = userRoutes;

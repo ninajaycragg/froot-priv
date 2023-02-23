@@ -66,6 +66,7 @@ function validateUser(user) {
 
 // Validating a user when logging in
 function validateUserLogin(user) {
+    //parameters are email/ password
     const schema = Joi.object({
         email: Joi.string().required().email().messages({
             'string.empty': "Enter an email adress.",
