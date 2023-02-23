@@ -63,7 +63,8 @@ userRoutes.route('/user/add').post(async (req, response) => {
 });
 
 // Login user
-userRoutes.route('/user/loginUser').post(async (req, response) => {
+userRoutes.route('/user/login').post(async (req, response) => {
+  print("REQ BODY: " + req.body);
   const { error } = validateUserLogin(req.body);
   if (error) {
     return response.status(409).json({ message: error.details[0].message });

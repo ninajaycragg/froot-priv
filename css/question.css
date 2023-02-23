@@ -13,6 +13,27 @@
     margin-top: 5%;
 }
 
+.progress_div {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 95.83%;
+    top: 96.33%;
+}
+
+.progress-bar {
+    width: 4.16%;
+    height: 24px;
+    background: #670224;
+    opacity: 0.2;
+}
+
+/*.progress-info {*/
+/*    font-family: 'Inter';*/
+/*    color: white;*/
+/*}*/
+
 .question1_body {
     width: 50%;
     height: 100%;
@@ -66,6 +87,7 @@
 .question_count_container {
     width: 5%;
     height: 40%;
+    position: relative;
     text-align: right;
     display: flex;
     align-items: start;
@@ -100,6 +122,7 @@
 }
 
 .question_block {
+    position: relative;
     width: 56%;
     height: 40%;
     margin-top: 10.5%;
@@ -652,4 +675,11 @@
         padding-left: 5%;
         padding-right: 5%;
     }
+
+
+    /*progress[value] {*/
+    /*    width: 250px;*/
+    /*    height: 20px;*/
+    /*}*/
+
 }
