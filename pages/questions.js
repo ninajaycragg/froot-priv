@@ -16,7 +16,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 let tog = 1
 
 export default function Questions() {
-    const [index, setIndex] = useState(0);
+    let [index, setIndex] = useState(0);
     const [sel, setSel] = useState('');
     const [sel2, setSel2] = useState('');
     const [answers, setAnswers] = useState([]);
@@ -45,6 +45,12 @@ export default function Questions() {
             text: "The Froot team realizes that knowing a bit about who you are, not just your boobs, can help us find your perfect bra. So let's get to know you with a few key questions!",
             type: 'break',
             image: '/LetGetToKnowYou.jpeg'
+        },
+        {
+            question: 'What\'s your name?',
+            subtext: true,
+            text: 'This helps us understand your breast type.',
+            type: 'text'
         },
         {
             question: 'How old are you?',
@@ -398,10 +404,12 @@ export default function Questions() {
             }
             setAnswers(newAnswers);
             setIndex((index += 1));
+           //  handleProgress();
             setSel('');
         } else {
             setAnswers([...answers, sel]);
             setIndex((index += 1));
+            // handleProgress();
             setSel('');
         }
         if (answers[index]) {
@@ -409,7 +417,7 @@ export default function Questions() {
                 setMult(answers[index]);
                 setSel(multAnswers);
             } else {
-                if (index == answers.length - 1) {
+                if (index === answers.length - 1) {
                     setSel(answers[index][0]);
                     setSel2(answers[index][1]);
                 }
@@ -428,6 +436,29 @@ export default function Questions() {
         }
     };
 
+    // will manage dynamic progress bar
+    // const handleProgress = () => {
+    //     var element = document.getElementById('progress-bar');
+    //     var width = 0;
+    //     var identity = setInterval(scene, 10);
+    //
+    //     const scene = () => {
+    //         if (width >= 100) {
+    //             clearInterval(identity);
+    //         } else {
+    //             width = (index+1)/24;
+    //             element.style.width = width + '%';
+    //         }
+    //     }
+    //     console.log('moveProgressBar');
+    //     // let str_index = (index+1).toString();
+    //     // let progress_str = str_index + " of 24";
+    //     //
+    //     // let percent = (index+1)/24;
+    //     // let percent_str = percent.toString() + "%";
+    //     // document.getElementById('progress-bar').style.width= percent_str;
+    // };
+
     useEffect(() => {
         const listener = (event) => {
             if (event.code === 'Enter') {
@@ -442,12 +473,12 @@ export default function Questions() {
     });
 
     const handleChoose = (i) => {
-        if (questionsArray[index].question == 'Have you taken the /ABraThatFits quiz?'
-            && i == 'Yes') {
+        if (questionsArray[index].question === 'Have you taken the /ABraThatFits quiz?'
+            && i === 'Yes') {
             setHasTaken(true);
         }
-        else if (questionsArray[index].question == 'Have you taken the /ABraThatFits quiz?'
-            && i == 'No') {
+        else if (questionsArray[index].question === 'Have you taken the /ABraThatFits quiz?'
+            && i === 'No') {
             setHasTaken(false);
         }
 
@@ -475,7 +506,7 @@ export default function Questions() {
             setMult(answers[index]);
             setSel(multAnswers);
         } else {
-            if (index == answers.length - 1) {
+            if (index === answers.length - 1) {
                 setSel(answers[index][0]);
                 setSel2(answers[index][1]);
             }
@@ -491,7 +522,7 @@ export default function Questions() {
     console.log(questionsArray[index].question);
 
     // Setting display of break style questions
-    if (questionsArray[index].type == "break") {
+    if (questionsArray[index].type === "break") {
         return (
             <div className="question1-wrapper">
                 <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
@@ -553,11 +584,13 @@ export default function Questions() {
                     </div>
                 </div >
             </div >
+
         )
     }
     // setting display of iframe embed question if hasTaken
-    else if (questionsArray[index].type == 'iframe' && hasTaken) {
+    else if (questionsArray[index].type === 'iframe' && hasTaken) {
         setIndex((index += 1));
+        // handleProgress();
         return (null);
     }
     // setting frontend display of all other types of questions (dropdown, mc, image, tag)
@@ -599,6 +632,7 @@ export default function Questions() {
                             placeholder="Type your answer here..."
                             className="question_text_box"
                         />
+
                     </div>
                 ) : null}
                 {questionsArray[index].type === 'dropdown' ? (
@@ -633,6 +667,7 @@ export default function Questions() {
                                     <MenuItem value={choice}>{choice}</MenuItem>
                                 ))}
                             </Select>
+
                         </div>
                         <div className="question_dropdown_sub_options_container"
                         >
@@ -647,6 +682,7 @@ export default function Questions() {
                                     <MenuItem value={choice}>{choice}</MenuItem>
                                 ))}
                             </Select>
+
                         </div>
                         {/* ))} */}
 
@@ -671,12 +707,15 @@ export default function Questions() {
                                 {choices}
                             </div>
                         ))}
+
                     </div>
                 ) : null}
                 {questionsArray[index].type == 'iframe' ? (
                     <div>
                         <iframe src="https://www.abrathatfits.org/calculator.php" height={500} width={500} />
+
                     </div>
+
                 ) : null}
 
                 {/* displays multiple choices or not */}
@@ -740,7 +779,7 @@ export default function Questions() {
                         </div>
                     </>
                 ) : null}
-                {questionsArray[index].type === 'image' && questionsArray[index].link ? <div className="quiz-link">More Info </div> : null}
+                {questionsArray[index].type === 'image' && questionsArray[index].link ? (<div className="quiz-link">More Info</div>) : null}
                 <div className={
                     questionsArray[index].type === 'break'
                         ? "question_break_container"
@@ -772,6 +811,15 @@ export default function Questions() {
                     )
                 }
             </div >
+            {/*<div className={"progress_div"} >*/}
+            {/*    <div className={"progress-bar"} id={"progress-bar"}>*/}
+            {/*        /!*<div className={"progress-info"}>*!/*/}
+            {/*        /!*    1 of 24*!/*/}
+            {/*        /!*</div>*!/*/}
+
+            {/*    </div>*/}
+            {/*</div>*/}
         </div >
+
     );
 }
