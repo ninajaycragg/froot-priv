@@ -81,6 +81,12 @@ export default function Recommendation() {
             end: "high end"
         }
     ];
+    function match() {
+        // get user's answers 
+        // map answers to bra data
+        // find % match
+        // populate arrRecommendations
+    }
     function breastProfile(r) {
         return (
             <div className="rec-profile">
@@ -106,23 +112,10 @@ export default function Recommendation() {
     }
     function braRecommendation(r) {
         return (
-            <div className="bra-rec-wrapper">
-                <img className="rec-bra-image" src="braRecommendation.jpeg"></img>
-                <div className="rec-bra-info">
-                    <div className="rec-bra-name">{r.brandName}</div>
-                    <div className="rec-bra-description">{r.braDescription}</div>
-                    <div className="rec-bra-info-wrap">
-                        <div className="rec-bra-info-button">{r.size}</div>
-                        <div className="rec-bra-info-button">{r.size}</div>
-                        <div className="rec-bra-info-button">{r.price}</div>
-                    </div>
-                    <div className="rec-bra-info-wrap">
-                        <div className="rec-bra-info-button">{r.type}</div>
-                        <div className="rec-bra-info-button">{r.feel}</div>
-                        <div className="rec-bra-info-button">{r.end}</div>
-                    </div>
-                </div>
+            <div className="rec-style">
+                <img className="rec-style-image" src={r.image}></img>
             </div>
+            // have reccomendation data that matches FIGMA
         )
     }
     return (
@@ -130,7 +123,7 @@ export default function Recommendation() {
         <>
             <div className="rec-row1">
                 <div className="recommendation">Recommendation</div>
-                <div className="recommendation-made">Made for {name}</div>
+                <div className="recommendation-made">Made for <em>{name}</em></div>
                 <div className="recommendation-description">Your recommendation is based on your breast profile. This consists of breast shape, density, and your preference for how you want your bras to feel and look.</div>
                 <div className="recommendation">SAY HELLO TO YOUR PERFECT BRA</div>
                 <div className="rec-img-wrapper"><img className="rec-down-arrow" src="downArrow.svg"></img></div>
@@ -138,7 +131,7 @@ export default function Recommendation() {
                 <hr className="rec-line"></hr>
                 {/* Breast profile */}
                 <div className="recommendation">A Little About You</div>
-                <div className="recommendation-made">Nina's Breast Profile</div>
+                <div className="recommendation-made"><em>{name}'s</em> Breast Profile</div>
                 <div className="rec-sizing-wrapper">
                     <div className="rec-sizing-block">
                         <div className="rec-sizing-title">What does your bra size mean?</div>
@@ -177,8 +170,26 @@ export default function Recommendation() {
                     </div>
                 </div>
                 <hr className="rec-line"></hr>
-                <div className="recommendation">let’s help find your fit</div>
-                <div className="recommendation-made">Bra Style Recommendations</div>
+                <div className="recommendation">let's help find your fit</div>
+                <div className="recommendation-made"><em>Bra Style</em> Recommendations</div>
+                <div className="rec-style-wrapper">
+                    <div className="rec-sizing-block">
+                        <div className="rec-sizing-title">How does bra style affect fit?</div>
+                        <div className="rec-sizing-description">Because you have teardrop shaped breasts, an underwired balconette or demi cup bra with a vertical seam will fit bests. If you want to lift the breasts and make them look fuller on the top, aim for a vertical seam.</div>
+                        <img className="rec-change" src="/retake.svg"></img>
+                    </div>
+                    <div className="rec-profile-scroll">
+                        {
+                            Array.from(arrRecommendations).map((r) => {
+                                return (braRecommendation(r));
+                            })
+                        }
+                    </div>
+
+                </div>
+                <hr className="rec-line"></hr>
+                <div className="recommendation">let's help find your fit</div>
+                <div className="recommendation-made"><em>Best</em> Bra Types for {name}</div>
                 <div className="rec-style-wrapper">
                     <div className="rec-sizing-block">
                         <div className="rec-sizing-title">How does bra style affect fit?</div>
@@ -192,29 +203,13 @@ export default function Recommendation() {
                             })
                         }
                     </div>
-
                 </div>
-                <div className="recommendation">Bra Shopping Made EAsy</div>
-                <div className="recommendation-made">Brands for {name}</div>
-            </div>
-            <div className="rec-row2">
-                <div className="rec-filter">Filter</div>
-                <div>
-                    <button className="rec-filter-button">Size</button>
-                    <button className="rec-filter-button">Sister Size</button>
-                    <button className="rec-filter-button">Style</button>
-                    <button className="rec-filter-button">Cost</button>
-                    <button className="rec-filter-button">Type</button>
-                </div>
-                <hr className="rec-line2"></hr>
-                <div className="rec-results">{arrRecommendations.length.toString()} results</div>
-                {
-                    Array.from(arrRecommendations).map((r) => {
-                        return (braRecommendation(r));
-                    })
-                }
+                <hr className="rec-line"></hr>
+                <div className="recommendation">let's make this easy</div>
+                <div className="recommendation-made">Bra Size <em>Search</em></div>
             </div>
         </>
+        // NEED TO DO BRA SIZE SEARCH
         // {/* </div > */ }
     )
 }
