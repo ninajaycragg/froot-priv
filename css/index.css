@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+#__next {
+    position: absolute;
+    min-width: 100vw;
+}
 
 .index_r1 {
     display: flex;
