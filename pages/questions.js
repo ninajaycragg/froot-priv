@@ -11,17 +11,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { boolean, func } from 'joi';
-
+import ProgressBar from 'react-bootstrap/ProgressBar';
 const userEmail = localStorage.getItem('email')
 
 // import ButtonBase from '@mui/material/ButtonBase';
-
+let currQ = 0;
+let totalQ = 26
 // 27 questions
 let tog = 1
 
 export default function Questions() {
 
     let [index, setIndex] = useState(0);
+    const [progress, setProgress] = useState(0);
     const [sel, setSel] = useState('');
     const [sel2, setSel2] = useState('');
     const [answers, setAnswers] = useState([]);
@@ -34,6 +36,10 @@ export default function Questions() {
     function handleRedirection(e) {
         e.preventDefault();
         router.push('/recommendation');
+    }
+    function displayPBar(e) {
+        e.preventDefault();
+        return <ProgressBar now={progress} variant='danger' width='30px' height='30px' />
     }
 
     // Array of questions
@@ -390,7 +396,6 @@ export default function Questions() {
     // function to grab change on text input
     const handleChange = (e) => {
         setSel(e.target.value);
-        console.log("answers: " + answers)
     };
 
     // function to grab selection of dropdown menu
@@ -400,7 +405,8 @@ export default function Questions() {
 
     // function to grab selection of question answers
     const handleClick = () => {
-        console.log("answers: " + answers)
+
+
         if (index <= answers.length) {
             const newAnswers = [...answers];
             if (index == answers.length - 1) {
@@ -412,6 +418,12 @@ export default function Questions() {
             }
             setAnswers(newAnswers);
             setIndex((index += 1));
+            if (index < questionsArray.length - 1) {
+                //setIndex(index + 1);
+                setProgress((index + 1) / questionsArray.length * 100);
+                // displayPBar
+                console.log("PROG: " + progress)
+            }
             //  handleProgress();
             setSel('');
         } else {
@@ -506,10 +518,18 @@ export default function Questions() {
 
     // function to handle going back a question
     const handleBack = () => {
+
+
         if (hasTaken) {
             setIndex(index -= 1);
         }
         setIndex((index -= 1));
+
+        if (index > 0) {
+            setProgress((index - 1) / questionsArray.length * 100);
+            console.log("PROG: " + progress)
+            //  displayPBar
+        }
         if (questionsArray[index].select === 'multiple') {
             setMult(answers[index]);
             setSel(multAnswers);
@@ -820,7 +840,7 @@ export default function Questions() {
                 }
                 >
                     {/* if next question is valid, not the end: display next button */}
-                    <div className="question_next_container">
+                    <div className="question_next_container" onClick={displayPBar}>
                         <Link href="#scroll">
                             <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
                             </div>
@@ -844,6 +864,7 @@ export default function Questions() {
                     )
                 }
             </div >
+
             {/*<div className={"progress_div"} >*/}
             {/*    <div className={"progress-bar"} id={"progress-bar"}>*/}
             {/*        /!*<div className={"progress-info"}>*!/*/}
@@ -852,8 +873,11 @@ export default function Questions() {
 
             {/*    </div>*/}
             {/*</div>*/}
+            {<h1> {progress} </h1>}
+            {/* <ProgressBar now={progress} variant='danger' width='30px' height='30px' />*/}
         </div >
 
     );
 
 }
+
