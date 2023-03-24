@@ -15,6 +15,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // 27 questions
 let tog = 1
 
+/*
+* TODO:
+*   - update styling for Why We Ask section
+*   - create progress bar
+*   - add in a process to authenticate way user enters information
+*   - Understand progress bar issue -- does code need to be restructured to handle that?
+*   - */
+
 export default function Questions() {
     let [index, setIndex] = useState(0);
     const [sel, setSel] = useState('');
@@ -23,6 +31,7 @@ export default function Questions() {
     const [multAnswers, setMult] = useState([]);
     const [hasTaken, setHasTaken] = useState(false);
     const router = useRouter();
+
 
     // Route to recommendation page upon completion of quiz
     function handleRedirection(e) {
@@ -58,7 +67,7 @@ export default function Questions() {
             text: 'This helps us understand your breast type.',
             type: 'dropdown',
             options: ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"],
-            select: 'one',
+            select: 'one'
         },
         {
             question: 'What gender do you identify with?',
@@ -66,7 +75,7 @@ export default function Questions() {
             text: 'Select all that apply! This can affect how a bra fits and what we recommend!',
             type: 'tag',
             options: ["Cisgender", "Female", "Male", "Fluid", "Genderqueer", "Transsexual", "Non-binary", "Gender Neutral", "Other", "Prefer Not to Say"],
-            select: 'multiple',
+            select: 'multiple'
         },
         {
             question:
@@ -75,7 +84,7 @@ export default function Questions() {
             text: 'Select all that apply! Knowing this can help us recommend the right bra to you. If none do, select that.',
             type: 'tag',
             options: ["None", "Breast Augmentation", "Shoulder Pain", "Nerve Pain", "Sensitive Skin", "Mastectomy", "Breast Cancer", "Fabric / Material Allergy", "Back Issues", "Pregnant", "Breastfeeding", "Breast Pain", "Other", "Prefer not to say", "Breast Size Fluctiations"],
-            select: 'multiple',
+            select: 'multiple'
         },
         {
             question: 'Figuring Out Your Style',
@@ -386,6 +395,19 @@ export default function Questions() {
         setSel(e.target.value);
     };
 
+    // function to handle Why We Ask
+    const displayPopUp = (e) => {
+        let popup = document.getElementById("popup");
+        popup.classList.add("open-popup");
+    };
+
+    const closePopUp = (e) => {
+        let popup = document.getElementById("popup");
+        popup.classList.remove("open-popup");
+    };
+
+
+
     // function to grab selection of dropdown menu
     const handleOtherDropdown = (e) => {
         setSel2(e.target.value);
@@ -404,12 +426,12 @@ export default function Questions() {
             }
             setAnswers(newAnswers);
             setIndex((index += 1));
-           //  handleProgress();
+            //handleProgress();
             setSel('');
         } else {
             setAnswers([...answers, sel]);
             setIndex((index += 1));
-            // handleProgress();
+            //handleProgress();
             setSel('');
         }
         if (answers[index]) {
@@ -437,27 +459,30 @@ export default function Questions() {
     };
 
     // will manage dynamic progress bar
-    // const handleProgress = () => {
-    //     var element = document.getElementById('progress-bar');
-    //     var width = 0;
-    //     var identity = setInterval(scene, 10);
-    //
-    //     const scene = () => {
-    //         if (width >= 100) {
-    //             clearInterval(identity);
-    //         } else {
-    //             width = (index+1)/24;
-    //             element.style.width = width + '%';
-    //         }
-    //     }
-    //     console.log('moveProgressBar');
-    //     // let str_index = (index+1).toString();
-    //     // let progress_str = str_index + " of 24";
-    //     //
-    //     // let percent = (index+1)/24;
-    //     // let percent_str = percent.toString() + "%";
-    //     // document.getElementById('progress-bar').style.width= percent_str;
-    // };
+    const handleProgress = () => {
+        var element = document.getElementById('progress-bar');
+        var width = questionsArray[index].progress;
+        var identity = setInterval(scene, 10);
+
+        const scene = () => {
+            if (width >= 100) {
+                clearInterval(identity);
+            } else {
+                if (questionsArray[index].type !== 'break') {
+                    width = (index) / 20;
+                    element.style.width = width + '%';
+                    document.getElementById('progress-info').innerHTML = width.toString() + "of 20";
+                }
+            }
+        }
+        console.log('moveProgressBar');
+        // let str_index = (index+1).toString();
+        // let progress_str = str_index + " of 24";
+        //
+        // let percent = (index+1)/24;
+        // let percent_str = percent.toString() + "%";
+        // document.getElementById('progress-bar').style.width= percent_str;
+    };
 
     useEffect(() => {
         const listener = (event) => {
@@ -514,6 +539,7 @@ export default function Questions() {
                 setSel(answers[index]);
             }
         }
+        //handleProgress();
     };
 
     useEffect(() => {
@@ -590,11 +616,12 @@ export default function Questions() {
     // setting display of iframe embed question if hasTaken
     else if (questionsArray[index].type === 'iframe' && hasTaken) {
         setIndex((index += 1));
-        // handleProgress();
+       // handleProgress();
         return (null);
     }
     // setting frontend display of all other types of questions (dropdown, mc, image, tag)
-    else return (
+    else {
+        return (
         <div className="question_body">
             <div id="scroll"></div>
             <div className="question_count_container">
@@ -810,16 +837,31 @@ export default function Questions() {
                         </div>
                     )
                 }
+                {(index >= 2 && index <=5) ?
+                    (<div className="whyWeAsk">
+                        <button type="button" className="wwa_btn" onClick={displayPopUp}>Why We Ask</button>
+                        <div className="popup" id="popup" >
+                            <button type="button" className="exit" onClick={closePopUp}>X</button>
+                            <h2>Why We Ask</h2>
+                            <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
+                            <h3>Continue</h3>
+
+                        </div>
+                    </div>
+                    ) : null}
             </div >
-            {/*<div className={"progress_div"} >*/}
-            {/*    <div className={"progress-bar"} id={"progress-bar"}>*/}
-            {/*        /!*<div className={"progress-info"}>*!/*/}
-            {/*        /!*    1 of 24*!/*/}
-            {/*        /!*</div>*!/*/}
+            {/* display progress bar*/}
+            {/*{questionsArray[index].type !== 'break' ?*/}
+            {/*    ( <div className={"progress_div"} >*/}
+            {/*        <div className={"progress-bar"} id={"progress-bar"}>*/}
+            {/*            <div className={"progress-info"} dangerouslySetInnerHTML={questionsArray[index].progress.toString() + " of 20"}>*/}
 
-            {/*    </div>*/}
-            {/*</div>*/}
+            {/*            </div>*/}
+            {/*            </div>*/}
+
+            {/*        </div>) : null}*/}
+
         </div >
-
     );
+    }
 }
