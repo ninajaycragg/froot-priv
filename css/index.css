@@ -129,42 +129,43 @@
     .index_hanginglaundry {
         /* visibility: hidden;
         display: none; */
-        margin-top: 200%;
+        width: 100px;
+        margin-top: 200px;
     }
 
     .index_lingerieshadow {
         /* visibility: hidden;
         display: none; */
+        width: 100px;
         margin-bottom: 60%;
-        margin-top: 100%;
+        margin-top: 200px;
     }
 
     .index_orangeslingerie {
-        visibility: hidden;
-        display: none;
+        width: 100px;
         /* margin-top: 5%;
         margin-right: 5%;
         margin-left: 8%; */
     }
 
     .index_hanginglingerie {
-        visibility: hidden;
-        display: none;
+        width: 100px;
     }
 
     .index_lingerieclothesline {
-        visibility: hidden;
-        display: none;
+        width: 100px;
     }
 
     .index_braflowers {
-        visibility: hidden;
-        display: none;
+        width: 100px;
     }
 
     .index_dresser {
-        visibility: hidden;
-        display: none;
+        width: 100px;
+    }
+
+    .index_hanginglingeriebluesky {
+        width: 100px;
     }
 
     .index_braclasp {
@@ -173,8 +174,7 @@
     }
 
     .index_brahangingsunset {
-        visibility: hidden;
-        display: none;
+        width: 100px;
     }
 
     .index_title_wrap {
@@ -208,13 +208,11 @@
     }
 
     .index_lingerieshadow_mobile {
+        width: 100px;
         margin-top: 6%;
     }
 
-    .index_r2 {
-        visibility: hidden;
-        display: none;
-    }
+    .index_r2 {}
 
     .index_perfectbra {
         visibility: visible;
@@ -274,6 +272,11 @@
     }
 
     .index_braclasp {
+        visibility: hidden;
+        display: none;
+    }
+
+    .index_hanginglingeriebluesky {
         visibility: hidden;
         display: none;
     }
