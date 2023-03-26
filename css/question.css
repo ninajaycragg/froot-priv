@@ -13,6 +13,50 @@
     margin-top: 5%;
 }
 
+.wwa_btn {
+    left: 50%;
+    padding: 20px 60px;
+    background:#FAF8F1;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.popup {
+    position: absolute;
+    left: 30%;
+    background: #FAF8F1;
+    text-align: center;
+    padding: 30px 30px 30px 30px;
+    box-shadow: 60em 60em 60em 60em #ebe7df ;
+    visibility: hidden;
+    transition: transform 0.2s;
+
+}
+
+.open-popup {
+    visibility: visible;
+    top: 20%;
+    left: 40%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup h2{
+    margin: 40px 0 10px;
+    font-family: 'Tiempos Headline';
+    font-size: 25px;
+}
+
+.popup button {
+    float: right;
+    float: top;
+    background: #FAF8F1;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+
 .progress_div {
     position: absolute;
     bottom: 0;
