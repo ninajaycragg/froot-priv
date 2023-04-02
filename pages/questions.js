@@ -21,11 +21,10 @@ let totalQ = 26
 
 /*
 * TODO:
-*   - update styling for Why We Ask section to dynamically sit it right spot
 *   - add in a process to authenticate way user enters information
 *   - update /BraThatFits section to match what needs to be sent to algorithm
 *   - make sure that data on recommendations page is dynamically rendered to matching algo results
-*   - */
+*   - clean up CSS file */
 
 export default function Questions() {
     let [index, setIndex] = useState(0);
@@ -357,44 +356,50 @@ export default function Questions() {
             subtext: true,
             text: 'For this portion of our quiz, you will need to be in a private setting in order to complete your self-sizing. All measurements should be taken on naked breasts. We will provide instructional videos for each step. Please take your soft measuring tape provided in the packaging and input your measurements according to the question. Please use inches when measuring. This will take about five minutes. Your responses are confidential.',
             type: 'break',
-            image: '/MeasuringYourBreasts.jpeg',
+            image: '/MeasuringYourBreasts.jpeg'
         },
         // todo: add in picture on the side of these questions
         {
             question: 'Loose Underbust',
             subtext: true,
             text: 'Loose measurement in inches.',
-            type: 'text'
+            type: 'half-break',
+            image: '/loosely.svg'
         },
         {
             question: 'Snug Underbust',
             subtext: true,
             text: 'Snug measurement in inches.',
-            type: 'text'
+            type: 'half-break',
+            image: '/loosely.svg'
         },
         {
             question: 'Tight underbust',
             subtext: true,
             text: 'Tight measurement in inches.',
-            type: 'text'
+            type: 'half-break',
+            image: '/loosely.svg'
         },
         {
             question: 'Standing bust',
             subtext: true,
             text: 'Standing measurement in inches.',
-            type: 'text'
+            type: 'half-break',
+            image: '/loosely.svg'
         },
         {
             question: 'Leaning bust',
             subtext: true,
             text: 'Leaning measurement in inches.',
-            type: 'text'
+            type: 'half-break',
+            image: '/bent.svg'
         },
         {
             question: 'Laying down bust',
             subtext: true,
             text: 'Laying measurement in inches.',
-            type: 'text'
+            type: 'half-break',
+            image: '/laying.svg'
         },
         {
             question: 'What is the brand and style of your favorite bra?',
@@ -426,14 +431,14 @@ export default function Questions() {
             ],
             select: 'one',
         },
-        {
-            question: 'Have you taken the /ABraThatFits quiz?',
-            subtext: true,
-            text: 'This is the most accurate bra measurement that we base our sizes off of.',
-            type: 'mc',
-            options: ['Yes', 'No'],
-            select: 'one',
-        },
+        // {
+        //     question: 'Have you taken the /ABraThatFits quiz?',
+        //     subtext: true,
+        //     text: 'This is the most accurate bra measurement that we base our sizes off of.',
+        //     type: 'mc',
+        //     options: ['Yes', 'No'],
+        //     select: 'one',
+        // },
         // {
         //     question: 'Let\'s figure out your bra size',
         //     subtext: true,
@@ -462,7 +467,7 @@ export default function Questions() {
             type: 'break',
             image: '/QuizComplete.jpeg',
             // select: 'one',
-        },
+        }
     ];
 
     // end of question array
@@ -540,31 +545,6 @@ export default function Questions() {
         }
     };
 
-    // will manage dynamic progress bar
-    const handleProgress = () => {
-        var element = document.getElementById('progress-bar');
-        var width = questionsArray[index].progress;
-        var identity = setInterval(scene, 10);
-
-        const scene = () => {
-            if (width >= 100) {
-                clearInterval(identity);
-            } else {
-                if (questionsArray[index].type !== 'break') {
-                    width = (index) / 20;
-                    element.style.width = width + '%';
-                    document.getElementById('progress-info').innerHTML = width.toString() + "of 20";
-                }
-            }
-        }
-        console.log('moveProgressBar');
-        // let str_index = (index+1).toString();
-        // let progress_str = str_index + " of 24";
-        //
-        // let percent = (index+1)/24;
-        // let percent_str = percent.toString() + "%";
-        // document.getElementById('progress-bar').style.width= percent_str;
-    };
 
     useEffect(() => {
         const listener = (event) => {
@@ -690,9 +670,19 @@ export default function Questions() {
                                     >
                                         press <b>Enter</b>
                                     </h1>
-                                </div>
-                            )}
+
+
+                                </div> )}
+
                         </div>
+                        {index === 0 ? null : (
+                            <div className="question_back_button_wrap">
+                                <Link href="#scroll">
+                                    <div className="question-break-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </div >
             </div >
@@ -704,6 +694,98 @@ export default function Questions() {
         setIndex((index += 1));
        // handleProgress();
         return (null);
+    }
+    // setting display for half page questions
+        // todo: update styling of images, check with nina that I should use these or find specific measuring tape one she has....
+    else if(questionsArray[index].type === 'half-break') {
+        return (
+            <div className="question1-wrapper">
+                <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
+                <div className=
+                         {
+                             true ? "question1_body" : null
+                         }
+                >
+                    <div className="question_count_container">
+                        <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+                        <ArrowForwardIcon className="question_count_arrow" />
+                  </div>
+                    <div id="scroll"></div>
+
+                    <div className="question_break_block">
+                        <div className="question_container">
+                            <div className="question_container2">
+                                {/* like the question title */}
+                                <h1 className="question_title">
+                                    {questionsArray[index].question}
+                                </h1>
+                                {/* denotes the paragraph (question body) */}
+                                <p
+                                    style={{
+                                        fontFamily: 'Inter',
+                                    }}
+                                >
+                                    {questionsArray[index].subtext ? questionsArray[index].text : ''}
+                                </p>
+                                <div className="question_text_options_container"
+                                >
+                                    <TextField
+                                        onChange={handleChange}
+                                        value={sel}
+                                        id="standard-basic"
+                                        input="text"
+                                        variant="standard"
+                                        placeholder="Type your answer here..."
+                                        className="question_text_box"
+                                    />
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className={
+                            questionsArray[index].type === 'break'
+                                ? "question_break_container"
+                                : "question_no_break_container"
+                        }
+                        >
+                            {index === questionsArray.length - 1 ? (
+                                <div
+                                    // onClick={postUser}
+                                    variant="filled"
+                                    className="question-end-button"
+                                    role="button"
+                                    onClick={handleRedirection}
+                                >
+                                    Get Recommendations!
+                                </div>
+                            ) : (
+                                <div className="question_next_container">
+                                    <Link href="#scroll">
+                                        <div className="question-break-back-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                                        </div>
+                                    </Link>
+
+                                    <h1 className="question_next_enter"
+                                    >
+                                        press <b>Enter</b>
+                                    </h1>
+                                </div>
+                            )}
+                        </div>
+                        {index === 0 ? null : (
+                            <div className="question_back_button_wrap">
+                                <Link href="#scroll">
+                                    <div className="question-break-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                </div >
+                <div> {displayPBar()} </div>
+            </div >
+        );
     }
     // setting frontend display of all other types of questions (dropdown, mc, image, tag)
     else {
@@ -912,6 +994,28 @@ export default function Questions() {
                         </h1>
                     </div>
                 </div>
+                {(index ===5) ?
+                (<div className="whyWeAsk">
+                        <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                        <div className="popup" id="popup" >
+                            <button type="button" className="exit" onClick={closePopUp}>X</button>
+                            <h2>Why We Ask</h2>
+                            <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
+                            <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                        </div>
+                    </div>
+                ) : null}
+                {(index ===28) ?
+                    (<div className="whyWeAsk">
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup" >
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                            </div>
+                        </div>
+                    ) : null}
                 {/* enable back button if index is not 0 */}
                 {
                     index === 0 ? null : (
@@ -923,17 +1027,7 @@ export default function Questions() {
                         </div>
                     )
                 }
-                {(index > 2 && index <=5) ?
-                    (<div className="whyWeAsk">
-                        <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                        <div className="popup" id="popup" >
-                                <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                <h2>Why We Ask</h2>
-                                <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
-                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
-                        </div>
-                    </div>
-                    ) : null}
+
 
             </div >
             <div> {displayPBar()} </div>
