@@ -15,13 +15,26 @@ import { boolean, func } from 'joi';
 const userEmail = localStorage.getItem('email')
 
 // import ButtonBase from '@mui/material/ButtonBase';
+import { boolean, func} from 'joi';
+import ProgressBar from './Progress_bar';
 
 // 27 questions
 let tog = 1
+let currQ = 0
+let totalQ = 26
+
+/*
+* TODO:
+*   - update styling for Why We Ask section to dynamically sit it right spot
+*   - add in a process to authenticate way user enters information
+*   - update /BraThatFits section to match what needs to be sent to algorithm
+*   - make sure that data on recommendations page is dynamically rendered to matching algo results
+*   - */
 
 export default function Questions() {
 
     let [index, setIndex] = useState(0);
+    const [progress, setProgress] = useState(0);
     const [sel, setSel] = useState('');
     const [sel2, setSel2] = useState('');
     const [answers, setAnswers] = useState([]);
@@ -34,6 +47,11 @@ export default function Questions() {
     function handleRedirection(e) {
         e.preventDefault();
         router.push('/recommendation');
+    }
+
+    // call on ProgressBar component to show user progress at bottom of quiz
+    function displayPBar() {
+        return <ProgressBar bgcolor="#670224" progress={Math.round(progress)} height={30} />
     }
 
     // Array of questions
@@ -64,7 +82,7 @@ export default function Questions() {
             text: 'This helps us understand your breast type.',
             type: 'dropdown',
             options: ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99"],
-            select: 'one',
+            select: 'one'
         },
         {
             question: 'What gender do you identify with?',
@@ -72,7 +90,7 @@ export default function Questions() {
             text: 'Select all that apply! This can affect how a bra fits and what we recommend!',
             type: 'tag',
             options: ["Cisgender", "Female", "Male", "Fluid", "Genderqueer", "Transsexual", "Non-binary", "Gender Neutral", "Other", "Prefer Not to Say"],
-            select: 'multiple',
+            select: 'multiple'
         },
         {
             question:
@@ -81,7 +99,7 @@ export default function Questions() {
             text: 'Select all that apply! Knowing this can help us recommend the right bra to you. If none do, select that.',
             type: 'tag',
             options: ["None", "Breast Augmentation", "Shoulder Pain", "Nerve Pain", "Sensitive Skin", "Mastectomy", "Breast Cancer", "Fabric / Material Allergy", "Back Issues", "Pregnant", "Breastfeeding", "Breast Pain", "Other", "Prefer not to say", "Breast Size Fluctiations"],
-            select: 'multiple',
+            select: 'multiple'
         },
         {
             question: 'Figuring Out Your Style',
@@ -346,6 +364,73 @@ export default function Questions() {
             type: 'break',
             image: '/MeasuringYourBreasts.jpeg',
         },
+        // todo: add in picture on the side of these questions
+        {
+            question: 'Loose Underbust',
+            subtext: true,
+            text: 'Loose measurement in inches.',
+            type: 'text'
+        },
+        {
+            question: 'Snug Underbust',
+            subtext: true,
+            text: 'Snug measurement in inches.',
+            type: 'text'
+        },
+        {
+            question: 'Tight underbust',
+            subtext: true,
+            text: 'Tight measurement in inches.',
+            type: 'text'
+        },
+        {
+            question: 'Standing bust',
+            subtext: true,
+            text: 'Standing measurement in inches.',
+            type: 'text'
+        },
+        {
+            question: 'Leaning bust',
+            subtext: true,
+            text: 'Leaning measurement in inches.',
+            type: 'text'
+        },
+        {
+            question: 'Laying down bust',
+            subtext: true,
+            text: 'Laying measurement in inches.',
+            type: 'text'
+        },
+        {
+            question: 'What is the brand and style of your favorite bra?',
+            subtext: true,
+            text: 'This helps us understand your breast type.',
+            type: 'multDropdowns',
+            options: [{
+                key: "Brand",
+                value: ['28', '30', '32', '34', '36', '38', '40', '42', '44', '46']
+            }, {
+                key: "Style",
+                value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'DDD']
+            }
+            ],
+            select: 'one',
+        },
+        {
+            question: 'What is the size of your favorite bra?',
+            subtext: true,
+            text: 'This helps us understand your breast type.',
+            type: 'multDropdowns',
+            options: [{
+                key: "Band Size",
+                value: ['24', '26', '28', '30', '32', '34', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60']
+            }, {
+                key: "Cup Size",
+                value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO']
+            }
+            ],
+            select: 'one',
+        },
         {
             question: 'Have you taken the /ABraThatFits quiz?',
             subtext: true,
@@ -354,27 +439,27 @@ export default function Questions() {
             options: ['Yes', 'No'],
             select: 'one',
         },
-        {
-            question: 'Let\'s figure out your bra size',
-            subtext: true,
-            text: 'Please fill this out according to your size.',
-            type: 'iframe'
-        },
-        {
-            question: 'Enter your /ABraThatFits size.',
-            subtext: true,
-            text: 'This should be based on your already taken quiz, please use US or UK sizes.',
-            type: 'multDropdowns',
-            options: [{
-                key: "Band Size",
-                value: ['28', '30', '32', '34', '36', '38', '40', '42', '44', '46']
-            }, {
-                key: "Cup Size",
-                value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'DDD']
-            }
-            ],
-            select: 'one',
-        },
+        // {
+        //     question: 'Let\'s figure out your bra size',
+        //     subtext: true,
+        //     text: 'Please fill this out according to your size.',
+        //     type: 'iframe'
+        // },
+        // {
+        //     question: 'Enter your /ABraThatFits size.',
+        //     subtext: true,
+        //     text: 'This should be based on your already taken quiz, please use US or UK sizes.',
+        //     type: 'multDropdowns',
+        //     options: [{
+        //         key: "Band Size",
+        //         value: ['28', '30', '32', '34', '36', '38', '40', '42', '44', '46']
+        //     }, {
+        //         key: "Cup Size",
+        //         value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'DDD']
+        //     }
+        //     ],
+        //     select: 'one',
+        // },
         {
             question: 'Quiz Complete!',
             subtext: true,
@@ -392,6 +477,19 @@ export default function Questions() {
         setSel(e.target.value);
         console.log("answers: " + answers)
     };
+
+    // function to handle Why We Ask
+    const displayPopUp = (e) => {
+        let popup = document.getElementById("popup");
+        popup.classList.add("open-popup");
+    };
+
+    const closePopUp = (e) => {
+        let popup = document.getElementById("popup");
+        popup.classList.remove("open-popup");
+    };
+
+
 
     // function to grab selection of dropdown menu
     const handleOtherDropdown = (e) => {
@@ -412,12 +510,18 @@ export default function Questions() {
             }
             setAnswers(newAnswers);
             setIndex((index += 1));
-            //  handleProgress();
+
+            if (index < questionsArray.length - 1) {
+                setProgress((index+1) / questionsArray.length * 100);
+
+                console.log("Progress: " + progress);
+            }
+            //handleProgress();
             setSel('');
         } else {
             setAnswers([...answers, sel]);
             setIndex((index += 1));
-            // handleProgress();
+
             setSel('');
         }
         if (answers[index]) {
@@ -445,27 +549,7 @@ export default function Questions() {
     };
 
     // will manage dynamic progress bar
-    // const handleProgress = () => {
-    //     var element = document.getElementById('progress-bar');
-    //     var width = 0;
-    //     var identity = setInterval(scene, 10);
-    //
-    //     const scene = () => {
-    //         if (width >= 100) {
-    //             clearInterval(identity);
-    //         } else {
-    //             width = (index+1)/24;
-    //             element.style.width = width + '%';
-    //         }
-    //     }
-    //     console.log('moveProgressBar');
-    //     // let str_index = (index+1).toString();
-    //     // let progress_str = str_index + " of 24";
-    //     //
-    //     // let percent = (index+1)/24;
-    //     // let percent_str = percent.toString() + "%";
-    //     // document.getElementById('progress-bar').style.width= percent_str;
-    // };
+
 
     useEffect(() => {
         const listener = (event) => {
@@ -510,6 +594,10 @@ export default function Questions() {
             setIndex(index -= 1);
         }
         setIndex((index -= 1));
+        if(index > 0) {
+            setProgress((index-1) / questionsArray.length * 100);
+            console.log("Progress: " + progress);
+        }
         if (questionsArray[index].select === 'multiple') {
             setMult(answers[index]);
             setSel(multAnswers);
@@ -522,6 +610,7 @@ export default function Questions() {
                 setSel(answers[index]);
             }
         }
+        //handleProgress();
     };
 
 
@@ -623,11 +712,12 @@ export default function Questions() {
     // setting display of iframe embed question if hasTaken
     else if (questionsArray[index].type === 'iframe' && hasTaken) {
         setIndex((index += 1));
-        // handleProgress();
+
         return (null);
     }
     // setting frontend display of all other types of questions (dropdown, mc, image, tag)
-    else return (
+    else {
+        return (
         <div className="question_body">
             <div id="scroll"></div>
             <div className="question_count_container">
@@ -843,17 +933,24 @@ export default function Questions() {
                         </div>
                     )
                 }
-            </div >
-            {/*<div className={"progress_div"} >*/}
-            {/*    <div className={"progress-bar"} id={"progress-bar"}>*/}
-            {/*        /!*<div className={"progress-info"}>*!/*/}
-            {/*        /!*    1 of 24*!/*/}
-            {/*        /!*</div>*!/*/}
+                {(index > 2 && index <=5) ?
+                    (<div className="whyWeAsk">
+                        <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                        <div className="popup" id="popup" >
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                        </div>
+                    </div>
+                    ) : null}
 
-            {/*    </div>*/}
-            {/*</div>*/}
+            </div >
+
+            <div> {displayPBar()} </div>
         </div >
 
     );
 
+    }
 }
