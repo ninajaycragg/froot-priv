@@ -10,6 +10,10 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { boolean, func } from 'joi';
+
+const userEmail = localStorage.getItem('email')
+
 // import ButtonBase from '@mui/material/ButtonBase';
 import { boolean, func} from 'joi';
 import ProgressBar from './Progress_bar';
@@ -470,6 +474,7 @@ export default function Questions() {
     // function to grab change on text input
     const handleChange = (e) => {
         setSel(e.target.value);
+        console.log("answers: " + answers)
     };
 
     // function to handle Why We Ask
@@ -492,6 +497,7 @@ export default function Questions() {
 
     // function to grab selection of question answers
     const handleClick = () => {
+        console.log("answers: " + answers)
         if (index <= answers.length) {
             const newAnswers = [...answers];
             if (index == answers.length - 1) {
@@ -628,10 +634,12 @@ export default function Questions() {
         //handleProgress();
     };
 
+
     useEffect(() => {
         setSel(multAnswers);
     }, [multAnswers]);
     console.log(questionsArray[index].question);
+
 
     // Setting display of break style questions
     if (questionsArray[index].type === "break") {
@@ -675,7 +683,30 @@ export default function Questions() {
                                     variant="filled"
                                     className="question-end-button"
                                     role="button"
-                                    onClick={handleRedirection}
+                                    onClick={() => {
+                                        handleRedirection
+                                        let allAnswers = [...answers, sel, sel2, ...multAnswers];
+                                        let answersForPassing = []
+                                        for (let i = 0; i < allAnswers.length; i++) {
+                                            if (allAnswers[i] != '')
+                                                answersForPassing.push(allAnswers[i])
+                                        }
+                                        const addAnswers = {
+                                            userEmail: userEmail,
+                                            answers: answersForPassing
+                                        }
+                                        fetch(`/api/addAnswers`, {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify(addAnswers),
+                                        }).then(res => res.json())
+                                            .catch((error) => {
+                                                window.alert("Catch: " + error.message);
+                                                return;
+                                            });
+                                    }}
                                 >
                                     Get Recommendations!
                                 </div>
@@ -938,6 +969,7 @@ export default function Questions() {
             </div >
             <div> {displayPBar()} </div>
         </div >
+
     );
     }
 }
