@@ -10,6 +10,10 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { boolean, func } from 'joi';
+
+const userEmail = localStorage.getItem('email')
+
 // import ButtonBase from '@mui/material/ButtonBase';
 import { boolean, func} from 'joi';
 import ProgressBar from './Progress_bar';
@@ -27,6 +31,7 @@ let totalQ = 26
 *   - clean up CSS file */
 
 export default function Questions() {
+
     let [index, setIndex] = useState(0);
     const [progress, setProgress] = useState(0);
     const [sel, setSel] = useState('');
@@ -427,18 +432,15 @@ export default function Questions() {
             }, {
                 key: "Cup Size",
                 value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO']
-            }
-            ],
+        },
+        {
+            question: 'Have you taken the /ABraThatFits quiz?',
+            subtext: true,
+            text: 'This is the most accurate bra measurement that we base our sizes off of.',
+            type: 'mc',
+            options: ['Yes', 'No'],
             select: 'one',
         },
-        // {
-        //     question: 'Have you taken the /ABraThatFits quiz?',
-        //     subtext: true,
-        //     text: 'This is the most accurate bra measurement that we base our sizes off of.',
-        //     type: 'mc',
-        //     options: ['Yes', 'No'],
-        //     select: 'one',
-        // },
         // {
         //     question: 'Let\'s figure out your bra size',
         //     subtext: true,
@@ -475,6 +477,7 @@ export default function Questions() {
     // function to grab change on text input
     const handleChange = (e) => {
         setSel(e.target.value);
+        console.log("answers: " + answers)
     };
 
     // function to handle Why We Ask
@@ -497,6 +500,7 @@ export default function Questions() {
 
     // function to grab selection of question answers
     const handleClick = () => {
+        console.log("answers: " + answers)
         if (index <= answers.length) {
             const newAnswers = [...answers];
             if (index == answers.length - 1) {
@@ -518,7 +522,7 @@ export default function Questions() {
         } else {
             setAnswers([...answers, sel]);
             setIndex((index += 1));
-            //handleProgress();
+
             setSel('');
         }
         if (answers[index]) {
@@ -544,8 +548,6 @@ export default function Questions() {
             }
         }
     };
-
-
     useEffect(() => {
         const listener = (event) => {
             if (event.code === 'Enter') {
@@ -608,10 +610,12 @@ export default function Questions() {
         //handleProgress();
     };
 
+
     useEffect(() => {
         setSel(multAnswers);
     }, [multAnswers]);
     console.log(questionsArray[index].question);
+
 
     // Setting display of break style questions
     if (questionsArray[index].type === "break") {
@@ -655,7 +659,30 @@ export default function Questions() {
                                     variant="filled"
                                     className="question-end-button"
                                     role="button"
-                                    onClick={handleRedirection}
+                                    onClick={() => {
+                                        handleRedirection
+                                        let allAnswers = [...answers, sel, sel2, ...multAnswers];
+                                        let answersForPassing = []
+                                        for (let i = 0; i < allAnswers.length; i++) {
+                                            if (allAnswers[i] != '')
+                                                answersForPassing.push(allAnswers[i])
+                                        }
+                                        const addAnswers = {
+                                            userEmail: userEmail,
+                                            answers: answersForPassing
+                                        }
+                                        fetch(`/api/addAnswers`, {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify(addAnswers),
+                                        }).then(res => res.json())
+                                            .catch((error) => {
+                                                window.alert("Catch: " + error.message);
+                                                return;
+                                            });
+                                    }}
                                 >
                                     Get Recommendations!
                                 </div>
@@ -692,7 +719,7 @@ export default function Questions() {
     // setting display of iframe embed question if hasTaken
     else if (questionsArray[index].type === 'iframe' && hasTaken) {
         setIndex((index += 1));
-       // handleProgress();
+
         return (null);
     }
     // setting display for half page questions
@@ -1027,11 +1054,24 @@ export default function Questions() {
                         </div>
                     )
                 }
-
+            </div >
+                {(index > 2 && index <=5) ?
+                    (<div className="whyWeAsk">
+                        <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                        <div className="popup" id="popup" >
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                        </div>
+                    </div>
+                    ) : null}
 
             </div >
             <div> {displayPBar()} </div>
         </div >
+
     );
+
     }
 }

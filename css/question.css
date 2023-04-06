@@ -20,6 +20,11 @@
     padding-left: 40%;
 }
 
+.whyWeAsk {
+    justify-content: center;
+    /*left: 40%;*/
+}
+
 .wwa_btn {
     left: 50%;
     padding: 20px 60px;
