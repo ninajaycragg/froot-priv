@@ -32,6 +32,7 @@ let totalQ = 26
 *   - */
 
 export default function Questions() {
+
     let [index, setIndex] = useState(0);
     const [progress, setProgress] = useState(0);
     const [sel, setSel] = useState('');
@@ -509,6 +510,7 @@ export default function Questions() {
             }
             setAnswers(newAnswers);
             setIndex((index += 1));
+
             if (index < questionsArray.length - 1) {
                 setProgress((index+1) / questionsArray.length * 100);
 
@@ -519,7 +521,7 @@ export default function Questions() {
         } else {
             setAnswers([...answers, sel]);
             setIndex((index += 1));
-            //handleProgress();
+
             setSel('');
         }
         if (answers[index]) {
@@ -547,30 +549,7 @@ export default function Questions() {
     };
 
     // will manage dynamic progress bar
-    const handleProgress = () => {
-        var element = document.getElementById('progress-bar');
-        var width = questionsArray[index].progress;
-        var identity = setInterval(scene, 10);
 
-        const scene = () => {
-            if (width >= 100) {
-                clearInterval(identity);
-            } else {
-                if (questionsArray[index].type !== 'break') {
-                    width = (index) / 20;
-                    element.style.width = width + '%';
-                    document.getElementById('progress-info').innerHTML = width.toString() + "of 20";
-                }
-            }
-        }
-        console.log('moveProgressBar');
-        // let str_index = (index+1).toString();
-        // let progress_str = str_index + " of 24";
-        //
-        // let percent = (index+1)/24;
-        // let percent_str = percent.toString() + "%";
-        // document.getElementById('progress-bar').style.width= percent_str;
-    };
 
     useEffect(() => {
         const listener = (event) => {
@@ -733,7 +712,7 @@ export default function Questions() {
     // setting display of iframe embed question if hasTaken
     else if (questionsArray[index].type === 'iframe' && hasTaken) {
         setIndex((index += 1));
-       // handleProgress();
+
         return (null);
     }
     // setting frontend display of all other types of questions (dropdown, mc, image, tag)
@@ -967,9 +946,11 @@ export default function Questions() {
                     ) : null}
 
             </div >
+
             <div> {displayPBar()} </div>
         </div >
 
     );
+
     }
 }
