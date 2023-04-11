@@ -10,25 +10,21 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Image from 'next/image';
 import Link from 'next/link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { boolean, func } from 'joi';
-
-const userEmail = localStorage.getItem('email')
-
 // import ButtonBase from '@mui/material/ButtonBase';
 import { boolean, func} from 'joi';
 import ProgressBar from './Progress_bar';
+import brands_csv from './Brands_extraction';
 
-// 27 questions
-let tog = 1
-let currQ = 0
-let totalQ = 26
+
+if(typeof window !== 'undefined') {
+    const userEmail = localStorage.getItem('email');
+}
 
 /*
 * TODO:
-*   - add in a process to authenticate way user enters information
-*   - update /BraThatFits section to match what needs to be sent to algorithm
-*   - make sure that data on recommendations page is dynamically rendered to matching algo results
-*   - clean up CSS file */
+*   - make sure on question 8 that other produces a text bar that allows user to enter in type
+*   - update pictures for breast height, projection, width
+*   -  delay: add in a process to authenticate way user enters information and clean up CSS file */
 
 export default function Questions() {
 
@@ -41,7 +37,6 @@ export default function Questions() {
     const [hasTaken, setHasTaken] = useState(false);
     const router = useRouter();
 
-
     // Route to recommendation page upon completion of quiz
     function handleRedirection(e) {
         e.preventDefault();
@@ -52,6 +47,10 @@ export default function Questions() {
     function displayPBar() {
         return <ProgressBar bgcolor="#670224" progress={Math.round(progress)} height={30} />
     }
+
+    // var brand_content = brands_csv;
+    // console.log('here');
+    // console.log(JSON.stringify(brand_content["Freya"]));
 
     // Array of questions
     const questionsArray = [
@@ -278,9 +277,9 @@ export default function Questions() {
             ],
             select: 'one',
             imageNames: [
-                '/question21/super_soft.gif',
-                '/question21/soft.gif',
-                '/question21/firm.png',
+                '/question21/soft.svg',
+                '/question21/medium.svg',
+                '/question21/firm.svg',
             ],
             link: false,
         },
@@ -300,11 +299,16 @@ export default function Questions() {
             type: 'image',
             optionsText: 'Breast Height',
             imageNames: [
-                '/question20/outer_fullness.png',
-                '/question20/inner_fullness.png',
-                '/question20/even_dist.png',
+                '/question23/high.png',
+                '/question23/medium.png',
+                '/question23/low.png',
+                '/question24/not_sure.png'
             ],
-            options: ['High', 'Medium', 'Low'],
+            options: [
+                'High ~ Above your elbows.',
+                'Medium ~ At elbows.',
+                'Low ~ Below elbows.',
+                'Not sure ~ It\'s okay not to know. If you need some help, click here! '],
             link: true,
             select: 'multiple',
         },
@@ -316,10 +320,16 @@ export default function Questions() {
             type: 'image',
             optionsText: 'Breast Projection',
             imageNames: [
-                '/question20/outer_fullness.png',
-                '/question20/inner_fullness.png',
+                '/question24/shallow.png',
+                '/question24/projected.png',
+                '/question24/medium_projection.png',
+                '/question24/not_sure.png',
             ],
-            options: ['Shallow', 'Projected'],
+            options: [
+                'Shallow ~ Breast tissue spread closer to body.',
+                'Projected ~ Stick out more in the front.',
+                'Medium ~ Sticks out equally.',
+                'Not sure ~ It\'s okay not to know. If you need some help, click here!'],
             link: true,
             select: 'multiple',
         },
@@ -331,11 +341,16 @@ export default function Questions() {
             type: 'image',
             optionsText: 'Breast Width',
             imageNames: [
-                '/question20/outer_fullness.png',
-                '/question20/inner_fullness.png',
-                '/question20/even_dist.png',
+                '/question25/narrow_width.png',
+                '/question25/medium_width.png',
+                '/question25/wide_width.png',
+                '/question24/not_sure.png',
             ],
-            options: ['Narrow Width', 'Medium Width', 'Wide Width'],
+            options: [
+                'Narrow Width ~ Breats are more narrow at the top than the bottom.',
+                'Medium Width ~ Even at the top and bottom.',
+                'Wide Width ~ Breats are wider at the top.',
+                'Not sure ~ It\'s okay not to know. If you need some help, click here!'],
             link: true,
             select: 'multiple',
         },
@@ -347,11 +362,31 @@ export default function Questions() {
             type: 'image',
             optionSubtext: 'Choose as many as you would like.',
             imageNames: [
-                '/question20/outer_fullness.png',
-                '/question20/inner_fullness.png',
-                '/question20/even_dist.png',
+                '/question26/round.png',
+                '/question26/athletic.png',
+                '/question26/east-west.png',
+                '/question26/side-set.png',
+                '/question26/bell.png',
+                '/question26/teardrop.png',
+                '/question26/tuberous.png',
+                '/question26/relaxed.png',
+                '/question26/slender.png',
+                '/question26/asymetric.png',
+                '/question26/mastectomy.png',
+                '/question24/not_sure.png'
             ],
-            options: ['Narrow Width', 'Medium Width', 'Wide Width'],
+            options: ['Round ~ Equally full at the top and bottom.',
+                'Athletic ~ Wider, more muscular with less soft tissue.',
+                'East West ~ Bra lifts boobs upwards, not inwards.',
+                'Side Set ~ Wide space between breasts.',
+                'Bell ~ Slimmer at the top, fuller at the bottom.',
+                'Teardrop ~ Round but slightly less full at the top.',
+                'Tubular ~ Elongated, narrow, and cylindrical shape.',
+                'Relaxed ~ Breasts with lax tissue nipples pointed downwards.',
+                'Slender ~ Thin breasts, nipples pointed downward.',
+                'Asymetric ~ One breast is larger than the other.',
+                'Mastectomy ~ Breasts that have been surgically removed.',
+                'Other ~ Please send us a message if we are missing a breast type.'],
             link: true,
             select: 'multiple',
         },
@@ -369,58 +404,58 @@ export default function Questions() {
             subtext: true,
             text: 'Loose measurement in inches.',
             type: 'half-break',
-            image: '/loosely.svg'
+            image: '/Measurement.png'
         },
         {
             question: 'Snug Underbust',
             subtext: true,
             text: 'Snug measurement in inches.',
             type: 'half-break',
-            image: '/loosely.svg'
+            image: '/Measurement.png'
         },
         {
             question: 'Tight underbust',
             subtext: true,
             text: 'Tight measurement in inches.',
             type: 'half-break',
-            image: '/loosely.svg'
+            image: '/Measurement.png'
         },
         {
             question: 'Standing bust',
             subtext: true,
             text: 'Standing measurement in inches.',
             type: 'half-break',
-            image: '/loosely.svg'
+            image: '/Measurement.png'
         },
         {
             question: 'Leaning bust',
             subtext: true,
             text: 'Leaning measurement in inches.',
             type: 'half-break',
-            image: '/bent.svg'
+            image: '/Measurement.png'
         },
         {
             question: 'Laying down bust',
             subtext: true,
             text: 'Laying measurement in inches.',
             type: 'half-break',
-            image: '/laying.svg'
+            image: '/Measurement.png'
         },
-        {
-            question: 'What is the brand and style of your favorite bra?',
-            subtext: true,
-            text: 'This helps us understand your breast type.',
-            type: 'multDropdowns',
-            options: [{
-                key: "Brand",
-                value: ['28', '30', '32', '34', '36', '38', '40', '42', '44', '46']
-            }, {
-                key: "Style",
-                value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'DDD']
-            }
-            ],
-            select: 'one',
-        },
+        // {
+        //     question: 'What is the brand and style of your favorite bra?',
+        //     subtext: true,
+        //     text: 'This helps us understand your breast type.',
+        //     type: 'multDropdowns',
+        //     options: [{
+        //         key: "Brand",
+        //         value: brands
+        //     }, {
+        //         key: "Style",
+        //         value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'DDD']
+        //     }
+        //     ],
+        //     select: 'one',
+        // },
         {
             question: 'What is the size of your favorite bra?',
             subtext: true,
@@ -429,9 +464,11 @@ export default function Questions() {
             options: [{
                 key: "Band Size",
                 value: ['24', '26', '28', '30', '32', '34', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60']
-            }, {
+            },
+               {
                 key: "Cup Size",
                 value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO']
+            }]
         },
         {
             question: 'Have you taken the /ABraThatFits quiz?',
@@ -469,7 +506,7 @@ export default function Questions() {
             type: 'break',
             image: '/QuizComplete.jpeg',
             // select: 'one',
-        }
+        },
     ];
 
     // end of question array
@@ -561,6 +598,8 @@ export default function Questions() {
         };
     });
 
+   // document.addEventListener('keydown', readBrandsFile);
+
     const handleChoose = (i) => {
         if (questionsArray[index].question === 'Have you taken the /ABraThatFits quiz?'
             && i === 'Yes') {
@@ -616,8 +655,8 @@ export default function Questions() {
     }, [multAnswers]);
     console.log(questionsArray[index].question);
 
-
     // Setting display of break style questions
+        // todo: fix styling for break pages
     if (questionsArray[index].type === "break") {
         return (
             <div className="question1-wrapper">
@@ -987,6 +1026,7 @@ export default function Questions() {
                                                 ]
                                             }
                                             layout="fill"
+                                            background-color={"#C5D6E5"}
                                         ></Image>
                                     </div>
 
@@ -1001,6 +1041,7 @@ export default function Questions() {
                         </div>
                     </>
                 ) : null}
+                {/*todo: figure out what this is supposed to be linking to*/}
                 {questionsArray[index].type === 'image' && questionsArray[index].link ? (<div className="quiz-link">More Info</div>) : null}
                 <div className={
                     questionsArray[index].type === 'break'
@@ -1020,18 +1061,20 @@ export default function Questions() {
                             press <b>Enter</b>
                         </h1>
                     </div>
+
+
                 </div>
                 {(index ===5) ?
-                (<div className="whyWeAsk">
-                        <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                        <div className="popup" id="popup" >
-                            <button type="button" className="exit" onClick={closePopUp}>X</button>
-                            <h2>Why We Ask</h2>
-                            <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
-                            <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                    (<div className="whyWeAsk">
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup" >
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                            </div>
                         </div>
-                    </div>
-                ) : null}
+                    ) : null}
                 {(index ===28) ?
                     (<div className="whyWeAsk">
                             <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
@@ -1055,22 +1098,8 @@ export default function Questions() {
                     )
                 }
             </div >
-                {(index > 2 && index <=5) ?
-                    (<div className="whyWeAsk">
-                        <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                        <div className="popup" id="popup" >
-                                <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                <h2>Why We Ask</h2>
-                                <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
-                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
-                        </div>
-                    </div>
-                    ) : null}
-
+                <div> {displayPBar()} </div>
             </div >
-            <div> {displayPBar()} </div>
-        </div >
-
     );
 
     }

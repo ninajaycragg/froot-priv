@@ -1,0 +1,32 @@
+<svg width="311" height="246" viewBox="0 0 311 246" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="311" height="246" fill="#9EACD1"/>
+<mask id="mask0_470855_11451" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="311" height="246">
+<rect width="311" height="246" fill="#C4C4C4"/>
+</mask>
+<g mask="url(#mask0_470855_11451)">
+<path d="M67.1875 -281.277L-279.703 319.554" stroke="black" stroke-opacity="0.5"/>
+<path d="M90.7734 -267.658L-256.117 333.173" stroke="black" stroke-opacity="0.5"/>
+<path d="M114.363 -254.04L-232.527 346.791" stroke="black" stroke-opacity="0.5"/>
+<path d="M137.951 -240.421L-208.939 360.41" stroke="black" stroke-opacity="0.5"/>
+<path d="M161.537 -226.803L-185.353 374.028" stroke="black" stroke-opacity="0.5"/>
+<path d="M185.125 -213.185L-161.765 387.646" stroke="black" stroke-opacity="0.5"/>
+<path d="M208.715 -199.566L-138.175 401.265" stroke="black" stroke-opacity="0.5"/>
+<path d="M232.301 -185.948L-114.589 414.883" stroke="black" stroke-opacity="0.5"/>
+<path d="M255.889 -172.33L-91.0015 428.502" stroke="black" stroke-opacity="0.5"/>
+<path d="M279.479 -158.711L-67.4116 442.12" stroke="black" stroke-opacity="0.5"/>
+<path d="M303.064 -145.093L-43.8257 455.738" stroke="black" stroke-opacity="0.5"/>
+<path d="M326.65 -131.475L-20.2397 469.357" stroke="black" stroke-opacity="0.5"/>
+<path d="M350.238 -117.856L3.34816 482.975" stroke="black" stroke-opacity="0.5"/>
+<path d="M373.828 -104.238L26.938 496.594" stroke="black" stroke-opacity="0.5"/>
+<path d="M397.414 -90.6196L50.5239 510.212" stroke="black" stroke-opacity="0.5"/>
+<path d="M421.002 -77.001L74.1118 523.83" stroke="black" stroke-opacity="0.5"/>
+<path d="M444.592 -63.3828L97.7017 537.448" stroke="black" stroke-opacity="0.5"/>
+<path d="M468.178 -49.7646L121.288 551.067" stroke="black" stroke-opacity="0.5"/>
+<path d="M491.766 -36.146L144.876 564.685" stroke="black" stroke-opacity="0.5"/>
+<path d="M515.355 -22.5278L168.465 578.303" stroke="black" stroke-opacity="0.5"/>
+<path d="M538.941 -8.90918L192.051 591.922" stroke="black" stroke-opacity="0.5"/>
+<path d="M562.529 4.70898L215.639 605.54" stroke="black" stroke-opacity="0.5"/>
+<path d="M586.115 18.3276L239.225 619.159" stroke="black" stroke-opacity="0.5"/>
+<path d="M609.705 31.9458L262.815 632.777" stroke="black" stroke-opacity="0.5"/>
+</g>
+</svg>
