@@ -3,93 +3,95 @@ import Image from "next/image"
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 
+const userEmail = "sowerschloe@gmail.com"
+
+async function get_answers() {
+    let ans = await fetch(`/api/getAnswers`, {
+        method: 'GET',
+        headers: {
+            'Authorization': localStorage.getItem('token')
+        },
+    }).then(res => res.json())
+        .then(data => {
+            return data;
+        })
+    return ans;
+}
+
 // Defining the recommendation page
 export default function Recommendation() {
+
+    let answers = [
+        'Chloe',
+        '21',
+        ['Cisgender', 'Female'],
+        ['None'],
+        [
+            'Push-up ~ Pulls breasts upward then inward bringing breasts closer.'
+        ],
+        ['Romantic ~ Lots of lace.'],
+        ['Skin Tones'],
+        'Yes, all of them',
+        'Yes, all of them',
+        'Full on Bottom ~ Nipples are Above Dotted Line.',
+        'Outer Fullness ~ Nipples are Towards each other.',
+        'Soft ~ Fingers do not bounce back, indent is made in your skin in response to finger.',
+        '1',
+        ['High ~ Above your elbows.'],
+        ['Shallow ~ Breast tissue spread closer to body.'],
+        [
+            'Narrow Width ~ Breats are more narrow at the top than the bottom.'
+        ],
+        ['Round ~ Equally full at the top and bottom.'],
+        '30',
+        '29',
+        '28',
+        '35',
+        '34',
+        '34',
+        '30',
+        'Yes',
+        'Round ~ Equally full at the top and bottom.'
+    ]
+
+    useEffect(() => {
+        //answers = get_answers();
+    }, []);
+
     let quiz_answers = {
-        name: "Chloe",
-        age: 0,
-        email: "",
-        gender: ["Female"],
-        medical: ["Masectomy"],
-        types: ["Sports Bra"],
-        styles: [""],
-        colors: ["", ""],
-        underwire: "",
-        padding: "",
-        top_bottom: "",
-        outer_inner: "",
-        density: "",
-        fingers_between: "",
-        projection: "",
-        width: "",
-        type: "Bell",
-        loose_underbust: 29.0,
-        snug_underbust: 29.0,
-        tight_underbust: 27.0,
-        standing_bust: 33.0,
-        leaning_bust: 35.0,
-        lying_bust: 34.0,
+        name: answers[0],
+        age: answers[1],
+        gender: answers[2],
+        medical: answers[3],
+        types: answers[4],
+        styles: answers[5],
+        colors: answers[6],
+        underwire: answers[7],
+        padding: answers[8],
+        top_bottom: answers[9],
+        outer_inner: answers[10],
+        density: answers[11],
+        fingers_between: answers[12],
+        height: answers[13],
+        projection: answers[14],
+        width: answers[15],
+        type: answers[16],
+        loose_underbust: answers[16],
+        snug_underbust: answers[17],
+        tight_underbust: answers[18],
+        standing_bust: answers[19],
+        leaning_bust: answers[20],
+        lying_bust: answers[21],
         favorite_brand: "",
         favorite_style: "",
-        favorite_size_band: 0,
+        favorite_size_band: answers[22],
         favorite_size_cup: ""
     };
+
     let name = quiz_answers.name;
     let size = [];
-    let arrProfile = [
-        {
-            attribute: 'Teardrop',
-            description: 'Round but slightly less full at the top',
-            link: 'Shape',
-            image: '/asymmetric.svg'
-        },
-        {
-            attribute: 'Asymmetric',
-            description: 'One breast is larger than the other.',
-            link: 'Shape',
-            image: '/asymmetric.svg'
-        },
-        {
-            attribute: 'Projected',
-            description: 'Your breasts extend outwards from your chest a lot.',
-            link: 'Projection',
-            image: '/asymmetric.svg'
-        },
-        {
-            attribute: 'Teardrop',
-            description: 'Round but slightly less full at the top',
-            link: 'Shape',
-            image: '/asymmetric.svg'
-        },
-        {
-            attribute: 'Asymmetric',
-            description: 'One breast is larger than the other.',
-            link: 'Shape',
-            image: '/asymmetric.svg'
-        },
-    ];
-    let arrStyles = [
-        {
-            style: 'Plunge',
-            description: 'Plunge bras draw your breasts together from the center of the cup. They have a low v-cut, with limited padding but offer support.',
-            image: '/plunge.svg',
-        },
-        {
-            style: 'T-shirt',
-            description: 'A t-shirt bra is a mid-coverage padded, underwire bra. It’s supposed to disappear elegantly under even the thinnest of shirts.',
-            image: '/plunge.svg',
-        },
-        {
-            style: 'Plunge',
-            description: 'Plunge bras draw your breasts together from the center of the cup. They have a low v-cut, with limited padding but offer support.',
-            image: '/plunge.svg',
-        },
-        {
-            style: 'T-shirt',
-            description: 'A t-shirt bra is a mid-coverage padded, underwire bra. It’s supposed to disappear elegantly under even the thinnest of shirts.',
-            image: '/plunge.svg',
-        }
-    ];
+    let arrProfile = [];
+    let arrStyles = [];
     let arrRecommendations = [
         {
             brandName: "brand name",
@@ -231,6 +233,331 @@ export default function Recommendation() {
             image: "/plunge.svg"
         },
     ];
+    let styles_map_arr = [
+        ["T-shirt", "A t-shirt bra is a mid-coverage padded, underwire bra. It's known as a t-shirt bra because they are supposed to disappear elegantly under even the thinnest of shirts."],
+        ["Balconette", "A balconette bra provides less coverage, with lower cut cups. The straps are wide set and provide an open necklace. A balconette bra will lift your breasts up, not together."],
+        ["Demi", "A demi bra has lower cut cups, even underwire, and partial coverage to emphasize natural cleavage."],
+        ["Push-up", "Push-up bras have extra padding and underwire to provide more cleavage and places breasts closer together."],
+        ["Vertical Seams", "Vertical seamed bras provide more lift to the breasts. They lift the breasts up and off the ribcage."],
+        ["Horizontal Seams", "Horizontal seams offer a more conical shape to the breast (think bullet-bra but less pronounced). Typically they are in the form of a balconette bra without padding."],
+        ["Bralette", "Bralettes come in a range of styles, from halter neck, to triangle top. They are typically wireless. They provide little support and can be used to hide nipples, or add style to an outfit."],
+        ["Contoured", "Contoured bras enhance your curves by sculpting your breasts for a symmetrical, rounded shape. It provides a natural lift, and it's designed with a layer of padding in the cup. "],
+        ["Stretch lace / fabric", "The top cups are stretchy, so you're still getting the lift and stability from the bottom. The lace gives a smooth finish under clothes. It molds to a breast's natural shape and is good for breasts that change size during your period."],
+        ["Full coverage", "Full Coverage bras are also designed with more coverage in the cups to fully contain breast tissue and prevent breasts from spilling out of the cups along the neckline and underarm."],
+        ["Molded", "A molded bra gives your breasts a round shape. They are typically seamless."],
+        ["Elastic neckline", "Elastic neckline"],
+        ["Close-set straps", "Close-set straps"],
+        ["Seamed bra", "Seamed bra"],
+        ["Removable padding", "Removable padding"],
+        ["Soft seams", "Soft seams"],
+        ["Wide underband", "Wide underband"],
+        ["Deep front / side panels", "Deep front / side panels"],
+        ["Full cups", "Full cups"],
+        ["Wireless", "Wireless rely on the cut of the fabric and stitching to create shape and provide support. They provide less shape and lift, but can be comfortable for smaller-medium breasted women who need less support and don't like underwires."],
+        ["Plunge", "Plunge bras draw your breasts together from the center of the cup. They have a low v-cut, with limited padding but offer support."],
+        ["Racerback bra", "Racerback bras are good for posture, because they let your shoulders sit naturally and take the weight off of them. The straps add an angle of lift to your bra, which offers more support. They also prevent strap slipping."],
+        ["Cut and sew bras", "Cut and sew bras offer a unique support, and are best for larger-breasted women. They directed seams lift the breasts up, without added pudding. They often also have beautiful embroidery added."],
+        ["Longline plunge bra", "Longline bras provide more support because they have a wider band. It can actually help improve posture. The plunge version also brings the breasts together offering side support."],
+        ["Front-closure bra", "Front-closure bra"],
+        ["Lace racerback bra", "Similar to the racerback bra function, but with an added touch of style being the lace-look which is nice if you need to wear a bra and want it to accessorize your outfit."],
+        ["Unlined plunge bra", "An unlined plunge bra offers support from the sides, drawing the breasts up and together. Because it is padding-free, it mimics the breasts natural shape more, but with a little lift."],
+        ["Strapless bra", "Strapless bras are great for tops with thin straps or no straps. It is best to get these with smaller bands to make sure they stay up properly."],
+        ["Re-usable pasties", "Re-usable pasties cover just your nipples. They come in a range of skin tones and have a rubber consistency. They are sticky on the back and attach comfortably + directly to your nipples."],
+        ["Disposable pasties", "Disposable pasties cover your nipples. They typically come in a range of shapes, like hearts, stars, and flowers, and can be either practical or fun under a sheer top."],
+    ]
+    const styles_map = new Map(styles_map_arr);
+    let images_map_arr = [
+        ["T-shirt", "styles/t-shirt-bra.png"],
+        ["Balconette", "styles/balconette-bra.png"],
+        ["Demi", "styles/demi-bra.png"],
+        ["Push-up", "styles/plunge-bra.png"],
+        ["Vertical Seams", "styles/vertical-seamed-bra.png"],
+        ["Horizontal Seams", "styles/horizontal-seamed-bra.png"],
+        ["Bralette", "styles/bralette.png"],
+        ["Contoured", "styles/contour-bra.png"],
+        ["Stretch lace / fabric", "styles/stretch-lace-fabric.png"],
+        ["Full coverage", "styles/full-coverage.png"],
+        ["Molded", "styles/plunge-bra.png"],
+        ["Elastic neckline", "styles/plunge-bra.png"],
+        ["Close-set straps", "styles/plunge-bra.png"],
+        ["Seamed bra", "styles/plunge-bra.png"],
+        ["Removable padding", "styles/plunge-bra.png"],
+        ["Soft seams", "styles/plunge-bra.png"],
+        ["Wide underband", "styles/plunge-bra.png"],
+        ["Deep front / side panels", "styles/plunge-bra.png"],
+        ["Full cups", "styles/full-coverage.png"],
+        ["Wireless", "styles/strapless-bra.png"],
+        ["Plunge", "styles/plunge-bra.png"],
+        ["Racerback bra", "styles/racerback-bra.png"],
+        ["Cut and sew bras", "styles/cut-and-sew-bra.png"],
+        ["Longline plunge bra", "styles/longline-plunge.png"],
+        ["Front-closure bra", "styles/plunge-bra.png"],
+        ["Lace racerback bra", "styles/stretch-lace-fabric.png"],
+        ["Unlined plunge bra", "styles/unlined-plunge.png"],
+        ["Strapless bra", "styles/strapless-bra.png"],
+        ["Re-usable pasties", "styles/re-usable-pasties.png"],
+        ["Disposable pasties", "styles/disposable-pasties.png"],
+    ]
+    const images_map = new Map(images_map_arr);
+    const profile_options = [
+        {
+            find: 'Full on Bottom ~ Nipples are Above Dotted Line.',
+            attribute: 'Full on Bottom',
+            description: 'Nipples are Above Dotted Line.',
+            link: 'Fullness',
+            image: '/question19/full_on_bottom.png'
+        },
+        {
+            find: 'Full on Top ~ Nipples are Below Dotted Line.',
+            attribute: 'Full on Top',
+            description: 'Nipples are Below Dotted Line.',
+            link: 'Fullness',
+            image: '/question19/full_on_top.png'
+        },
+        {
+            find: 'Even Distribution ~ Nipples are at the Dotted Lines.',
+            attribute: 'Even Distribution',
+            description: 'Nipples are at the Dotted Lines.',
+            link: 'Fullness',
+            image: '/question19/even_dist.png'
+        },
+        {
+            find: 'Outer Fullness ~ Nipples are Towards each other.',
+            attribute: 'Outer Fullness',
+            description: 'Nipples are Towards each other.',
+            link: 'Fullness',
+            image: '/question20/outer_fullness.png'
+        },
+        {
+            find: 'Inner Fullness ~ Nipples are Opposite of Each Other.',
+            attribute: 'Inner Fullness',
+            description: 'Nipples are Opposite of Each Other.',
+            link: 'Fullness',
+            image: '/question20/inner_fullness.png'
+        },
+        {
+            find: 'Even Distribution ~ Nipples are pointed straight forward.',
+            attribute: 'Even Distribution',
+            description: 'Nipples are pointed straight forward.',
+            link: 'Fullness',
+            image: '/question20/even_dist.png'
+        },
+        {
+            find: 'High ~ Above your elbows.',
+            attribute: 'High',
+            description: 'Above your elbows.',
+            link: 'Height',
+            image: '/question23/high.png'
+        },
+        {
+            find: 'Medium ~ At elbows.',
+            attribute: 'Medium',
+            description: 'At elbows.',
+            link: 'Height',
+            image: '/question23/medium.png'
+        },
+        {
+            find: 'Low ~ Below elbows.',
+            attribute: 'Low',
+            description: 'Below elbows.',
+            link: 'Height',
+            image: '/question23/low.png'
+        },
+        {
+            find: 'Shallow ~ Breast tissue spread closer to body.',
+            attribute: 'Shallow',
+            description: 'Breast tissue spread closer to body.',
+            link: 'Projection',
+            image: '/question24/shallow.png'
+        },
+        {
+            find: 'Projected ~ Stick out more in the front.',
+            attribute: 'Projected',
+            description: 'Sticks out more in the front.',
+            link: 'Projection',
+            image: '/question24/projected.png'
+        },
+        {
+            find: 'Medium ~ Sticks out equally.',
+            attribute: 'Medium',
+            description: 'Sticks out equally.',
+            link: 'Projection',
+            image: '/question24/medium_projection.png'
+        },
+        {
+            find: 'Narrow Width ~ Breasts are more narrow at the top than the bottom.',
+            attribute: 'Narrow Width',
+            description: 'Breasts are more narrow at the top than the bottom.',
+            link: 'Width',
+            image: '/question25/narrow_width.png'
+        },
+        {
+            find: 'Medium Width ~ Even at the top and bottom.',
+            attribute: 'Medium Width',
+            description: 'Even at the top and bottom.',
+            link: 'Width',
+            image: '/question25/medium_width.png'
+        },
+        {
+            find: 'Wide Width ~ Breasts are wider at the top.',
+            attribute: 'Wide Width',
+            description: 'Breasts are wider at the top.',
+            link: 'Width',
+            image: '/question25/wide_width.png'
+        },
+        {
+            find: 'Round ~ Equally full at the top and bottom.',
+            attribute: 'Round',
+            description: 'Equally full at the top and bottom.',
+            link: 'Shape',
+            image: '/question26/round.png'
+        },
+        {
+            find: 'Athletic ~ Wider, more muscular with less soft tissue.',
+            attribute: 'Athletic',
+            description: 'Wider, more muscular with less soft tissue.',
+            link: 'Shape',
+            image: '/question26/athletic.png'
+        },
+        {
+            find: 'East West ~ Bra lifts boobs upwards, not inwards.',
+            attribute: 'East West',
+            description: 'Bra lifts boobs upwards, not inwards.',
+            link: 'Shape',
+            image: '/question26/east-west.png'
+        },
+        {
+            find: 'Side Set ~ Wide space between breasts.',
+            attribute: 'Side Set',
+            description: 'Wide space between breasts.',
+            link: 'Shape',
+            image: '/question26/side-set.png'
+        },
+        {
+            find: 'Bell ~ Slimmer at the top, fuller at the bottom.',
+            attribute: 'Bell',
+            description: 'Slimmer at the top, fuller at the bottom.',
+            link: 'Shape',
+            image: '/question26/bell.png'
+        },
+        {
+            find: 'Teardrop ~ Round but slightly less full at the top.',
+            attribute: 'Teardrop',
+            description: 'Round but slightly less full at the top.',
+            link: 'Shape',
+            image: '/question26/teardrop.png'
+        },
+        {
+            find: 'Tubular ~ Elongated, narrow, and cylindrical shape.',
+            attribute: 'Tubular',
+            description: 'Elongated, narrow, and cylindrical shape.',
+            link: 'Shape',
+            image: '/question26/tuberous.png'
+        },
+        {
+            find: 'Relaxed ~ Breasts with lax tissue nipples pointed downwards.',
+            attribute: 'Relaxed',
+            description: 'Breasts with lax tissue nipples pointed downwards.',
+            link: 'Shape',
+            image: '/question26/relaxed.png'
+        },
+        {
+            find: 'Slender ~ Thin breasts, nipples pointed downward.',
+            attribute: 'Slender',
+            description: 'Thin breasts, nipples pointed downward.',
+            link: 'Shape',
+            image: '/question26/slender.png'
+        },
+        {
+            find: 'Asymetric ~ One breast is larger than the other.',
+            attribute: 'Asymetric',
+            description: 'One breast is larger than the other.',
+            link: 'Shape',
+            image: '/question26/asymetric.png'
+        },
+        {
+            find: 'Mastectomy ~ Breasts that have been surgically removed.',
+            attribute: 'Mastectomy',
+            description: 'Breasts that have been surgically removed.',
+            link: 'Shape',
+            image: '/question26/mastectomy.png'
+        },
+    ]
+    function get_styles() {
+        let styles = []
+        if (quiz_answers.medical != null && quiz_answers.medical.find(a => a.includes("Mastectomy")) != undefined) {
+            styles.push("Soft seams");
+            styles.push("Wide underband");
+            styles.push("Deep front");
+            styles.push("Deep side");
+            styles.push("Full cups");
+            styles.push("Wireless");
+            styles.push("Soft");
+            styles.push("Wide");
+            styles.push("Deep");
+        }
+        if (quiz_answers.type != null) {
+            if (quiz_answers.type.find(a => a.includes("Round")) != undefined) {
+                styles.push("T-shirt");
+                styles.push("Balconette");
+                styles.push("Plunge");
+            }
+            if (quiz_answers.type.find(a => a.includes("Athletic")) != undefined) {
+                styles.push("Demi");
+                styles.push("Push-up");
+                styles.push("Vertical seam");
+                styles.push("No horizontal seam");
+                styles.push("Bralette");
+                styles.push("Plunge");
+                styles.push("T-shirt");
+            }
+            if (quiz_answers.type.find(a => a.includes("East West")) != undefined) {
+                styles.push("Contoured");
+            }
+            if (quiz_answers.type.find(a => a.includes("Side Set")) != undefined) {
+                styles.push("Plunge");
+            }
+            if (quiz_answers.type.find(a => a.includes("Bell")) != undefined) {
+                styles.push("Balconette");
+                styles.push("Plunge");
+                styles.push("Stretch");
+                styles.push("Stretched");
+                styles.push("Full coverage");
+                styles.push("Full");
+                styles.push("T-shirt");
+            }
+            if (quiz_answers.type.find(a => a.includes("Teardrop")) != undefined) {
+                styles.push("Balconette");
+                styles.push("Demi");
+            }
+            if (quiz_answers.type.find(a => a.includes("Tubular")) != undefined) {
+                styles.push("Molded");
+                styles.push("Push-up");
+                styles.push("Contoured");
+            }
+            if (quiz_answers.type.find(a => a.includes("Relaxed")) != undefined) {
+                styles.push("Elastic");
+                styles.push("Elastic Neckline");
+                styles.push("Close-set");
+                styles.push("Close-set straps");
+                styles.push("T-shirt");
+                styles.push("Contoured");
+            }
+            if (quiz_answers.type.find(a => a.includes("Slender")) != undefined) {
+                styles.push("Seamed");
+                styles.push("Seamed bra");
+            }
+            if (quiz_answers.type.find(a => a.includes("Asymetric")) != undefined) {
+                styles.push("T-shirt");
+                styles.push("Stretch");
+                styles.push("Stretched");
+                styles.push("Molded");
+                styles.push("Removable Padding");
+            }
+        }
+        styles = [...new Set(styles)];
+        return styles;
+    }
     function get_cupsize(bust) {
         let cupsize = ""
         if (bust < 1) {
@@ -352,92 +679,16 @@ export default function Recommendation() {
         }
     }
     function get_percent(bra, bandsize, cupsize_int) {
-        /*if (!potential_brands.includes(bra.brandName)) {
-            return 0.0;
-        }*/
 
         let num_style = 0;
-        if (quiz_answers.medical.includes("Mastectomy")) {
-            quiz_answers.styles.push("Soft seams");
-            quiz_answers.styles.push("Wide underband");
-            quiz_answers.styles.push("Deep front");
-            quiz_answers.styles.push("Deep side");
-            quiz_answers.styles.push("Full cups");
-            quiz_answers.styles.push("Wireless");
-            quiz_answers.styles.push("Soft");
-            quiz_answers.styles.push("Wide");
-            quiz_answers.styles.push("Deep");
-        }
-        if (quiz_answers.type.includes("Round")) {
-            quiz_answers.styles.push("T-shirt");
-            quiz_answers.styles.push("Balconette");
-            quiz_answers.styles.push("Plunge");
-        }
-        if (quiz_answers.type.includes("Athletic")) {
-            quiz_answers.styles.push("Demi");
-            quiz_answers.styles.push("Push-up");
-            quiz_answers.styles.push("Vertical seam");
-            quiz_answers.styles.push("No horizontal seam");
-            quiz_answers.styles.push("Bralette");
-            quiz_answers.styles.push("Plunge");
-            quiz_answers.styles.push("T-shirt");
-        }
-        if (quiz_answers.type.includes("East West")) {
-            quiz_answers.styles.push("Contoured");
-        }
-        if (quiz_answers.type.includes("Side Set")) {
-            quiz_answers.styles.push("Plunge");
-        }
-        if (quiz_answers.type.includes("Bell")) {
-            quiz_answers.styles.push("Balconette");
-            quiz_answers.styles.push("Plunge");
-            quiz_answers.styles.push("Stretch");
-            quiz_answers.styles.push("Stretched");
-            quiz_answers.styles.push("Full coverage");
-            quiz_answers.styles.push("Full");
-            quiz_answers.styles.push("T-shirt");
-        }
-        if (quiz_answers.type.includes("Teardrop")) {
-            quiz_answers.styles.push("Balconette");
-            quiz_answers.styles.push("Demi");
-        }
-        if (quiz_answers.type.includes("Tubular")) {
-            quiz_answers.styles.push("Molded");
-            quiz_answers.styles.push("Push-up");
-            quiz_answers.styles.push("Contoured");
-        }
-        if (quiz_answers.type.includes("Relaxed")) {
-            quiz_answers.styles.push("Elastic");
-            quiz_answers.styles.push("Elastic Neckline");
-            quiz_answers.styles.push("Close-set");
-            quiz_answers.styles.push("Close-set straps");
-            quiz_answers.styles.push("T-shirt");
-            quiz_answers.styles.push("Contoured");
-        }
-        if (quiz_answers.type.includes("Slender")) {
-            quiz_answers.styles.push("Seamed");
-            quiz_answers.styles.push("Seamed bra");
-        }
-        if (quiz_answers.type.includes("Asymetric")) {
-            quiz_answers.styles.push("T-shirt");
-            quiz_answers.styles.push("Stretch");
-            quiz_answers.styles.push("Stretched");
-            quiz_answers.styles.push("Molded");
-            quiz_answers.styles.push("Removable Padding");
-        }
-
-        quiz_answers.styles = [...new Set(quiz_answers.styles)];
-
-        quiz_answers.styles.forEach(element => {
+        let styles_match = styles.concat(quiz_answers.types)
+        styles_match.forEach(element => {
             if (bra.style.toLowerCase().includes(element.toLowerCase())) {
                 num_style += 1;
             }
         });
 
         let ribcage = 0;
-        /*if ((bra.fits_ribcage <= (quiz_answers.snug_underbust + 1)) && (bra.fits_ribcage >= (quiz_answers.snug_underbust - 1))) {
-            ribcage = 1;
-        }*/
         let ribcage_diff = Math.abs(bra.fits_ribcage - quiz_answers.snug_underbust);
         if (ribcage_diff == 0) {
             ribcage = 10;
@@ -509,7 +760,7 @@ export default function Recommendation() {
         // get cup size
         let bust = 0.0;
         // this assumes any one that is not a transgender man was assigned female at birth
-        if (!(quiz_answers.gender.includes("Transgender") || quiz_answers.gender.includes("Transsexual")) && !quiz_answers.gender.includes("Female")) {
+        if (quiz_answers.gender != null && !(quiz_answers.gender.includes("Transgender") || quiz_answers.gender.includes("Transsexual")) && !quiz_answers.gender.includes("Female")) {
             // assigned female at birth
             if (Math.abs(quiz_answers.leaning_bust - quiz_answers.lying_bust) > 2.5) {
                 bust = (quiz_answers.leaning_bust + quiz_answers.lying_bust + quiz_answers.standing_bust) / 3
@@ -538,18 +789,9 @@ export default function Recommendation() {
         size.push("" + bandsize + cupsize);
         size.push("" + (bandsize + 2) + get_cupsize(bust + 1));
 
-        // get list of potential brands based on size
-        /*let potential_brands = []
-        brandSizes.forEach(element => {
-            if (element.band_min <= bandsize && element.band_max >= bandsize && element.band_max <= cupsize_int && element.cup_max >= cupsize_int) {
-                potential_brands.push(element.name)
-            }
-        });*/
-
         let map = new Map();
         all_bras.forEach(element => {
             let match = get_percent(element, bandsize, cupsize_int);
-            //map.set(element, match);
             element.match = match;
         });
 
@@ -562,10 +804,30 @@ export default function Recommendation() {
         }
 
     }
+    function get_style_arr() {
+        arrStyles = [];
+        styles.forEach(st => {
+            arrStyles.push({
+                style: st,
+                description: styles_map.get(st),
+                image: images_map.get(st)
+            });
+        });
+    }
+    function get_profile_arr() {
+        arrProfile = [];
+        let profile = [quiz_answers.top_bottom].concat([quiz_answers.outer_inner], quiz_answers.height, quiz_answers.projection, quiz_answers.width, quiz_answers.type)
+        profile.forEach(pr => {
+            let el = profile_options.find(a => a.find == pr)
+            if (el != undefined) {
+                arrProfile.push(el)
+            }
+        });
+    }
     function breastProfile(r) {
         return (
             <div className="rec-profile">
-                <img className="rec-profile-image" src={r.image}></img>
+                <img className="rec-style-image" src={r.image}></img>
                 <div className="rec-profile-info-wrapper">
                     <div className="rec-size-title">{r.attribute}</div>
                     <div className="rec-profile-description">{r.description}</div>
@@ -597,7 +859,11 @@ export default function Recommendation() {
             // have reccomendation data that matches FIGMA
         )
     }
+    const styles = get_styles();
     match();
+    get_style_arr();
+    get_profile_arr();
+
     return (
         // <div className="recommendation-wrapper">
         <>
@@ -655,7 +921,7 @@ export default function Recommendation() {
                 <div className="rec-style-wrapper">
                     <div className="rec-sizing-block">
                         <div className="rec-sizing-title">How does bra style affect fit?</div>
-                        <div className="rec-sizing-description">Because you have teardrop shaped breasts, an underwired balconette or demi cup bra with a vertical seam will fit bests. If you want to lift the breasts and make them look fuller on the top, aim for a vertical seam.</div>
+                        <div className="rec-sizing-description">Because you have {quiz_answers.shape} shaped breasts, a {styles[0]} or {styles[1]} will fit best. </div>
                         <img className="rec-change" src="/retake.svg"></img>
                     </div>
                     <div className="rec-profile-scroll">
@@ -673,7 +939,7 @@ export default function Recommendation() {
                 <div className="rec-style-wrapper">
                     <div className="rec-sizing-block">
                         <div className="rec-sizing-title">How does bra style affect fit?</div>
-                        <div className="rec-sizing-description">Because you have teardrop shaped breasts, an underwired balconette or demi cup bra with a vertical seam will fit bests. If you want to lift the breasts and make them look fuller on the top, aim for a vertical seam.</div>
+                        <div className="rec-sizing-description">Because you have {quiz_answers.shape} shaped breasts, {styles[0]} will fit best. {styles_map.get(styles[0])} </div>
                         <img className="rec-change" src="/retake.svg"></img>
                     </div>
                     <div className="rec-profile-scroll">
