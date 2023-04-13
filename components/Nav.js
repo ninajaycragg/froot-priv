@@ -1,15 +1,39 @@
 import Link from 'next/link';
 import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import EditAccount from "../pages/editAccount";
 import React, { useEffect } from 'react';
 import globalVal from "../middleware/global";
 import next from 'next';
-
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 // describes the desktop menu
 export default function Nav() {
   const [user, setUser] = React.useState(undefined);
-
+  const [drawerIsOpen, setDrawerIsOpen] = React.useState(false);
+  const [modalIsOpen, setModalIsOpen] = React.useState(false);
+  const handleModalOpen = () => {
+    setDrawerIsOpen(false);
+    setModalIsOpen(true);
+  }
+  const handleModalClose = () => {
+    setModalIsOpen(false);
+  }
+  const toggleDrawer = () => {
+    setDrawerIsOpen(!drawerIsOpen);
+  }
   // Check if a user is logged in
   useEffect(() => {
     fetch('api/auth', {
@@ -56,9 +80,33 @@ export default function Nav() {
           <Link className="default-nav-link" href="#">STORE</Link>
           <Link className="default-nav-link" href="/about">ABOUT US</Link>
         </div>
-        <img className="user-logo" href="/userProfile" src="/userLogo.svg" />
+        <img className="user-logo" href="/userProfile" src="/userLogo.svg" onClick={toggleDrawer} />
         <div className="default-nav-sign-in" onClick={handleClick}>Sign Out</div>
+        <Drawer
+          anchor="right"
+          open={drawerIsOpen}
+          onClose={toggleDrawer}
+        >
+          <Button variant="outlined" size="large" onClick={handleModalOpen} >
 
+            Account
+          </Button>
+
+        </Drawer>
+        <Modal
+          open={modalIsOpen}
+          onClose={handleModalClose}
+        >
+          <Box sx={style}>
+            <EditAccount isModal={true} />
+
+
+
+          </Box>
+
+
+
+        </Modal>
       </div>
 
     );
