@@ -3,12 +3,15 @@ import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import CloseIcon from '@mui/icons-material/Close';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import EditAccount from "../pages/editAccount";
 import React, { useEffect } from 'react';
 import globalVal from "../middleware/global";
 import next from 'next';
+import { borderRadius } from '@mui/system';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -19,11 +22,29 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const buttonStyle = {
+  minWidth: "300px",
+  border: "none",
+  justifyContent: "flex-start",
+  color: "#000000",
+  borderRadius: "0px",
+  margin: "8px 20px 0px 20px"
+}
 // describes the desktop menu
 export default function Nav() {
+  const router = useRouter();
   const [user, setUser] = React.useState(undefined);
   const [drawerIsOpen, setDrawerIsOpen] = React.useState(false);
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
+  const handleRecommendation = () => {
+    setDrawerIsOpen(false);
+    router.push("/recommendation")
+  }
+  const handleRetakeQuiz = () => {
+    setDrawerIsOpen(false);
+    router.push("/quiz")
+  }
   const handleModalOpen = () => {
     setDrawerIsOpen(false);
     setModalIsOpen(true);
@@ -48,7 +69,6 @@ export default function Nav() {
       })
   }, [globalVal])
   // const user = auth.currentUser;
-  const router = useRouter();
   function handleSignin(e) {
     e.preventDefault();
     router.push("/login");
@@ -87,7 +107,38 @@ export default function Nav() {
           open={drawerIsOpen}
           onClose={toggleDrawer}
         >
-          <Button variant="outlined" size="large" onClick={handleModalOpen} >
+          <Grid
+            container
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"
+          >
+            <Grid item style={{ margin: "20px 20px 0px 0px" }}>
+
+              <CloseIcon
+                onClick={toggleDrawer}
+                fontSize="medium"
+              />
+
+            </Grid>
+
+
+          </Grid>
+          <Button sx={buttonStyle}
+            className="drawer-button"
+            style={{ borderBottom: "1px solid #000000" }}
+            variant="outlined" size="large" onClick={handleRecommendation} >
+
+            Recommendations
+          </Button>
+          <Button sx={buttonStyle}
+            style={{ borderBottom: "1px solid #000000" }}
+            variant="outlined" size="large" onClick={handleRetakeQuiz} >
+
+            Retake Quiz
+          </Button>
+          <Button sx={buttonStyle}
+            variant="outlined" size="large" onClick={handleModalOpen} >
 
             Account
           </Button>
@@ -98,7 +149,7 @@ export default function Nav() {
           onClose={handleModalClose}
         >
           <Box sx={style}>
-            <EditAccount isModal={true} />
+            <EditAccount isModal={true} setModalIsOpen={setModalIsOpen} />
 
 
 

@@ -9,10 +9,15 @@ import { useRouter } from 'next/router';
 import { positions } from '@mui/system';
 import { Padding } from '@mui/icons-material';
 
-export default function editAccount({ isModal }) {
+export default function editAccount({ isModal, setModalIsOpen }) {
     const [inputs, setInputs] = useState({});
     const [originalInputs, setOriginalInputs] = useState({});
     const [isBeingEdited, setIsBeingEdited] = useState(false);
+    const handleMakeChanges = (event) => {
+        setIsBeingEdited(true);
+
+
+    }
     useEffect(() => {
         const email = localStorage.getItem('email');
         const firstName = localStorage.getItem('firstName');
@@ -58,10 +63,14 @@ export default function editAccount({ isModal }) {
             .then(data => {
                 if (data.message) { window.alert(data.message) }
                 else {
+                    localStorage.setItem("email", info.email)
+                    localStorage.setItem("firstName", info.firstName)
+                    localStorage.setItem("lastName", info.lastName)
                     if (inputs["email"] !== undefined && inputs["email"].length != 0) {
                         globalVal.email = inputs["email"];
                     }
                     window.alert("Successfully updated your profile!");
+                    setModalIsOpen(false)
                     router.push('/quiz');
                 }
             })
@@ -318,10 +327,12 @@ export default function editAccount({ isModal }) {
                         </Grid>
                         <Grid item
                             xs={12} container>
-                            <Button style={{
-                                width: "100%",
-                                borderRadius: 999999
-                            }} variant="contained">Make Changes</Button>
+                            <Button
+                                onClick={handleMakeChanges}
+                                style={{
+                                    width: "100%",
+                                    borderRadius: 999999
+                                }} variant="contained">Make Changes</Button>
                         </Grid>
                     </Grid>
 
