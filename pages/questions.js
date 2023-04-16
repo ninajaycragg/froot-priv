@@ -15,14 +15,29 @@ import { boolean, func } from 'joi';
 const userEmail = localStorage.getItem('email')
 
 // import ButtonBase from '@mui/material/ButtonBase';
-import { boolean, func} from 'joi';
+import { boolean, func } from 'joi';
 import ProgressBar from './Progress_bar';
+<<<<<<< Updated upstream
 
 // 27 questions
 let tog = 1
 let currQ = 0
 let totalQ = 26
 
+=======
+import globalVal from "../middleware/global";
+
+const userEmail = globalVal.email
+console.log('USER EMAIL: ' + userEmail)
+//import brands_csv from './Brands_extraction';
+/*
+console.log('LINE 17')
+console.log('USER EMAIL: ' + typeof window)
+if (typeof window !== 'undefined') {
+    const userEmail = localStorage.getItem('email');
+}
+*/
+>>>>>>> Stashed changes
 /*
 * TODO:
 *   - update styling for Why We Ask section to dynamically sit it right spot
@@ -44,6 +59,19 @@ export default function Questions() {
 
 
     // Route to recommendation page upon completion of quiz
+    /* function handleRedirection(e) {
+         if (userEmail != "") {
+             e.preventDefault();
+             console.log('here not null')
+             router.push('/recommendation');
+         }
+         else {
+             e.preventDefault();
+             console.log('here null')
+             router.push('/signup');
+         }
+ 
+     }*/
     function handleRedirection(e) {
         e.preventDefault();
         router.push('/recommendation');
@@ -424,7 +452,12 @@ export default function Questions() {
             options: [{
                 key: "Band Size",
                 value: ['24', '26', '28', '30', '32', '34', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60']
+<<<<<<< Updated upstream
             }, {
+=======
+            },
+            {
+>>>>>>> Stashed changes
                 key: "Cup Size",
                 value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO']
             }
@@ -512,7 +545,7 @@ export default function Questions() {
             setIndex((index += 1));
 
             if (index < questionsArray.length - 1) {
-                setProgress((index+1) / questionsArray.length * 100);
+                setProgress((index + 1) / questionsArray.length * 100);
 
                 console.log("Progress: " + progress);
             }
@@ -564,6 +597,11 @@ export default function Questions() {
         };
     });
 
+<<<<<<< Updated upstream
+=======
+    // document.addEventListener('keydown', readBrandsFile);
+
+>>>>>>> Stashed changes
     const handleChoose = (i) => {
         if (questionsArray[index].question === 'Have you taken the /ABraThatFits quiz?'
             && i === 'Yes') {
@@ -594,8 +632,8 @@ export default function Questions() {
             setIndex(index -= 1);
         }
         setIndex((index -= 1));
-        if(index > 0) {
-            setProgress((index-1) / questionsArray.length * 100);
+        if (index > 0) {
+            setProgress((index - 1) / questionsArray.length * 100);
             console.log("Progress: " + progress);
         }
         if (questionsArray[index].select === 'multiple') {
@@ -617,10 +655,15 @@ export default function Questions() {
     useEffect(() => {
         setSel(multAnswers);
     }, [multAnswers]);
+    console.log(questionsArray[index])
     console.log(questionsArray[index].question);
 
 
     // Setting display of break style questions
+<<<<<<< Updated upstream
+=======
+    // todo: fix styling for break pages
+>>>>>>> Stashed changes
     if (questionsArray[index].type === "break") {
         return (
             <div className="question1-wrapper">
@@ -670,21 +713,26 @@ export default function Questions() {
                                             if (allAnswers[i] != '')
                                                 answersForPassing.push(allAnswers[i])
                                         }
-                                        const addAnswers = {
-                                            userEmail: userEmail,
-                                            answers: answersForPassing
+                                        globalVal.answers = answersForPassing
+                                        if (userEmail != "") {
+                                            const addAnswers = {
+                                                userEmail: userEmail,
+                                                answers: answersForPassing
+                                            }
+                                            fetch(`/api/addAnswers`, {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify(addAnswers),
+                                            }).then(res => res.json())
+                                                .catch((error) => {
+                                                    window.alert("Catch: " + error.message);
+                                                    return;
+                                                });
+                                        } else {
+                                            router.push('/signup')
                                         }
-                                        fetch(`/api/addAnswers`, {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                            },
-                                            body: JSON.stringify(addAnswers),
-                                        }).then(res => res.json())
-                                            .catch((error) => {
-                                                window.alert("Catch: " + error.message);
-                                                return;
-                                            });
                                     }}
                                 >
                                     Get Recommendations!
@@ -700,8 +748,15 @@ export default function Questions() {
                                     >
                                         press <b>Enter</b>
                                     </h1>
+<<<<<<< Updated upstream
                                 </div>
                             )}
+=======
+
+
+                                </div>)}
+
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </div >
@@ -715,171 +770,214 @@ export default function Questions() {
 
         return (null);
     }
+<<<<<<< Updated upstream
+=======
+    // setting display for half page questions
+    // todo: update styling of images, check with nina that I should use these or find specific measuring tape one she has....
+    else if (questionsArray[index].type === 'half-break') {
+        return (
+            <div className="question1-wrapper">
+                <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
+                <div className=
+                    {
+                        true ? "question1_body" : null
+                    }
+                >
+                    <div className="question_count_container">
+                        <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+                        <ArrowForwardIcon className="question_count_arrow" />
+                    </div>
+                    <div id="scroll"></div>
+
+                    <div className="question_break_block">
+                        <div className="question_container">
+                            <div className="question_container2">
+                                {/* like the question title */}
+                                <h1 className="question_title">
+                                    {questionsArray[index].question}
+                                </h1>
+                                {/* denotes the paragraph (question body) */}
+                                <p
+                                    style={{
+                                        fontFamily: 'Inter',
+                                    }}
+                                >
+                                    {questionsArray[index].subtext ? questionsArray[index].text : ''}
+                                </p>
+                                <div className="question_text_options_container"
+                                >
+                                    <TextField
+                                        onChange={handleChange}
+                                        value={sel}
+                                        id="standard-basic"
+                                        input="text"
+                                        variant="standard"
+                                        placeholder="Type your answer here..."
+                                        className="question_text_box"
+                                    />
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className={
+                            questionsArray[index].type === 'break'
+                                ? "question_break_container"
+                                : "question_no_break_container"
+                        }
+                        >
+                            {index === questionsArray.length - 1 ? (
+                                <div
+                                    // onClick={postUser}
+                                    variant="filled"
+                                    className="question-end-button"
+                                    role="button"
+                                    onClick={handleRedirection}
+                                >
+                                    Get Recommendations!
+                                </div>
+                            ) : (
+                                <div className="question_next_container">
+                                    <Link href="#scroll">
+                                        <div className="question-break-back-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                                        </div>
+                                    </Link>
+
+                                    <h1 className="question_next_enter"
+                                    >
+                                        press <b>Enter</b>
+                                    </h1>
+                                </div>
+                            )}
+                        </div>
+                        {index === 0 ? null : (
+                            <div className="question_back_button_wrap">
+                                <Link href="#scroll">
+                                    <div className="question-break-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                </div >
+                <div> {displayPBar()} </div>
+            </div >
+        );
+    }
+>>>>>>> Stashed changes
     // setting frontend display of all other types of questions (dropdown, mc, image, tag)
     else {
         return (
-        <div className="question_body">
-            <div id="scroll"></div>
-            <div className="question_count_container">
-                <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
-                <ArrowForwardIcon className="question_count_arrow" />
-            </div>
-            <div className="question_block">
-                <div className="question_container">
-                    <div className="question_container2">
-                        {/* like the question title */}
-                        <h1 className="question_title">
-                            {questionsArray[index].question}
-                        </h1>
-                        {/* denotes the paragraph (question body) */}
-                        <p
-                            style={{
-                                fontFamily: 'Inter',
-                            }}
-                        >
-                            {questionsArray[index].subtext ? questionsArray[index].text : ''}
-                        </p>
-                    </div>
+            <div className="question_body">
+                <div id="scroll"></div>
+                <div className="question_count_container">
+                    <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+                    <ArrowForwardIcon className="question_count_arrow" />
                 </div>
-                {/* displays question text or nothing */}
-                {questionsArray[index].type === 'text' ||
-                    questionsArray[index].type === 'textIMG' ? (
-                    <div className="question_text_options_container"
-                    >
-                        <TextField
-                            onChange={handleChange}
-                            value={sel}
-                            id="standard-basic"
-                            input="text"
-                            variant="standard"
-                            placeholder="Type your answer here..."
-                            className="question_text_box"
-                        />
-
+                <div className="question_block">
+                    <div className="question_container">
+                        <div className="question_container2">
+                            {/* like the question title */}
+                            <h1 className="question_title">
+                                {questionsArray[index].question}
+                            </h1>
+                            {/* denotes the paragraph (question body) */}
+                            <p
+                                style={{
+                                    fontFamily: 'Inter',
+                                }}
+                            >
+                                {questionsArray[index].subtext ? questionsArray[index].text : ''}
+                            </p>
+                        </div>
                     </div>
-                ) : null}
-                {questionsArray[index].type === 'dropdown' ? (
-                    <div className="question_text_options_container"
-                    >
-                        <Select
-                            className="question_dropdown"
-                            value={sel}
-                            label="Age"
-                            onChange={handleChange}
+                    {/* displays question text or nothing */}
+                    {questionsArray[index].type === 'text' ||
+                        questionsArray[index].type === 'textIMG' ? (
+                        <div className="question_text_options_container"
                         >
-                            {questionsArray[index].options.map((choices) => (
-                                <MenuItem value={choices}>{choices}</MenuItem>
-                            ))}
-                        </Select>
+                            <TextField
+                                onChange={handleChange}
+                                value={sel}
+                                id="standard-basic"
+                                input="text"
+                                variant="standard"
+                                placeholder="Type your answer here..."
+                                className="question_text_box"
+                            />
 
-                    </div>
-                ) : null}
-                {questionsArray[index].type === 'multDropdowns' ? (
-                    <div className="question_dropdown_options_container">
-                        {/* {questionsArray[index].options.map((choices) => ( */}
-                        <div className="question_dropdown_sub_options_container"
+                        </div>
+                    ) : null}
+                    {questionsArray[index].type === 'dropdown' ? (
+                        <div className="question_text_options_container"
                         >
-                            <InputLabel id={questionsArray[index].options[0].key}>{questionsArray[index].options[0].key}</InputLabel>
                             <Select
-                                labelId={questionsArray[index].options[0].key}
                                 className="question_dropdown"
                                 value={sel}
+                                label="Age"
                                 onChange={handleChange}
                             >
-                                {questionsArray[index].options[0].value.map((choice) => (
-                                    <MenuItem value={choice}>{choice}</MenuItem>
+                                {questionsArray[index].options.map((choices) => (
+                                    <MenuItem value={choices}>{choices}</MenuItem>
                                 ))}
                             </Select>
 
                         </div>
-                        <div className="question_dropdown_sub_options_container"
-                        >
-                            <InputLabel id={questionsArray[index].options[1].key}>{questionsArray[index].options[1].key}</InputLabel>
-                            <Select
-                                labelId={questionsArray[index].options[1].key}
-                                className="question_dropdown"
-                                value={sel2}
-                                onChange={handleOtherDropdown}
+                    ) : null}
+                    {questionsArray[index].type === 'multDropdowns' ? (
+                        <div className="question_dropdown_options_container">
+                            {/* {questionsArray[index].options.map((choices) => ( */}
+                            <div className="question_dropdown_sub_options_container"
                             >
-                                {questionsArray[index].options[1].value.map((choice) => (
-                                    <MenuItem value={choice}>{choice}</MenuItem>
-                                ))}
-                            </Select>
+                                <InputLabel id={questionsArray[index].options[0].key}>{questionsArray[index].options[0].key}</InputLabel>
+                                <Select
+                                    labelId={questionsArray[index].options[0].key}
+                                    className="question_dropdown"
+                                    value={sel}
+                                    onChange={handleChange}
+                                >
+                                    {questionsArray[index].options[0].value.map((choice) => (
+                                        <MenuItem value={choice}>{choice}</MenuItem>
+                                    ))}
+                                </Select>
+
+                            </div>
+                            <div className="question_dropdown_sub_options_container"
+                            >
+                                <InputLabel id={questionsArray[index].options[1].key}>{questionsArray[index].options[1].key}</InputLabel>
+                                <Select
+                                    labelId={questionsArray[index].options[1].key}
+                                    className="question_dropdown"
+                                    value={sel2}
+                                    onChange={handleOtherDropdown}
+                                >
+                                    {questionsArray[index].options[1].value.map((choice) => (
+                                        <MenuItem value={choice}>{choice}</MenuItem>
+                                    ))}
+                                </Select>
+
+                            </div>
+                            {/* ))} */}
+
 
                         </div>
-                        {/* ))} */}
-
-
-                    </div>
-                ) : null}
-                {questionsArray[index].type === 'tag' ? (
-                    <div className="question_tags_container">
-                        {questionsArray[index].options.map((choices) => (
-                            <div
-                                variant="outlined"
-                                key={choices}
-                                id={choices}
-                                className={
-                                    sel === choices || (questionsArray[index].select === 'multiple' &&
-                                        multAnswers.includes(choices))
-                                        ? "question_tag_selected"
-                                        : "question_tag"
-                                }
-                                onClick={() => handleChoose(choices)}
-                            >
-                                {choices}
-                            </div>
-                        ))}
-
-                    </div>
-                ) : null}
-                {questionsArray[index].type == 'iframe' ? (
-                    <div>
-                        <iframe src="https://www.abrathatfits.org/calculator.php" height={500} width={500} />
-
-                    </div>
-
-                ) : null}
-
-                {/* displays multiple choices or not */}
-                {questionsArray[index].type === 'mc' ? (
-                    <div className="question_mc_container">
-                        {questionsArray[index].options.map((choices) => (
-                            <div
-                                variant="outlined"
-                                role="button"
-                                key={choices}
-                                id={choices}
-                                className={
-                                    sel === choices
-                                        ? "question_mc_selected"
-                                        : "question_mc"
-                                }
-                                onClick={() => handleChoose(choices)}
-                            >
-                                {choices}
-                            </div>
-                        ))}
-                    </div>
-                ) : null}
-                {/* displays image */}
-                {questionsArray[index].type === 'image' ? (
-                    <>
-                        <div className="question_choose">{questionsArray[index].optionsText}</div>
-                        <div className="question_images_container"
-                        >
+                    ) : null}
+                    {questionsArray[index].type === 'tag' ? (
+                        <div className="question_tags_container">
                             {questionsArray[index].options.map((choices) => (
                                 <div
-                                    onClick={() => handleChoose(choices)}
+                                    variant="outlined"
                                     key={choices}
                                     id={choices}
                                     className={
-                                        sel === choices ||
-                                            (questionsArray[index].select === 'multiple' &&
-                                                multAnswers.includes(choices))
-                                            ? "question_image_selected" : "question_image_unselected"
+                                        sel === choices || (questionsArray[index].select === 'multiple' &&
+                                            multAnswers.includes(choices))
+                                            ? "question_tag_selected"
+                                            : "question_tag"
                                     }
+                                    onClick={() => handleChoose(choices)}
                                 >
+<<<<<<< Updated upstream
                                     <div className="question_image_container">
                                         <Image
                                             src={
@@ -890,16 +988,43 @@ export default function Questions() {
                                             layout="fill"
                                         ></Image>
                                     </div>
+=======
+                                    {choices}
+                                </div>
+                            ))}
+>>>>>>> Stashed changes
 
-                                    <h3 className="question_image_title">
-                                        {choices.split('~')[0]}
-                                    </h3>
-                                    <h3 className="question_image_text">
-                                        {choices.split('~')[1]}
-                                    </h3>
+                        </div>
+                    ) : null}
+                    {questionsArray[index].type == 'iframe' ? (
+                        <div>
+                            <iframe src="https://www.abrathatfits.org/calculator.php" height={500} width={500} />
+
+                        </div>
+
+                    ) : null}
+
+                    {/* displays multiple choices or not */}
+                    {questionsArray[index].type === 'mc' ? (
+                        <div className="question_mc_container">
+                            {questionsArray[index].options.map((choices) => (
+                                <div
+                                    variant="outlined"
+                                    role="button"
+                                    key={choices}
+                                    id={choices}
+                                    className={
+                                        sel === choices
+                                            ? "question_mc_selected"
+                                            : "question_mc"
+                                    }
+                                    onClick={() => handleChoose(choices)}
+                                >
+                                    {choices}
                                 </div>
                             ))}
                         </div>
+<<<<<<< Updated upstream
                     </>
                 ) : null}
                 {questionsArray[index].type === 'image' && questionsArray[index].link ? (<div className="quiz-link">More Info</div>) : null}
@@ -913,14 +1038,74 @@ export default function Questions() {
                     <div className="question_next_container">
                         <Link href="#scroll">
                             <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
-                            </div>
-                        </Link>
+=======
+                    ) : null}
+                    {/* displays image */}
+                    {questionsArray[index].type === 'image' ? (
+                        <>
+                            <div className="question_choose">{questionsArray[index].optionsText}</div>
+                            <div className="question_images_container"
+                            >
+                                {questionsArray[index].options.map((choices) => (
+                                    <div
+                                        onClick={() => handleChoose(choices)}
+                                        key={choices}
+                                        id={choices}
+                                        className={
+                                            sel === choices ||
+                                                (questionsArray[index].select === 'multiple' &&
+                                                    multAnswers.includes(choices))
+                                                ? "question_image_selected" : "question_image_unselected"
+                                        }
+                                    >
+                                        <div className="question_image_container">
+                                            <Image
+                                                src={
+                                                    questionsArray[index].imageNames[
+                                                    questionsArray[index].options.indexOf(choices)
+                                                    ]
+                                                }
+                                                layout="fill"
+                                                background-color={"#C5D6E5"}
+                                            ></Image>
+                                        </div>
 
-                        <h1 className="question_next_enter"
-                        >
-                            press <b>Enter</b>
-                        </h1>
+                                        <h3 className="question_image_title">
+                                            {choices.split('~')[0]}
+                                        </h3>
+                                        <h3 className="question_image_text">
+                                            {choices.split('~')[1]}
+                                        </h3>
+                                    </div>
+                                ))}
+>>>>>>> Stashed changes
+                            </div>
+                        </>
+                    ) : null}
+                    {/*todo: figure out what this is supposed to be linking to*/}
+                    {questionsArray[index].type === 'image' && questionsArray[index].link ? (<div className="quiz-link">More Info</div>) : null}
+                    <div className={
+                        questionsArray[index].type === 'break'
+                            ? "question_break_container"
+                            : "question_no_break_container"
+                    }
+                    >
+                        {/* if next question is valid, not the end: display next button */}
+                        <div className="question_next_container">
+                            <Link href="#scroll">
+                                <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                                </div>
+                            </Link>
+
+                            <h1 className="question_next_enter"
+                            >
+                                press <b>Enter</b>
+                            </h1>
+                        </div>
+
+
                     </div>
+<<<<<<< Updated upstream
                 </div>
                 {/* enable back button if index is not 0 */}
                 {
@@ -937,10 +1122,17 @@ export default function Questions() {
                     (<div className="whyWeAsk">
                         <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
                         <div className="popup" id="popup" >
+=======
+                    {(index === 5) ?
+                        (<div className="whyWeAsk">
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup" >
+>>>>>>> Stashed changes
                                 <button type="button" className="exit" onClick={closePopUp}>X</button>
                                 <h2>Why We Ask</h2>
                                 <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
                                 <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+<<<<<<< Updated upstream
                         </div>
                     </div>
                     ) : null}
@@ -951,6 +1143,37 @@ export default function Questions() {
         </div >
 
     );
+=======
+                            </div>
+                        </div>
+                        ) : null}
+                    {(index === 28) ?
+                        (<div className="whyWeAsk">
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup" >
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                            </div>
+                        </div>
+                        ) : null}
+                    {/* enable back button if index is not 0 */}
+                    {
+                        index === 0 ? null : (
+                            <div className="question_back_button_wrap">
+                                <Link href="#scroll">
+                                    <div className="question-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                    </div>
+                                </Link>
+                            </div>
+                        )
+                    }
+                </div >
+                <div> {displayPBar()} </div>
+            </div >
+        );
+>>>>>>> Stashed changes
 
     }
 }

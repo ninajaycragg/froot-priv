@@ -7,6 +7,7 @@ import { positions } from '@mui/system';
 import { Padding } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
+
 export default function Login() {
     const [inputs, setInputs] = useState({});
     const [token, setToken] = useState({});
@@ -40,6 +41,7 @@ export default function Login() {
                     globalVal.email = loginUser.email;
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('email', loginUser.email)
+                    globalVal.email = loginUser.email
                     // console.log(`in login fetch: ${localStorage.getItem('token')}`)
                     // Set the token in storage
                     setToken(data.token);
