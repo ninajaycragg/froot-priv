@@ -13,7 +13,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import ButtonBase from '@mui/material/ButtonBase';
 import { boolean, func} from 'joi';
 import ProgressBar from './Progress_bar';
-import brands_csv from './Brands_extraction';
+import brands from "/public/Brands_Styles.json";
 
 
 if(typeof window !== 'undefined') {
@@ -23,8 +23,8 @@ if(typeof window !== 'undefined') {
 /*
 * TODO:
 *   - make sure on question 8 that other produces a text bar that allows user to enter in type
-*   - update pictures for breast height, projection, width
 *   -  delay: add in a process to authenticate way user enters information and clean up CSS file */
+
 
 export default function Questions() {
 
@@ -35,6 +35,7 @@ export default function Questions() {
     const [answers, setAnswers] = useState([]);
     const [multAnswers, setMult] = useState([]);
     const [hasTaken, setHasTaken] = useState(false);
+    const [styles, setStyles] = useState([]);
     const router = useRouter();
 
     // Route to recommendation page upon completion of quiz
@@ -48,9 +49,37 @@ export default function Questions() {
         return <ProgressBar bgcolor="#670224" progress={Math.round(progress)} height={30} />
     }
 
-    // var brand_content = brands_csv;
-    // console.log('here');
-    // console.log(JSON.stringify(brand_content["Freya"]));
+    var brands_json = brands;
+    let brands_styles = {};
+
+    // Create the brands and styles dictionary
+    for(let i = 0; i < brands_json.length; i++) {
+        let item = brands_json[i];
+
+        let brand = item["Brand Name"];
+        let style = item["Bra Style"];
+
+        if(brand in brands_styles) {
+            let curr_styles = brands_styles[brand];
+            curr_styles.push(style);
+
+            brands_styles[brand] = curr_styles;
+        }
+        else {
+            let curr_styles = [];
+            curr_styles.push(style);
+
+            brands_styles[brand] = curr_styles;
+        }
+    }
+
+    console.log(brands_styles["Freya"]);
+    // state objects to handle brands/styles search
+    const [brandsQ, setBrandsQ] = useState({
+        query: "",
+        list: Object.keys(brands_styles)
+    });
+    const [stylesQ, setStylesQ] = useState("");
 
     // Array of questions
     const questionsArray = [
@@ -398,7 +427,6 @@ export default function Questions() {
             type: 'break',
             image: '/MeasuringYourBreasts.jpeg'
         },
-        // todo: add in picture on the side of these questions
         {
             question: 'Loose Underbust',
             subtext: true,
@@ -441,21 +469,21 @@ export default function Questions() {
             type: 'half-break',
             image: '/Measurement.png'
         },
-        // {
-        //     question: 'What is the brand and style of your favorite bra?',
-        //     subtext: true,
-        //     text: 'This helps us understand your breast type.',
-        //     type: 'multDropdowns',
-        //     options: [{
-        //         key: "Brand",
-        //         value: brands
-        //     }, {
-        //         key: "Style",
-        //         value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'DDD']
-        //     }
-        //     ],
-        //     select: 'one',
-        // },
+        {
+            question: 'What is the brand of your favorite bra?',
+            subtext: true,
+            text: 'This helps us understand your breast type.',
+            type: 'dropdown',
+            options: Object.keys(brands_styles).sort(),
+            select: 'one',
+        },
+        {
+            question: "What is the style of your favorite bra?",
+            subtext: true,
+            text: "This helps us understand your breast type.",
+            type: "dropdown",
+            options: ["Please choose a brand on the previous page."]
+        },
         {
             question: 'What is the size of your favorite bra?',
             subtext: true,
@@ -470,14 +498,14 @@ export default function Questions() {
                 value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO']
             }]
         },
-        {
-            question: 'Have you taken the /ABraThatFits quiz?',
-            subtext: true,
-            text: 'This is the most accurate bra measurement that we base our sizes off of.',
-            type: 'mc',
-            options: ['Yes', 'No'],
-            select: 'one',
-        },
+        // {
+        //     question: 'Have you taken the /ABraThatFits quiz?',
+        //     subtext: true,
+        //     text: 'This is the most accurate bra measurement that we base our sizes off of.',
+        //     type: 'mc',
+        //     options: ['Yes', 'No'],
+        //     select: 'one',
+        // },
         // {
         //     question: 'Let\'s figure out your bra size',
         //     subtext: true,
@@ -510,11 +538,44 @@ export default function Questions() {
     ];
 
     // end of question array
-
     // function to grab change on text input
     const handleChange = (e) => {
         setSel(e.target.value);
-        console.log("answers: " + answers)
+        console.log("answers: " + answers);
+
+        if(index === 28) {
+            const newStyles = brands_styles[e.target.value];
+            setStyles(newStyles);
+
+            console.log(styles);
+        }
+    };
+
+    // render elements for brands/styles search
+    const handleBrands = (e) => {
+        let brands = Object.keys(brands_styles);
+        const results = brands.filter(post =>
+        {
+            if(e.target.value=== "") return brands
+            return post.toLowerCase().includes(e.target.value.toLowerCase())
+        })
+
+        results.sort();
+        setBrandsQ({
+            query: e.target.value,
+            list: results
+        })
+    };
+
+    const handleStyles = (e) => {
+        const results = styles.filter(post =>
+        {
+            if(e.target.value=== "") return styles
+            return post.toLowerCase().includes(e.target.value.toLowerCase())
+        })
+        results.sort();
+        setStylesQ(e.target.value);
+        setStyles(results);
     };
 
     // function to handle Why We Ask
@@ -527,8 +588,6 @@ export default function Questions() {
         let popup = document.getElementById("popup");
         popup.classList.remove("open-popup");
     };
-
-
 
     // function to grab selection of dropdown menu
     const handleOtherDropdown = (e) => {
@@ -554,7 +613,6 @@ export default function Questions() {
 
                 console.log("Progress: " + progress);
             }
-            //handleProgress();
             setSel('');
         } else {
             setAnswers([...answers, sel]);
@@ -656,7 +714,6 @@ export default function Questions() {
     console.log(questionsArray[index].question);
 
     // Setting display of break style questions
-        // todo: fix styling for break pages
     if (questionsArray[index].type === "break") {
         return (
             <div className="question1-wrapper">
@@ -762,7 +819,7 @@ export default function Questions() {
         return (null);
     }
     // setting display for half page questions
-        // todo: update styling of images, check with nina that I should use these or find specific measuring tape one she has....
+        // todo: update styling of images to still show navigation text clearly
     else if(questionsArray[index].type === 'half-break') {
         return (
             <div className="question1-wrapper">
@@ -851,6 +908,202 @@ export default function Questions() {
                 </div >
                 <div> {displayPBar()} </div>
             </div >
+        );
+    }
+    else if(questionsArray[index].question === 'What is the style of your favorite bra?') {
+        console.log("Here with " + styles.length);
+        return (
+            <div className="question_body">
+                <div id="scroll"></div>
+                <div className="question_count_container">
+                    <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+                    <ArrowForwardIcon className="question_count_arrow" />
+                </div>
+                <div className="question_block">
+                    <div className="question_container">
+                        <div className="question_container2">
+                            {/* like the question title */}
+                            <h1 className="question_title">
+                                {questionsArray[index].question}
+                            </h1>
+                            {/* denotes the paragraph (question body) */}
+                            <p
+                                style={{
+                                    fontFamily: 'Inter',
+                                }}
+                            >
+                                {questionsArray[index].subtext ? questionsArray[index].text : ''}
+                            </p>
+                        </div>
+                    </div>
+                    {styles.length === 0 ? (
+                        <div className="question_text_options_container"
+                        >
+                            <Select
+                                className="question_dropdown"
+                                value={sel}
+                                label="Age"
+                                onChange={handleChange}
+                            >
+                                {questionsArray[index].options.map((choices) => (
+                                    <MenuItem value={choices}>{choices}</MenuItem>
+                                ))}
+                            </Select>
+
+                        </div>
+                    ) : null}
+                    { styles.length !== 0 ? (
+                        <div className="question_text_options_container"
+                        >
+                                <label htmlFor={"brands-search"}>
+                                    <input
+                                        type="search"
+                                        name="style-search"
+                                        id="style-search"
+                                        className={"brands-search"}
+                                        placeholder="Search for styles (Do not hit enter!) ..."
+                                        value={stylesQ}
+                                        onChange={handleStyles}/>
+                                </label>
+                                <Select
+                                    className="question_dropdown_ver2"
+                                    value={sel}
+                                    label="Age"
+                                    onChange={handleChange}
+                                >
+                                    {styles.map((choices) => (
+                                        <MenuItem value={choices}>{choices}</MenuItem>
+                                    ))}
+                                </Select>
+                        </div>
+                    ) : null}
+                    <div className="question_next_container">
+                        <Link href="#scroll">
+                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                            </div>
+                        </Link>
+
+                        <h1 className="question_next_enter"
+                        >
+                            press <b>Enter</b>
+                        </h1>
+                    </div>
+                    {(index ===28 || index === 29) ?
+                        (<div className="whyWeAsk">
+                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                                <div className="popup" id="popup" >
+                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                    <h2>Why We Ask</h2>
+                                    <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                                </div>
+                            </div>
+                        ) : null}
+
+                    {/* enable back button if index is not 0 */}
+                    {
+                        index === 0 ? null : (
+                            <div className="question_back_button_wrap">
+                                <Link href="#scroll">
+                                    <div className="question-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                    </div>
+                                </Link>
+                            </div>
+                        )
+                    }
+                </div >
+                <div> {displayPBar()} </div>
+            </div >
+
+        );
+
+    }
+    else if(questionsArray[index].question === 'What is the brand of your favorite bra?') {
+        return (
+            <div className="question_body">
+                <div id="scroll"></div>
+                <div className="question_count_container">
+                    <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+                    <ArrowForwardIcon className="question_count_arrow" />
+                </div>
+                <div className="question_block">
+                    <div className="question_container">
+                        <div className="question_container2">
+                            {/* like the question title */}
+                            <h1 className="question_title">
+                                {questionsArray[index].question}
+                            </h1>
+                            {/* denotes the paragraph (question body) */}
+                            <p
+                                style={{
+                                    fontFamily: 'Inter',
+                                }}
+                            >
+                                {questionsArray[index].subtext ? questionsArray[index].text : ''}
+                            </p>
+                        </div>
+                    </div>
+                        <div className="question_text_options_container"
+                        >
+                            <label htmlFor={"brands-search"}>
+                            <input
+                                type="search"
+                                name="brands-search"
+                                id="brands-search"
+                                className={"brands-search"}
+                                placeholder="Search for brands (Do not hit enter!)..."
+                                value={brandsQ.query}
+                                onChange={handleBrands}/>
+                             </label>
+                            <Select
+                                className="question_dropdown_ver2"
+                                value={sel}
+                                label="Age"
+                                onChange={handleChange}
+                            >
+                                {brandsQ.list.map((choices) => (
+                                    <MenuItem value={choices}>{choices}</MenuItem>
+                                ))}
+                            </Select>
+                        </div>
+                    <div className="question_next_container">
+                        <Link href="#scroll">
+                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                            </div>
+                        </Link>
+
+                        <h1 className="question_next_enter"
+                        >
+                            press <b>Enter</b>
+                        </h1>
+                    </div>
+                    {(index ===28 || index === 29) ?
+                        (<div className="whyWeAsk">
+                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                                <div className="popup" id="popup" >
+                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                    <h2>Why We Ask</h2>
+                                    <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                                </div>
+                            </div>
+                        ) : null}
+
+                    {/* enable back button if index is not 0 */}
+                    {
+                        index === 0 ? null : (
+                            <div className="question_back_button_wrap">
+                                <Link href="#scroll">
+                                    <div className="question-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                    </div>
+                                </Link>
+                            </div>
+                        )
+                    }
+                </div >
+                <div> {displayPBar()} </div>
+            </div >
+
         );
     }
     // setting frontend display of all other types of questions (dropdown, mc, image, tag)
@@ -1075,7 +1328,7 @@ export default function Questions() {
                             </div>
                         </div>
                     ) : null}
-                {(index ===28) ?
+                {(index ===28 || index === 29) ?
                     (<div className="whyWeAsk">
                             <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
                             <div className="popup" id="popup" >
