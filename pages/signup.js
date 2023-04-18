@@ -59,9 +59,7 @@ export default function Signup() {
         else {
           globalVal.email = newUser.email;
           // setToLogin(true);
-          if (globalVal.answers.size == 0)
-            router.push('/login');
-          else {
+          if (globalVal.answers.length != 0) {
             const addAnswers = {
               userEmail: globalVal.email,
               answers: globalVal.answers
@@ -77,8 +75,9 @@ export default function Signup() {
                 window.alert("Catch: " + error.message);
                 return;
               });
-            router.push('/recommendation')
           }
+          router.push('/login');
+
 
         }
       })

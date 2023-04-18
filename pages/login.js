@@ -65,7 +65,13 @@ export default function Login() {
             .then(data => {
                 // console.log(`data useefect: ${data.isLoggedIn}`);
                 if (data.isLoggedIn) {
-                    router.push('/quiz').then(() => router.reload());
+                    if (globalVal.answers.length == 0) {
+                        router.push('/quiz').then(() => router.reload());
+                    }
+                    else {
+                        router.push('/recommendation').then(() => router.reload());
+                    }
+
                 }
                 else {
                     null;
