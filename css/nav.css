@@ -53,6 +53,12 @@
     border-radius: 55px;
 }
 
+.drawer-button:hover {
+    border: none;
+    border-bottom: 1px solid #000000;
+    background-color: none;
+}
+
 .default-nav-link-wrapper {
     width: 50%;
     display: flex;

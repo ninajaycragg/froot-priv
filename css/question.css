@@ -52,7 +52,7 @@
 
 .popup {
     position: absolute;
-    top: 0%;
+    top: 0;
     left: 30%;
     background: #FAF8F1;
     text-align: center;
@@ -78,7 +78,6 @@
 
 .popup button {
     float: right;
-    float: top;
     background: #FAF8F1;
     border: 0;
     outline: none;
@@ -226,7 +225,7 @@
     flex-direction: column;
     align-items: center;
     padding: 2%;
-    padding-bottom: 0%;
+    padding-bottom: 0;
     border: 2px solid #670224;
     box-shadow: 0.5em 0.5em 0.5em 0.5em #ebe7df ;
     border-radius: 5px;
@@ -252,8 +251,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2%;
-    padding-bottom: 0%;
+    padding: 2% 2% 0%;
     background-color: white;
     border: 0;
     border-radius: 5px;
@@ -428,6 +426,7 @@
 
 .question_text_options_container {
     width: 100%;
+    display: grid;
 }
 
 .question_dropdown_options_container {
@@ -441,6 +440,11 @@
     width: 50%;
 }
 
+.question_dropdown_sub_options_container_brands {
+    width: 50%;
+    visibility: hidden;
+}
+
 .question_text_box {
     width: 100%;
     margin-bottom: 5%;
@@ -449,6 +453,39 @@
 }
 
 .question_dropdown {
+    width: 50%;
+    margin-bottom: 5%;
+    font-family: 'Inter';
+    margin-top: 20px;
+}
+
+/*.search_div {*/
+/*    align-items: center;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+.brands_search {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+
+input[type=search] {
+    position: relative;
+    width: 40%;
+    padding: 12px 20px;
+    margin: 8px 10px;
+    box-sizing: border-box;
+    background-color: #FAF8F1;
+    font-family: 'Inter';
+    border-radius: 5px;
+    border: 0.5px solid black;
+}
+.question_dropdown_ver2 {
+    position: relative;
     width: 50%;
     margin-bottom: 5%;
     font-family: 'Inter';
@@ -562,7 +599,7 @@
 
     .question_next_enter {
         display: none;
-        visibility: none;
+        /*visibility: none;*/
     }
 
     .question_count_container {
@@ -574,7 +611,7 @@
     }
 
     .question_body {
-        margin-top: 0%;
+        margin-top: 0;
         width: 85%;
         margin-left: auto;
         margin-right: auto;
@@ -684,10 +721,7 @@
     }
 
     .question-back-button {
-        padding-left: 12%;
-        padding-right: 12%;
-        padding-top: 2%;
-        padding-bottom: 2%;
+        padding: 2% 12%;
         width: 30%;
     }
 
