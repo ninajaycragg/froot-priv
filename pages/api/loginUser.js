@@ -14,6 +14,7 @@ export default async function handler(req, res) {
   const db_connect = db.database;
 
   let user = await db_connect.collection('users').findOne({ email: req.body.email });
+  console.log("user is", user);
   if (!user) {
     return res.status(409).json({ message: 'Account does not exist.' });
   }
@@ -30,7 +31,9 @@ export default async function handler(req, res) {
       if (err) return res.json({ message: err })
       return res.json({
         message: "Success",
-        token: "Bearer " + token
+        token: "Bearer " + token,
+        firstName: user.firstName,
+        lastName: user.lastName,
       })
     }
   )
