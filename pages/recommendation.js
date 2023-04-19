@@ -2,20 +2,20 @@ import React, { useEffect } from "react";
 import Image from "next/image"
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
+import globalVal from "../middleware/global";
 
 const userEmail = "sowerschloe@gmail.com"
 
 async function get_answers() {
-    let ans = await fetch(`/api/getAnswers`, {
+    await fetch('/api/getAnswers', {
         method: 'GET',
         headers: {
-            'Authorization': localStorage.getItem('token')
+            'Content-Type': 'application/json',
         },
     }).then(res => res.json())
         .then(data => {
             return data;
-        })
-    return ans;
+        });
 }
 
 // Defining the recommendation page
@@ -54,9 +54,12 @@ export default function Recommendation() {
         'Round ~ Equally full at the top and bottom.'
     ]
 
-    useEffect(() => {
-        //answers = get_answers();
-    }, []);
+    //useEffect(() => {
+    //get_answers();
+    //answers = localStorage.getItem('answers');
+    //}, []);
+    //let answers = globalVal.answers;
+    //console.log("Answers:" + answers)
 
     let quiz_answers = {
         name: answers[0],
