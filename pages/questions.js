@@ -13,15 +13,21 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // import ButtonBase from '@mui/material/ButtonBase';
 import { boolean, func } from 'joi';
 import ProgressBar from './Progress_bar';
+
 import globalVal from "../middleware/global";
 
 const userEmail = globalVal.email
 
+import brands from "/public/Brands_Styles.json";
+
+
+
 /*
 * TODO:
 *   - make sure on question 8 that other produces a text bar that allows user to enter in type
-*   - update pictures for breast height, projection, width
+
 *   -  delay: add in a process to authenticate way user enters information and clean up CSS file */
+
 
 export default function Questions() {
 
@@ -32,6 +38,7 @@ export default function Questions() {
     const [answers, setAnswers] = useState([]);
     const [multAnswers, setMult] = useState([]);
     const [hasTaken, setHasTaken] = useState(false);
+    const [styles, setStyles] = useState([]);
     const router = useRouter();
 
     // Route to recommendation page upon completion of quiz
@@ -45,9 +52,39 @@ export default function Questions() {
         return <ProgressBar bgcolor="#670224" progress={Math.round(progress)} height={30} />
     }
 
-    // var brand_content = brands_csv;
-    // console.log('here');
-    // console.log(JSON.stringify(brand_content["Freya"]));
+
+    var brands_json = brands;
+    let brands_styles = {};
+
+    // Create the brands and styles dictionary
+    for(let i = 0; i < brands_json.length; i++) {
+        let item = brands_json[i];
+
+        let brand = item["Brand Name"];
+        let style = item["Bra Style"];
+
+        if(brand in brands_styles) {
+            let curr_styles = brands_styles[brand];
+            curr_styles.push(style);
+
+            brands_styles[brand] = curr_styles;
+        }
+        else {
+            let curr_styles = [];
+            curr_styles.push(style);
+
+            brands_styles[brand] = curr_styles;
+        }
+    }
+
+    console.log(brands_styles["Freya"]);
+    // state objects to handle brands/styles search
+    const [brandsQ, setBrandsQ] = useState({
+        query: "",
+        list: Object.keys(brands_styles)
+    });
+    const [stylesQ, setStylesQ] = useState("");
+
 
     // Array of questions
     const questionsArray = [
@@ -395,7 +432,6 @@ export default function Questions() {
             type: 'break',
             image: '/MeasuringYourBreasts.jpeg'
         },
-        // todo: add in picture on the side of these questions
         {
             question: 'Loose Underbust',
             subtext: true,
@@ -437,6 +473,15 @@ export default function Questions() {
             text: 'Laying measurement in inches.',
             type: 'half-break',
             image: '/Measurement.png'
+
+        },
+        {
+            question: 'What is the brand of your favorite bra?',
+            subtext: true,
+            text: 'This helps us understand your breast type.',
+            type: 'dropdown',
+            options: Object.keys(brands_styles).sort(),
+            select: 'one',
         },
         // {
         //     question: 'What is the brand and style of your favorite bra?',
@@ -454,6 +499,13 @@ export default function Questions() {
         //     select: 'one',
         // },
         {
+            question: "What is the style of your favorite bra?",
+            subtext: true,
+            text: "This helps us understand your breast type.",
+            type: "dropdown",
+            options: ["Please choose a brand on the previous page."]
+        },
+        {
             question: 'What is the size of your favorite bra?',
             subtext: true,
             text: 'This helps us understand your breast type.',
@@ -462,19 +514,21 @@ export default function Questions() {
                 key: "Band Size",
                 value: ['24', '26', '28', '30', '32', '34', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60']
             },
-            {
+
+               {
                 key: "Cup Size",
                 value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO']
             }]
+
         },
-        {
-            question: 'Have you taken the /ABraThatFits quiz?',
-            subtext: true,
-            text: 'This is the most accurate bra measurement that we base our sizes off of.',
-            type: 'mc',
-            options: ['Yes', 'No'],
-            select: 'one',
-        },
+        // {
+        //     question: 'Have you taken the /ABraThatFits quiz?',
+        //     subtext: true,
+        //     text: 'This is the most accurate bra measurement that we base our sizes off of.',
+        //     type: 'mc',
+        //     options: ['Yes', 'No'],
+        //     select: 'one',
+        // },
         // {
         //     question: 'Let\'s figure out your bra size',
         //     subtext: true,
@@ -507,11 +561,44 @@ export default function Questions() {
     ];
 
     // end of question array
-
     // function to grab change on text input
     const handleChange = (e) => {
         setSel(e.target.value);
-        console.log("answers: " + answers)
+        console.log("answers: " + answers);
+
+        if(index === 28) {
+            const newStyles = brands_styles[e.target.value];
+            setStyles(newStyles);
+
+            console.log(styles);
+        }
+    };
+
+    // render elements for brands/styles search
+    const handleBrands = (e) => {
+        let brands = Object.keys(brands_styles);
+        const results = brands.filter(post =>
+        {
+            if(e.target.value=== "") return brands
+            return post.toLowerCase().includes(e.target.value.toLowerCase())
+        })
+
+        results.sort();
+        setBrandsQ({
+            query: e.target.value,
+            list: results
+        })
+    };
+
+    const handleStyles = (e) => {
+        const results = styles.filter(post =>
+        {
+            if(e.target.value=== "") return styles
+            return post.toLowerCase().includes(e.target.value.toLowerCase())
+        })
+        results.sort();
+        setStylesQ(e.target.value);
+        setStyles(results);
     };
 
     // function to handle Why We Ask
@@ -524,8 +611,6 @@ export default function Questions() {
         let popup = document.getElementById("popup");
         popup.classList.remove("open-popup");
     };
-
-
 
     // function to grab selection of dropdown menu
     const handleOtherDropdown = (e) => {
@@ -551,7 +636,6 @@ export default function Questions() {
 
                 console.log("Progress: " + progress);
             }
-            //handleProgress();
             setSel('');
         } else {
             setAnswers([...answers, sel]);
@@ -595,7 +679,7 @@ export default function Questions() {
         };
     });
 
-    // document.addEventListener('keydown', readBrandsFile);
+
 
     const handleChoose = (i) => {
         if (questionsArray[index].question === 'Have you taken the /ABraThatFits quiz?'
@@ -741,7 +825,8 @@ export default function Questions() {
                                     </h1>
 
 
-                                </div>)}
+
+                                </div> )}
 
                         </div>
                         {index === 0 ? null : (
@@ -765,8 +850,296 @@ export default function Questions() {
         return (null);
     }
     // setting display for half page questions
-    // todo: update styling of images, check with nina that I should use these or find specific measuring tape one she has....
-    else if (questionsArray[index].type === 'half-break') {
+
+        // todo: update styling of images to still show navigation text clearly
+    else if(questionsArray[index].type === 'half-break') {
+        return (
+            <div className="question1-wrapper">
+                <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
+                <div className=
+                         {
+                             true ? "question1_body" : null
+                         }
+                >
+                    <div className="question_count_container">
+                        <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+                        <ArrowForwardIcon className="question_count_arrow" />
+                  </div>
+                    <div id="scroll"></div>
+
+                    <div className="question_break_block">
+                        <div className="question_container">
+                            <div className="question_container2">
+                                {/* like the question title */}
+                                <h1 className="question_title">
+                                    {questionsArray[index].question}
+                                </h1>
+                                {/* denotes the paragraph (question body) */}
+                                <p
+                                    style={{
+                                        fontFamily: 'Inter',
+                                    }}
+                                >
+                                    {questionsArray[index].subtext ? questionsArray[index].text : ''}
+                                </p>
+                                <div className="question_text_options_container"
+                                >
+                                    <TextField
+                                        onChange={handleChange}
+                                        value={sel}
+                                        id="standard-basic"
+                                        input="text"
+                                        variant="standard"
+                                        placeholder="Type your answer here..."
+                                        className="question_text_box"
+                                    />
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className={
+                            questionsArray[index].type === 'break'
+                                ? "question_break_container"
+                                : "question_no_break_container"
+                        }
+                        >
+                            {index === questionsArray.length - 1 ? (
+                                <div
+                                    // onClick={postUser}
+                                    variant="filled"
+                                    className="question-end-button"
+                                    role="button"
+                                    onClick={handleRedirection}
+                                >
+                                    Get Recommendations!
+                                </div>
+                            ) : (
+                                <div className="question_next_container">
+                                    <Link href="#scroll">
+                                        <div className="question-break-back-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                                        </div>
+                                    </Link>
+
+                                    <h1 className="question_next_enter"
+                                    >
+                                        press <b>Enter</b>
+                                    </h1>
+                                </div>
+                            )}
+                        </div>
+                        {index === 0 ? null : (
+                            <div className="question_back_button_wrap">
+                                <Link href="#scroll">
+                                    <div className="question-break-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                </div >
+                <div> {displayPBar()} </div>
+            </div >
+        );
+    }
+    else if(questionsArray[index].question === 'What is the style of your favorite bra?') {
+        console.log("Here with " + styles.length);
+        return (
+            <div className="question_body">
+                <div id="scroll"></div>
+                <div className="question_count_container">
+                    <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+                    <ArrowForwardIcon className="question_count_arrow" />
+                </div>
+                <div className="question_block">
+                    <div className="question_container">
+                        <div className="question_container2">
+                            {/* like the question title */}
+                            <h1 className="question_title">
+                                {questionsArray[index].question}
+                            </h1>
+                            {/* denotes the paragraph (question body) */}
+                            <p
+                                style={{
+                                    fontFamily: 'Inter',
+                                }}
+                            >
+                                {questionsArray[index].subtext ? questionsArray[index].text : ''}
+                            </p>
+                        </div>
+                    </div>
+                    {styles.length === 0 ? (
+                        <div className="question_text_options_container"
+                        >
+                            <Select
+                                className="question_dropdown"
+                                value={sel}
+                                label="Age"
+                                onChange={handleChange}
+                            >
+                                {questionsArray[index].options.map((choices) => (
+                                    <MenuItem value={choices}>{choices}</MenuItem>
+                                ))}
+                            </Select>
+
+                        </div>
+                    ) : null}
+                    { styles.length !== 0 ? (
+                        <div className="question_text_options_container"
+                        >
+                                <label htmlFor={"brands-search"}>
+                                    <input
+                                        type="search"
+                                        name="style-search"
+                                        id="style-search"
+                                        className={"brands-search"}
+                                        placeholder="Search for styles (Do not hit enter!) ..."
+                                        value={stylesQ}
+                                        onChange={handleStyles}/>
+                                </label>
+                                <Select
+                                    className="question_dropdown_ver2"
+                                    value={sel}
+                                    label="Age"
+                                    onChange={handleChange}
+                                >
+                                    {styles.map((choices) => (
+                                        <MenuItem value={choices}>{choices}</MenuItem>
+                                    ))}
+                                </Select>
+                        </div>
+                    ) : null}
+                    <div className="question_next_container">
+                        <Link href="#scroll">
+                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                            </div>
+                        </Link>
+
+                        <h1 className="question_next_enter"
+                        >
+                            press <b>Enter</b>
+                        </h1>
+                    </div>
+                    {(index ===28 || index === 29) ?
+                        (<div className="whyWeAsk">
+                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                                <div className="popup" id="popup" >
+                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                    <h2>Why We Ask</h2>
+                                    <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                                </div>
+                            </div>
+                        ) : null}
+
+                    {/* enable back button if index is not 0 */}
+                    {
+                        index === 0 ? null : (
+                            <div className="question_back_button_wrap">
+                                <Link href="#scroll">
+                                    <div className="question-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                    </div>
+                                </Link>
+                            </div>
+                        )
+                    }
+                </div >
+                <div> {displayPBar()} </div>
+            </div >
+
+        );
+
+    }
+    else if(questionsArray[index].question === 'What is the brand of your favorite bra?') {
+        return (
+            <div className="question_body">
+                <div id="scroll"></div>
+                <div className="question_count_container">
+                    <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+                    <ArrowForwardIcon className="question_count_arrow" />
+                </div>
+                <div className="question_block">
+                    <div className="question_container">
+                        <div className="question_container2">
+                            {/* like the question title */}
+                            <h1 className="question_title">
+                                {questionsArray[index].question}
+                            </h1>
+                            {/* denotes the paragraph (question body) */}
+                            <p
+                                style={{
+                                    fontFamily: 'Inter',
+                                }}
+                            >
+                                {questionsArray[index].subtext ? questionsArray[index].text : ''}
+                            </p>
+                        </div>
+                    </div>
+                        <div className="question_text_options_container"
+                        >
+                            <label htmlFor={"brands-search"}>
+                            <input
+                                type="search"
+                                name="brands-search"
+                                id="brands-search"
+                                className={"brands-search"}
+                                placeholder="Search for brands (Do not hit enter!)..."
+                                value={brandsQ.query}
+                                onChange={handleBrands}/>
+                             </label>
+                            <Select
+                                className="question_dropdown_ver2"
+                                value={sel}
+                                label="Age"
+                                onChange={handleChange}
+                            >
+                                {brandsQ.list.map((choices) => (
+                                    <MenuItem value={choices}>{choices}</MenuItem>
+                                ))}
+                            </Select>
+                        </div>
+                    <div className="question_next_container">
+                        <Link href="#scroll">
+                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                            </div>
+                        </Link>
+
+                        <h1 className="question_next_enter"
+                        >
+                            press <b>Enter</b>
+                        </h1>
+                    </div>
+                    {(index ===28 || index === 29) ?
+                        (<div className="whyWeAsk">
+                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                                <div className="popup" id="popup" >
+                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                    <h2>Why We Ask</h2>
+                                    <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                                </div>
+                            </div>
+                        ) : null}
+
+                    {/* enable back button if index is not 0 */}
+                    {
+                        index === 0 ? null : (
+                            <div className="question_back_button_wrap">
+                                <Link href="#scroll">
+                                    <div className="question-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+                                    </div>
+                                </Link>
+                            </div>
+                        )
+                    }
+                </div >
+                <div> {displayPBar()} </div>
+            </div >
+
+        );
+    }
+    // setting frontend display of all other types of questions (dropdown, mc, image, tag)
+    else {
         return (
             <div className="question1-wrapper">
                 <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
@@ -968,6 +1341,7 @@ export default function Questions() {
                                     }
                                     onClick={() => handleChoose(choices)}
                                 >
+
                                     {choices}
                                 </div>
                             ))}
@@ -981,6 +1355,19 @@ export default function Questions() {
                         </div>
 
                     ) : null}
+
+                                    <div className="question_image_container">
+                                        <Image
+                                            src={
+                                                questionsArray[index].imageNames[
+                                                questionsArray[index].options.indexOf(choices)
+                                                ]
+                                            }
+                                            layout="fill"
+                                            background-color={"#C5D6E5"}
+                                        ></Image>
+                                    </div>
+
 
                     {/* displays multiple choices or not */}
                     {questionsArray[index].type === 'mc' ? (
@@ -1002,58 +1389,59 @@ export default function Questions() {
                                 </div>
                             ))}
                         </div>
-                    ) : null}
-                    {/* displays image */}
-                    {questionsArray[index].type === 'image' ? (
-                        <>
-                            <div className="question_choose">{questionsArray[index].optionsText}</div>
-                            <div className="question_images_container"
-                            >
-                                {questionsArray[index].options.map((choices) => (
-                                    <div
-                                        onClick={() => handleChoose(choices)}
-                                        key={choices}
-                                        id={choices}
-                                        className={
-                                            sel === choices ||
-                                                (questionsArray[index].select === 'multiple' &&
-                                                    multAnswers.includes(choices))
-                                                ? "question_image_selected" : "question_image_unselected"
-                                        }
-                                    >
-                                        <div className="question_image_container">
-                                            <Image
-                                                src={
-                                                    questionsArray[index].imageNames[
-                                                    questionsArray[index].options.indexOf(choices)
-                                                    ]
-                                                }
-                                                layout="fill"
-                                                background-color={"#C5D6E5"}
-                                            ></Image>
-                                        </div>
 
-                                        <h3 className="question_image_title">
-                                            {choices.split('~')[0]}
-                                        </h3>
-                                        <h3 className="question_image_text">
-                                            {choices.split('~')[1]}
-                                        </h3>
-                                    </div>
-                                ))}
+                    </>
+                ) : null}
+                {/*todo: figure out what this is supposed to be linking to*/}
+                {questionsArray[index].type === 'image' && questionsArray[index].link ? (<div className="quiz-link">More Info</div>) : null}
+                <div className={
+                    questionsArray[index].type === 'break'
+                        ? "question_break_container"
+                        : "question_no_break_container"
+                }
+                >
+                    {/* if next question is valid, not the end: display next button */}
+                    <div className="question_next_container">
+                        <Link href="#scroll">
+                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
                             </div>
-                        </>
+                        </Link>
+
+                        <h1 className="question_next_enter"
+                        >
+                            press <b>Enter</b>
+                        </h1>
+                    </div>
+
+
+                </div>
+                {(index ===5) ?
+                    (<div className="whyWeAsk">
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup" >
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can cause pain and posture-issues. We want to make sure that our recommendations are taking that into account, if those are symptoms you experience.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                            </div>
+                        </div>
                     ) : null}
-                    {/*todo: figure out what this is supposed to be linking to*/}
-                    {questionsArray[index].type === 'image' && questionsArray[index].link ? (<div className="quiz-link">More Info</div>) : null}
-                    <div className={
-                        questionsArray[index].type === 'break'
-                            ? "question_break_container"
-                            : "question_no_break_container"
-                    }
-                    >
-                        {/* if next question is valid, not the end: display next button */}
-                        <div className="question_next_container">
+                {(index ===28 || index === 29) ?
+                    (<div className="whyWeAsk">
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup" >
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
+                            </div>
+                        </div>
+                    ) : null}
+                {/* enable back button if index is not 0 */}
+                {
+                    index === 0 ? null : (
+                        <div className="question_back_button_wrap">
+
                             <Link href="#scroll">
                                 <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
                                 </div>
@@ -1104,6 +1492,7 @@ export default function Questions() {
                 <div> {displayPBar()} </div>
             </div >
         );
+
 
     }
 }
