@@ -21,7 +21,6 @@ const userEmail = globalVal.email
 import brands from "/public/Brands_Styles.json";
 
 
-
 /*
 * TODO:
 *   - make sure on question 8 that other produces a text bar that allows user to enter in type
@@ -381,9 +380,9 @@ export default function Questions() {
                 '/question24/not_sure.png',
             ],
             options: [
-                'Narrow Width ~ Breats are more narrow at the top than the bottom.',
+                'Narrow Width ~ Breasts are more narrow at the top than the bottom.',
                 'Medium Width ~ Even at the top and bottom.',
-                'Wide Width ~ Breats are wider at the top.',
+                'Wide Width ~ Breasts are wider at the top.',
                 'Not sure ~ It\'s okay not to know. If you need some help, click here!'],
             link: true,
             select: 'multiple',
@@ -514,6 +513,7 @@ export default function Questions() {
                 key: "Band Size",
                 value: ['24', '26', '28', '30', '32', '34', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60']
             },
+            {
 
                {
                 key: "Cup Size",
@@ -680,7 +680,6 @@ export default function Questions() {
     });
 
 
-
     const handleChoose = (i) => {
         if (questionsArray[index].question === 'Have you taken the /ABraThatFits quiz?'
             && i === 'Yes') {
@@ -737,6 +736,7 @@ export default function Questions() {
     console.log(questionsArray[index].question);
 
     // Setting display of break style questions
+
     // todo: fix styling for break pages
     if (questionsArray[index].type === "break") {
         return (
@@ -824,8 +824,6 @@ export default function Questions() {
                                         press <b>Enter</b>
                                     </h1>
 
-
-
                                 </div> )}
 
                         </div>
@@ -857,14 +855,14 @@ export default function Questions() {
             <div className="question1-wrapper">
                 <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
                 <div className=
-                         {
-                             true ? "question1_body" : null
-                         }
+                    {
+                        true ? "question1_body" : null
+                    }
                 >
                     <div className="question_count_container">
                         <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
                         <ArrowForwardIcon className="question_count_arrow" />
-                  </div>
+                    </div>
                     <div id="scroll"></div>
 
                     <div className="question_break_block">
@@ -1323,7 +1321,6 @@ export default function Questions() {
                             </div>
                             {/* ))} */}
 
-
                         </div>
                     ) : null}
                     {questionsArray[index].type === 'tag' ? (
@@ -1341,7 +1338,6 @@ export default function Questions() {
                                     }
                                     onClick={() => handleChoose(choices)}
                                 >
-
                                     {choices}
                                 </div>
                             ))}
@@ -1405,18 +1401,33 @@ export default function Questions() {
                         <Link href="#scroll">
                             <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
                             </div>
-                        </Link>
+                        </>
+                    ) : null}
+                    {/*todo: figure out what this is supposed to be linking to*/}
+                    {questionsArray[index].type === 'image' && questionsArray[index].link ? (<div className="quiz-link">More Info</div>) : null}
+                    <div className={
+                        questionsArray[index].type === 'break'
+                            ? "question_break_container"
+                            : "question_no_break_container"
+                    }
+                    >
+                        {/* if next question is valid, not the end: display next button */}
+                        <div className="question_next_container">
+                            <Link href="#scroll">
+                                <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
+                                </div>
+                            </Link>
 
-                        <h1 className="question_next_enter"
-                        >
-                            press <b>Enter</b>
-                        </h1>
+                            <h1 className="question_next_enter"
+                            >
+                                press <b>Enter</b>
+                            </h1>
+                        </div>
+
+
                     </div>
-
-
-                </div>
-                {(index ===5) ?
-                    (<div className="whyWeAsk">
+                    {(index === 5) ?
+                        (<div className="whyWeAsk">
                             <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
                             <div className="popup" id="popup" >
                                 <button type="button" className="exit" onClick={closePopUp}>X</button>
@@ -1492,7 +1503,6 @@ export default function Questions() {
                 <div> {displayPBar()} </div>
             </div >
         );
-
 
     }
 }
