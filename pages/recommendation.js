@@ -4,62 +4,47 @@ import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 import globalVal from "../middleware/global";
 
-const userEmail = "sowerschloe@gmail.com"
-
-async function get_answers() {
-    await fetch('/api/getAnswers', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(res => res.json())
-        .then(data => {
-            return data;
-        });
-}
-
 // Defining the recommendation page
 export default function Recommendation() {
 
-    let answers = [
-        'Chloe',
-        '21',
-        ['Cisgender', 'Female'],
-        ['None'],
-        [
-            'Push-up ~ Pulls breasts upward then inward bringing breasts closer.'
-        ],
-        ['Romantic ~ Lots of lace.'],
-        ['Skin Tones'],
-        'Yes, all of them',
-        'Yes, all of them',
-        'Full on Bottom ~ Nipples are Above Dotted Line.',
-        'Outer Fullness ~ Nipples are Towards each other.',
-        'Soft ~ Fingers do not bounce back, indent is made in your skin in response to finger.',
-        '1',
-        ['High ~ Above your elbows.'],
-        ['Shallow ~ Breast tissue spread closer to body.'],
-        [
-            'Narrow Width ~ Breats are more narrow at the top than the bottom.'
-        ],
-        ['Round ~ Equally full at the top and bottom.'],
-        '30',
-        '29',
-        '28',
-        '35',
-        '34',
-        '34',
-        '30',
-        'Yes',
-        'Round ~ Equally full at the top and bottom.'
-    ]
+    let answers = globalVal.answers;
+    if (answers.length == 0) {
+        answers = [
+            'Nina',
+            '21',
+            ['Cisgender', 'Female'],
+            ['None'],
+            [
+                'Push-up ~ Pulls breasts upward then inward bringing breasts closer.'
+            ],
+            ['Romantic ~ Lots of lace.'],
+            ['Skin Tones'],
+            'Yes, all of them',
+            'Yes, all of them',
+            'Full on Bottom ~ Nipples are Above Dotted Line.',
+            'Outer Fullness ~ Nipples are Towards each other.',
+            'Soft ~ Fingers do not bounce back, indent is made in your skin in response to finger.',
+            '1',
+            ['High ~ Above your elbows.'],
+            ['Shallow ~ Breast tissue spread closer to body.'],
+            [
+                'Narrow Width ~ Breats are more narrow at the top than the bottom.'
+            ],
+            ['Round ~ Equally full at the top and bottom.'],
+            '30',
+            '29',
+            '28',
+            '35',
+            '34',
+            '34',
+            '30',
+            'Yes',
+            'Round ~ Equally full at the top and bottom.'
+        ]
+        // defaults to random values so it doesn't crash!
+    }
 
-    //useEffect(() => {
-    //get_answers();
-    //answers = localStorage.getItem('answers');
-    //}, []);
-    //let answers = globalVal.answers;
-    //console.log("Answers:" + answers)
+    console.log("ANSWERS: ", answers);
 
     let quiz_answers = {
         name: answers[0],
