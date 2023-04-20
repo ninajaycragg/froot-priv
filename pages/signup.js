@@ -59,7 +59,26 @@ export default function Signup() {
         else {
           globalVal.email = newUser.email;
           // setToLogin(true);
+          if (globalVal.answers.length != 0) {
+            const addAnswers = {
+              userEmail: globalVal.email,
+              answers: globalVal.answers
+            }
+            fetch(`/api/addAnswers`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(addAnswers),
+            }).then(res => res.json())
+              .catch((error) => {
+                window.alert("Catch: " + error.message);
+                return;
+              });
+          }
           router.push('/login');
+
+
         }
       })
       .catch((error) => {
