@@ -54,6 +54,29 @@
     margin-bottom: 6%;
 }
 
+.rec-wrapper {
+    position: relative;
+}
+
+.match-percentage {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    border-radius: 99999px;
+    background-color: lightgrey;
+    padding: 5px;
+}
+
+.bra-size {
+    color: #555555;
+    border: 1px solid #555555;
+    padding: 1px 6px;
+    border-radius: 99999px;
+    margin-top: 15px;
+    display: flex;
+    max-width: min-content;
+}
+
 .rec-img-wrapper {
     width: 100%;
     display: flex;
@@ -277,11 +300,12 @@
     font-weight: 400;
     font-size: 87%;
     line-height: 126.5%;
-    margin-top: 10%;
-    height: 30%;
+    margin-top: 5%;
     margin-bottom: 18%;
     white-space: pre-line;
     word-wrap: break-word;
+    display: flex;
+    align-items: center;
 }
 
 .rec-row2 {

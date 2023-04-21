@@ -3,6 +3,7 @@ import Image from "next/image"
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 import globalVal from "../middleware/global";
+import CheckIcon from '@mui/icons-material/Check';
 
 // Defining the recommendation page
 export default function Recommendation() {
@@ -837,11 +838,15 @@ export default function Recommendation() {
     }
     function braRecommendation(r) {
         return (
-            <div className="rec-style">
+            <div className="rec-style rec-wrapper">
                 <img className="rec-style-image" src={r.image}></img>
+                <span className="match-percentage">{r.match + "%"}</span>
                 <div className="rec-style-info-wrapper">
                     <div className="rec-size-title">{r.description}</div>
-                    <div className="rec-style-description">{"Match: " + r.match + "%\n" + r.size + "\n\nNote 1\nNote 2\n Note 3"}</div>
+                    <span className="bra-size">{r.size}</span>
+                    <div className="rec-style-description"><CheckIcon fontSize="small" /> Note 1</div>
+                    <div className="rec-style-description"><CheckIcon fontSize="small" /> Note 2</div>
+                    <div className="rec-style-description"><CheckIcon fontSize="small" /> Note 3</div>
                 </div>
             </div>
             // have reccomendation data that matches FIGMA
