@@ -79,6 +79,10 @@
     /* font-size: 3%; */
 }
 
+.MuiBackdrop-root {
+    backdrop-filter: blur(11px);
+}
+
 .default-nav-icon-wrapper {
     width: 15%;
     margin: auto;

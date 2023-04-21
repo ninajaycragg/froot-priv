@@ -84,7 +84,8 @@ export default function editAccount({ isModal, setModalIsOpen }) {
         <div
             className="general"
             style={{
-                width: isModal ? '50vw' : '100vw',
+                width: isModal ? '' : '100vw',
+                padding: '20px',
                 height: isModal ? '50vh' : '100vh',
                 backgroundColor: '#FAF8F1',
             }}
@@ -92,7 +93,8 @@ export default function editAccount({ isModal, setModalIsOpen }) {
 
             <div
                 style={{
-                    width: '50%',
+                    maxWidth: '350px',
+                    minWidth: '350px',
                     height: '75%',
                     display: 'flex',
                     flexDirection: 'column'
@@ -102,26 +104,27 @@ export default function editAccount({ isModal, setModalIsOpen }) {
                 <div
                     className="general"
                     style={{
-                        width: '60%',
-                        justifyContent: 'left',
+                        width: '',
+                        justifyContent: 'center',
                         marginLeft: 'auto',
                         marginRight: 'auto'
                     }}
                 >
 
-                    <p
+                    <div
                         className="neutralize"
                         style={{
                             fontWeight: '500',
                             fontFamily: 'Inter',
                             fontSize: '0.875em',
                             marginRight: '1%',
+                            textAlign: 'center'
                         }}
                     >
-                        <b>ACCOUNT </b>
-                    </p>
+                        <b> ACCOUNT </b>
+                    </div>
 
-                    <div
+                    {/* <div
                         style={{
                             marginTop: '-3em',
                             marginLeft: '15em'
@@ -132,7 +135,7 @@ export default function editAccount({ isModal, setModalIsOpen }) {
                             width="50%"
                             height="50%"
                         ></Image>
-                    </div>
+                    </div> */}
 
                 </div>
 
@@ -150,7 +153,7 @@ export default function editAccount({ isModal, setModalIsOpen }) {
                     <form
                         onSubmit={handleSubmit}
                         style={{
-                            width: '60%',
+                            width: '100%',
                             height: '60%',
                             marginLeft: 'auto',
                             marginRight: 'auto',
@@ -172,11 +175,11 @@ export default function editAccount({ isModal, setModalIsOpen }) {
                                     fontSize: '1.125em',
                                     boxSizing: 'border-box',
                                     backgroundColor: '#FAF8F1',
-                                    height: '15%',
                                     width: '100%',
                                     marginBottom: '5%',
-                                    paddingLeft: '5%',
-                                    paddingRight: '5%'
+                                    // paddingLeft: '5%',
+                                    // paddingRight: '5%'
+                                    padding: '5px 5px'
                                 }}
                             />
                         </label>
@@ -195,11 +198,9 @@ export default function editAccount({ isModal, setModalIsOpen }) {
                                     fontSize: '1.125em',
                                     boxSizing: 'border-box',
                                     backgroundColor: '#FAF8F1',
-                                    height: '15%',
                                     width: '100%',
                                     marginBottom: '5%',
-                                    paddingLeft: '5%',
-                                    paddingRight: '5%'
+                                    padding: '5px 5px'
                                 }}
                             />
                         </label>
@@ -218,11 +219,9 @@ export default function editAccount({ isModal, setModalIsOpen }) {
                                     fontSize: '1.125em',
                                     boxSizing: 'border-box',
                                     backgroundColor: '#FAF8F1',
-                                    height: '15%',
                                     width: '100%',
                                     marginBottom: '5%',
-                                    paddingLeft: '5%',
-                                    paddingRight: '5%'
+                                    padding: '5px 5px'
                                 }}
                             />
                         </label>
@@ -241,11 +240,9 @@ export default function editAccount({ isModal, setModalIsOpen }) {
                                     fontSize: '1.125em',
                                     boxSizing: 'border-box',
                                     backgroundColor: '#FAF8F1',
-                                    height: '15%',
                                     width: '100%',
                                     marginBottom: '5%',
-                                    paddingLeft: '5%',
-                                    paddingRight: '5%'
+                                    padding: '5px 5px'
                                 }}
                             />
                         </label>
@@ -331,6 +328,7 @@ export default function editAccount({ isModal, setModalIsOpen }) {
                                 onClick={handleMakeChanges}
                                 style={{
                                     width: "100%",
+                                    background: '#670224',
                                     borderRadius: 999999
                                 }} variant="contained">Make Changes</Button>
                         </Grid>
