@@ -47,7 +47,7 @@ export default function Questions() {
 
     // call on ProgressBar component to show user progress at bottom of quiz
     function displayPBar() {
-        return <ProgressBar bgcolor="#670224" progress={Math.round(progress)} height={30}/>
+        return <ProgressBar bgcolor="#670224" progress={Math.round(progress)} height={30} />
     }
 
 
@@ -511,10 +511,10 @@ export default function Questions() {
                 key: "Band Size",
                 value: ['24', '26', '28', '30', '32', '34', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56', '58', '60']
             },
-                {
-                    key: "Cup Size",
-                    value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO']
-                }]
+            {
+                key: "Cup Size",
+                value: ['AA', 'A', 'B', 'C', 'D', 'DD', 'E', 'F', 'FF', 'G', 'GG', 'H', 'HH', 'I', 'J', 'JJ', 'K', 'KK', 'L', 'LL', 'M', 'MM', 'N', 'O', 'OO']
+            }]
 
         },
         // {
@@ -733,9 +733,9 @@ export default function Questions() {
             <div className="question1-wrapper">
                 <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
                 <div className=
-                         {
-                             true ? "question1_body" : null
-                         }
+                    {
+                        true ? "question1_body" : null
+                    }
                 >
                     <div id="scroll"></div>
                     {/* Defining first intro question */}
@@ -806,7 +806,7 @@ export default function Questions() {
                                 <div className="question_next_container">
                                     <Link href="#scroll">
                                         <div className="question-break-button" role="button"
-                                             onClick={handleClick}>OK <CheckIcon/>
+                                            onClick={handleClick}>OK <CheckIcon />
                                         </div>
                                     </Link>
 
@@ -822,7 +822,7 @@ export default function Questions() {
                             <div className="question_back_button_wrap">
                                 <Link href="#scroll">
                                     <div className="question-break-back-button" role="button"
-                                         onClick={handleBack}>BACK <ArrowBackIcon/>
+                                        onClick={handleBack}>BACK <ArrowBackIcon />
                                     </div>
                                 </Link>
                             </div>
@@ -839,7 +839,7 @@ export default function Questions() {
 
         return (null);
     }
-        // setting display for half page questions
+    // setting display for half page questions
 
     // todo: update styling of images to still show navigation text clearly
     else if (questionsArray[index].type === 'half-break') {
@@ -847,13 +847,13 @@ export default function Questions() {
             <div className="question1-wrapper">
                 <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
                 <div className=
-                         {
-                             true ? "question1_body" : null
-                         }
+                    {
+                        true ? "question1_body" : null
+                    }
                 >
                     <div className="question_count_container">
                         <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
-                        <ArrowForwardIcon className="question_count_arrow"/>
+                        <ArrowForwardIcon className="question_count_arrow" />
                     </div>
                     <div id="scroll"></div>
 
@@ -908,7 +908,7 @@ export default function Questions() {
                                 <div className="question_next_container">
                                     <Link href="#scroll">
                                         <div className="question-break-back-button" role="button"
-                                             onClick={handleClick}>OK <CheckIcon/>
+                                            onClick={handleClick}>OK <CheckIcon />
                                         </div>
                                     </Link>
 
@@ -923,7 +923,7 @@ export default function Questions() {
                             <div className="question_back_button_wrap">
                                 <Link href="#scroll">
                                     <div className="question-break-back-button" role="button"
-                                         onClick={handleBack}>BACK <ArrowBackIcon/>
+                                        onClick={handleBack}>BACK <ArrowBackIcon />
                                     </div>
                                 </Link>
                             </div>
@@ -940,7 +940,7 @@ export default function Questions() {
                 <div id="scroll"></div>
                 <div className="question_count_container">
                     <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
-                    <ArrowForwardIcon className="question_count_arrow"/>
+                    <ArrowForwardIcon className="question_count_arrow" />
                 </div>
                 <div className="question_block">
                     <div className="question_container">
@@ -986,7 +986,7 @@ export default function Questions() {
                                     className={"brands-search"}
                                     placeholder="Search for styles (Do not hit enter!) ..."
                                     value={stylesQ}
-                                    onChange={handleStyles}/>
+                                    onChange={handleStyles} />
                             </label>
                             <Select
                                 className="question_dropdown_ver2"
@@ -1002,7 +1002,7 @@ export default function Questions() {
                     ) : null}
                     <div className="question_next_container">
                         <Link href="#scroll">
-                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon/>
+                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
                             </div>
                         </Link>
 
@@ -1013,14 +1013,14 @@ export default function Questions() {
                     </div>
                     {(index === 28 || index === 29) ?
                         (<div className="whyWeAsk">
-                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                                <div className="popup" id="popup">
-                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                    <h2>Why We Ask</h2>
-                                    <p>We ask this so we can make recommendations based on how this bra fits you.</p>
-                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
-                                </div>
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup">
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
                             </div>
+                        </div>
                         ) : null}
 
                     {/* enable back button if index is not 0 */}
@@ -1029,7 +1029,7 @@ export default function Questions() {
                             <div className="question_back_button_wrap">
                                 <Link href="#scroll">
                                     <div className="question-back-button" role="button"
-                                         onClick={handleBack}>BACK <ArrowBackIcon/>
+                                        onClick={handleBack}>BACK <ArrowBackIcon />
                                     </div>
                                 </Link>
                             </div>
@@ -1047,7 +1047,7 @@ export default function Questions() {
                 <div id="scroll"></div>
                 <div className="question_count_container">
                     <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
-                    <ArrowForwardIcon className="question_count_arrow"/>
+                    <ArrowForwardIcon className="question_count_arrow" />
                 </div>
                 <div className="question_block">
                     <div className="question_container">
@@ -1076,7 +1076,7 @@ export default function Questions() {
                                 className={"brands-search"}
                                 placeholder="Search for brands (Do not hit enter!)..."
                                 value={brandsQ.query}
-                                onChange={handleBrands}/>
+                                onChange={handleBrands} />
                         </label>
                         <Select
                             className="question_dropdown_ver2"
@@ -1091,7 +1091,7 @@ export default function Questions() {
                     </div>
                     <div className="question_next_container">
                         <Link href="#scroll">
-                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon/>
+                            <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
                             </div>
                         </Link>
 
@@ -1102,14 +1102,14 @@ export default function Questions() {
                     </div>
                     {(index === 28 || index === 29) ?
                         (<div className="whyWeAsk">
-                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                                <div className="popup" id="popup">
-                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                    <h2>Why We Ask</h2>
-                                    <p>We ask this so we can make recommendations based on how this bra fits you.</p>
-                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
-                                </div>
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup">
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
                             </div>
+                        </div>
                         ) : null}
 
                     {/* enable back button if index is not 0 */}
@@ -1118,7 +1118,7 @@ export default function Questions() {
                             <div className="question_back_button_wrap">
                                 <Link href="#scroll">
                                     <div className="question-back-button" role="button"
-                                         onClick={handleBack}>BACK <ArrowBackIcon/>
+                                        onClick={handleBack}>BACK <ArrowBackIcon />
                                     </div>
                                 </Link>
                             </div>
@@ -1130,97 +1130,97 @@ export default function Questions() {
 
         );
     }
-        // setting frontend display of all other types of questions (dropdown, mc, image, tag)
-        // else {
-        //     return (
-        //         <div className="question1-wrapper">
-        //             <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
-        //             <div className=
-        //                 {
-        //                     true ? "question1_body" : null
-        //                 }
-        //             >
-        //                 <div className="question_count_container">
-        //                     <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
-        //                     <ArrowForwardIcon className="question_count_arrow" />
-        //                 </div>
-        //                 <div id="scroll"></div>
-        //
-        //                 <div className="question_break_block">
-        //                     <div className="question_container">
-        //                         <div className="question_container2">
-        //                             {/* like the question title */}
-        //                             <h1 className="question_title">
-        //                                 {questionsArray[index].question}
-        //                             </h1>
-        //                             {/* denotes the paragraph (question body) */}
-        //                             <p
-        //                                 style={{
-        //                                     fontFamily: 'Inter',
-        //                                 }}
-        //                             >
-        //                                 {questionsArray[index].subtext ? questionsArray[index].text : ''}
-        //                             </p>
-        //                             <div className="question_text_options_container"
-        //                             >
-        //                                 <TextField
-        //                                     onChange={handleChange}
-        //                                     value={sel}
-        //                                     id="standard-basic"
-        //                                     input="text"
-        //                                     variant="standard"
-        //                                     placeholder="Type your answer here..."
-        //                                     className="question_text_box"
-        //                                 />
-        //
-        //                             </div>
-        //
-        //                         </div>
-        //                     </div>
-        //                     <div className={
-        //                         questionsArray[index].type === 'break'
-        //                             ? "question_break_container"
-        //                             : "question_no_break_container"
-        //                     }
-        //                     >
-        //                         {index === questionsArray.length - 1 ? (
-        //                             <div
-        //                                 // onClick={postUser}
-        //                                 variant="filled"
-        //                                 className="question-end-button"
-        //                                 role="button"
-        //                                 onClick={handleRedirection}
-        //                             >
-        //                                 Get Recommendations!
-        //                             </div>
-        //                         ) : (
-        //                             <div className="question_next_container">
-        //                                 <Link href="#scroll">
-        //                                     <div className="question-break-back-button" role="button" onClick={handleClick}>OK <CheckIcon />
-        //                                     </div>
-        //                                 </Link>
-        //
-        //                                 <h1 className="question_next_enter"
-        //                                 >
-        //                                     press <b>Enter</b>
-        //                                 </h1>
-        //                             </div>
-        //                         )}
-        //                     </div>
-        //                     {index === 0 ? null : (
-        //                         <div className="question_back_button_wrap">
-        //                             <Link href="#scroll">
-        //                                 <div className="question-break-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
-        //                                 </div>
-        //                             </Link>
-        //                         </div>
-        //                     )}
-        //                 </div>
-        //             </div >
-        //             <div> {displayPBar()} </div>
-        //         </div >
-        //     );
-        // }
+    // setting frontend display of all other types of questions (dropdown, mc, image, tag)
+    // else {
+    //     return (
+    //         <div className="question1-wrapper">
+    //             <img className="hanging-pink-tops" src={questionsArray[index].image}></img>
+    //             <div className=
+    //                 {
+    //                     true ? "question1_body" : null
+    //                 }
+    //             >
+    //                 <div className="question_count_container">
+    //                     <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
+    //                     <ArrowForwardIcon className="question_count_arrow" />
+    //                 </div>
+    //                 <div id="scroll"></div>
+    //
+    //                 <div className="question_break_block">
+    //                     <div className="question_container">
+    //                         <div className="question_container2">
+    //                             {/* like the question title */}
+    //                             <h1 className="question_title">
+    //                                 {questionsArray[index].question}
+    //                             </h1>
+    //                             {/* denotes the paragraph (question body) */}
+    //                             <p
+    //                                 style={{
+    //                                     fontFamily: 'Inter',
+    //                                 }}
+    //                             >
+    //                                 {questionsArray[index].subtext ? questionsArray[index].text : ''}
+    //                             </p>
+    //                             <div className="question_text_options_container"
+    //                             >
+    //                                 <TextField
+    //                                     onChange={handleChange}
+    //                                     value={sel}
+    //                                     id="standard-basic"
+    //                                     input="text"
+    //                                     variant="standard"
+    //                                     placeholder="Type your answer here..."
+    //                                     className="question_text_box"
+    //                                 />
+    //
+    //                             </div>
+    //
+    //                         </div>
+    //                     </div>
+    //                     <div className={
+    //                         questionsArray[index].type === 'break'
+    //                             ? "question_break_container"
+    //                             : "question_no_break_container"
+    //                     }
+    //                     >
+    //                         {index === questionsArray.length - 1 ? (
+    //                             <div
+    //                                 // onClick={postUser}
+    //                                 variant="filled"
+    //                                 className="question-end-button"
+    //                                 role="button"
+    //                                 onClick={handleRedirection}
+    //                             >
+    //                                 Get Recommendations!
+    //                             </div>
+    //                         ) : (
+    //                             <div className="question_next_container">
+    //                                 <Link href="#scroll">
+    //                                     <div className="question-break-back-button" role="button" onClick={handleClick}>OK <CheckIcon />
+    //                                     </div>
+    //                                 </Link>
+    //
+    //                                 <h1 className="question_next_enter"
+    //                                 >
+    //                                     press <b>Enter</b>
+    //                                 </h1>
+    //                             </div>
+    //                         )}
+    //                     </div>
+    //                     {index === 0 ? null : (
+    //                         <div className="question_back_button_wrap">
+    //                             <Link href="#scroll">
+    //                                 <div className="question-break-back-button" role="button" onClick={handleBack}>BACK <ArrowBackIcon />
+    //                                 </div>
+    //                             </Link>
+    //                         </div>
+    //                     )}
+    //                 </div>
+    //             </div >
+    //             <div> {displayPBar()} </div>
+    //         </div >
+    //     );
+    // }
     // setting frontend display of all other types of questions (dropdown, mc, image, tag)
     else {
         return (
@@ -1228,7 +1228,7 @@ export default function Questions() {
                 <div id="scroll"></div>
                 <div className="question_count_container">
                     <h1 className="question_count">{index + 1}/{questionsArray.length}</h1>
-                    <ArrowForwardIcon className="question_count_arrow"/>
+                    <ArrowForwardIcon className="question_count_arrow" />
                 </div>
                 <div className="question_block">
                     <div className="question_container">
@@ -1249,7 +1249,7 @@ export default function Questions() {
                     </div>
                     {/* displays question text or nothing */}
                     {questionsArray[index].type === 'text' ||
-                    questionsArray[index].type === 'textIMG' ? (
+                        questionsArray[index].type === 'textIMG' ? (
                         <div className="question_text_options_container"
                         >
                             <TextField
@@ -1342,23 +1342,81 @@ export default function Questions() {
                     ) : null}
                     {questionsArray[index].type == 'iframe' ? (
                         <div>
-                            <iframe src="https://www.abrathatfits.org/calculator.php" height={500} width={500}/>
+                            <iframe src="https://www.abrathatfits.org/calculator.php" height={500} width={500} />
 
                         </div>
 
                     ) : null}
 
-                    <div className="question_image_container">
-                        <Image
-                            src={
-                                questionsArray[index].imageNames[
-                                    questionsArray[index].options.indexOf(choices)
-                                    ]
-                            }
-                            layout="fill"
-                            background-color={"#C5D6E5"}
-                        ></Image>
-                    </div>
+
+
+                    {/*questionsArray[index].type === 'image' ? (
+                        <div className="question_image_container">
+                            {questionsArray[index].options.map((choices) => (
+                                <Image
+                                    src={
+                                        questionsArray[index].imageNames[
+                                        questionsArray[index].options.indexOf(choices)
+                                        ]
+                                    }
+                                    layout="fill"
+                                    background-color={"#C5D6E5"}
+                                    variant="outlined"
+                                    key={choices}
+                                    id={choices}
+                                    className={
+                                        sel === choices || (questionsArray[index].select === 'multiple' &&
+                                            multAnswers.includes(choices))
+                                            ? "question_image_selected"
+                                            : "question_image"
+                                    }
+                                    onClick={() => handleChoose(choices)}
+                                >
+
+                                </Image>
+                            ))}
+
+                        </div>
+                                ) : null*/}
+
+                    {questionsArray[index].type === 'image' ? (
+                        <>
+                            <div className="question_choose">{questionsArray[index].optionsText}</div>
+                            <div className="question_images_container"
+                            >
+                                {questionsArray[index].options.map((choices) => (
+                                    <div
+                                        onClick={() => handleChoose(choices)}
+                                        key={choices}
+                                        id={choices}
+                                        className={
+                                            sel === choices ||
+                                                (questionsArray[index].select === 'multiple' &&
+                                                    multAnswers.includes(choices))
+                                                ? "question_image_selected" : "question_image_unselected"
+                                        }
+                                    >
+                                        <div className="question_image_container">
+                                            <Image
+                                                src={
+                                                    questionsArray[index].imageNames[
+                                                    questionsArray[index].options.indexOf(choices)
+                                                    ]
+                                                }
+                                                layout="fill"
+                                            ></Image>
+                                        </div>
+                                        <h3 className="question_image_title">
+                                            {choices.split('~')[0]}
+                                        </h3>
+                                        <h3 className="question_image_text">
+                                            {choices.split('~')[1]}
+                                        </h3>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    ) : null}
 
 
                     {/* displays multiple choices or not */}
@@ -1410,7 +1468,7 @@ export default function Questions() {
                             {/* if next question is valid, not the end: display next button */}
                             <div className="question_next_container">
                                 <Link href="#scroll">
-                                    <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon/>
+                                    <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
                                     </div>
                                 </Link>
 
@@ -1424,37 +1482,37 @@ export default function Questions() {
                         </div>
                         {(index === 5) ?
                             (<div className="whyWeAsk">
-                                    <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                                    <div className="popup" id="popup">
-                                        <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                        <h2>Why We Ask</h2>
-                                        <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can
-                                            cause pain and posture-issues. We want to make sure that our recommendations
-                                            are taking that into account, if those are symptoms you experience.</p>
-                                        <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE
-                                        </button>
-                                    </div>
+                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                                <div className="popup" id="popup">
+                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                    <h2>Why We Ask</h2>
+                                    <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can
+                                        cause pain and posture-issues. We want to make sure that our recommendations
+                                        are taking that into account, if those are symptoms you experience.</p>
+                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE
+                                    </button>
                                 </div>
+                            </div>
                             ) : null}
                         {(index === 28 || index === 29) ?
                             (<div className="whyWeAsk">
-                                    <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                                    <div className="popup" id="popup">
-                                        <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                        <h2>Why We Ask</h2>
-                                        <p>We ask this so we can make recommendations based on how this bra fits
-                                            you.</p>
-                                        <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE
-                                        </button>
-                                    </div>
+                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                                <div className="popup" id="popup">
+                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                    <h2>Why We Ask</h2>
+                                    <p>We ask this so we can make recommendations based on how this bra fits
+                                        you.</p>
+                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE
+                                    </button>
                                 </div>
+                            </div>
                             ) : null}
                         {/* enable back button if index is not 0 */}
                         {index === 0 ? null : (
                             <div className="question_back_button_wrap">
 
                                 <Link href="#scroll">
-                                    <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon/>
+                                    <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
                                     </div>
                                 </Link>
 
@@ -1467,27 +1525,27 @@ export default function Questions() {
                     </div>
                     {(index === 5) ?
                         (<div className="whyWeAsk">
-                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                                <div className="popup" id="popup">
-                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                    <h2>Why We Ask</h2>
-                                    <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can
-                                        cause pain and posture-issues. We want to make sure that our recommendations are
-                                        taking that into account, if those are symptoms you experience.</p>
-                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
-                                </div>
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup">
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can
+                                    cause pain and posture-issues. We want to make sure that our recommendations are
+                                    taking that into account, if those are symptoms you experience.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
                             </div>
+                        </div>
                         ) : null}
                     {(index === 28) ?
                         (<div className="whyWeAsk">
-                                <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                                <div className="popup" id="popup">
-                                    <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                    <h2>Why We Ask</h2>
-                                    <p>We ask this so we can make recommendations based on how this bra fits you.</p>
-                                    <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
-                                </div>
+                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
+                            <div className="popup" id="popup">
+                                <button type="button" className="exit" onClick={closePopUp}>X</button>
+                                <h2>Why We Ask</h2>
+                                <p>We ask this so we can make recommendations based on how this bra fits you.</p>
+                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
                             </div>
+                        </div>
                         ) : null}
                     {/* enable back button if index is not 0 */}
                     {
@@ -1495,7 +1553,7 @@ export default function Questions() {
                             <div className="question_back_button_wrap">
                                 <Link href="#scroll">
                                     <div className="question-back-button" role="button"
-                                         onClick={handleBack}>BACK <ArrowBackIcon/>
+                                        onClick={handleBack}>BACK <ArrowBackIcon />
                                     </div>
                                 </Link>
                             </div>
