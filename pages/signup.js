@@ -76,6 +76,22 @@ export default function Signup() {
                 return;
               });
           }
+          else {
+            fetch(`/api/getAnswers`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token'),
+              },
+            }).then(res => {
+              res.json();
+              console.log("POST RESULT: ", res)
+            })
+              .catch((error) => {
+                window.alert("Catch: " + error.message);
+                return;
+              });
+          }
           router.push('/login');
 
 
@@ -97,7 +113,7 @@ export default function Signup() {
     })
       .then(res => res.json())
       .then(data => {
-        data.isLoggedIn ? router.push('/quiz') : null
+        data.isLoggedIn ? router.push('/recommendation') : null
       })
   }, [])
 
