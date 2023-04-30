@@ -3,6 +3,8 @@ import Image from "next/image"
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 import globalVal from "../middleware/global";
+import CheckIcon from '@mui/icons-material/Check';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 // Defining the recommendation page
 export default function Recommendation() {
@@ -89,7 +91,7 @@ export default function Recommendation() {
             type: "lingerie",
             feel: "comfort",
             end: "high end",
-            image: '/plunge.svg',
+            image: '/unlined-plunge.png',
         },
 
     ];
@@ -106,7 +108,7 @@ export default function Recommendation() {
             type: "Plunge Bra",
             feel: "Comfotable",
             end: "Middle End",
-            image: "/plunge.svg"
+            image: "/unlined-plunge.png"
         },
         {
             brandName: "Panache Sport",
@@ -120,7 +122,7 @@ export default function Recommendation() {
             type: "Sports Bra",
             feel: "Comfotable",
             end: "Middle End",
-            image: "/plunge.svg"
+            image: "/unlined-plunge.png"
         },
         {
             brandName: "Natori",
@@ -134,7 +136,7 @@ export default function Recommendation() {
             type: "Plunge Bra",
             feel: "Comfotable",
             end: "Middle End",
-            image: "/plunge.svg"
+            image: "/vertical-seamed-bra.png"
         },
         {
             brandName: "Brand",
@@ -148,7 +150,7 @@ export default function Recommendation() {
             type: "Bra",
             feel: "Comfotable",
             end: "Middle End",
-            image: "/plunge.svg"
+            image: "/unlined-plunge.png"
         },
         {
             brandName: "Brand",
@@ -162,7 +164,7 @@ export default function Recommendation() {
             type: "Bra",
             feel: "Comfotable",
             end: "Middle End",
-            image: "/plunge.svg"
+            image: "/vertical-seamed-bra.png"
         },
         {
             brandName: "Brand",
@@ -176,7 +178,7 @@ export default function Recommendation() {
             type: "Bra",
             feel: "Comfotable",
             end: "Middle End",
-            image: "/plunge.svg"
+            image: "/unlined-plunge.png"
         },
         {
             brandName: "Brand",
@@ -190,7 +192,7 @@ export default function Recommendation() {
             type: "Bra",
             feel: "Comfotable",
             end: "Middle End",
-            image: "/plunge.svg"
+            image: "/vertical-seamed-bra.png"
         },
         {
             brandName: "Brand",
@@ -204,7 +206,7 @@ export default function Recommendation() {
             type: "Bra",
             feel: "Comfotable",
             end: "Middle End",
-            image: "/plunge.svg"
+            image: "/unlined-plunge.png"
         },
         {
             brandName: "Brand",
@@ -218,7 +220,7 @@ export default function Recommendation() {
             type: "Bra",
             feel: "Comfotable",
             end: "Middle End",
-            image: "/plunge.svg"
+            image: "/vertical-seamed-bra.png"
         },
     ];
     let styles_map_arr = [
@@ -837,11 +839,16 @@ export default function Recommendation() {
     }
     function braRecommendation(r) {
         return (
-            <div className="rec-style">
+            <div className="rec-style rec-wrapper">
                 <img className="rec-style-image" src={r.image}></img>
+                <span className="match-percentage">{r.match + "%"}</span>
                 <div className="rec-style-info-wrapper">
                     <div className="rec-size-title">{r.description}</div>
-                    <div className="rec-style-description">{"Match: " + r.match + "%\n" + r.size + "\n\nNote 1\nNote 2\n Note 3"}</div>
+                    <span className="bra-size">{r.size}</span>
+                    <div className="rec-style-description"><CheckIcon fontSize="small" /> <span className="note-span">Note 1</span></div>
+                    <div className="rec-style-description"><CheckIcon fontSize="small" /> <span className="note-span">Note 2</span></div>
+                    <div className="rec-style-description"><CheckIcon fontSize="small" /> <span className="note-span">Note 3</span></div>
+                    <div className="rec-icon-wrapper"><div><FavoriteBorderIcon /></div></div>
                 </div>
             </div>
             // have reccomendation data that matches FIGMA
@@ -905,6 +912,23 @@ export default function Recommendation() {
                 </div>
                 <hr className="rec-line"></hr>
                 <div className="recommendation">let's help find your fit</div>
+                <div className="recommendation-made"><em>Best</em> Bra Types for {name}</div>
+                <div className="rec-style-wrapper">
+                    <div className="rec-sizing-block">
+                        <div className="rec-sizing-title">How does bra style affect fit?</div>
+                        <div className="rec-sizing-description">Because you have {quiz_answers.shape} shaped breasts, {styles[0]} will fit best. {styles_map.get(styles[0])} </div>
+                        <img className="rec-change" src="/retake.svg"></img>
+                    </div>
+                    <div className="rec-profile-scroll">
+                        {
+                            Array.from(arrStyles).map((r) => {
+                                return (styleRecommendation(r));
+                            })
+                        }
+                    </div>
+                </div>
+                <hr className="rec-line"></hr>
+                <div className="recommendation">let's help find your fit</div>
                 <div className="recommendation-made"><em>Bra Style</em> Recommendations</div>
                 <div className="rec-style-wrapper">
                     <div className="rec-sizing-block">
@@ -921,23 +945,7 @@ export default function Recommendation() {
                     </div>
 
                 </div>
-                <hr className="rec-line"></hr>
-                <div className="recommendation">let's help find your fit</div>
-                <div className="recommendation-made"><em>Best</em> Bra Types for {name}</div>
-                <div className="rec-style-wrapper">
-                    <div className="rec-sizing-block">
-                        <div className="rec-sizing-title">How does bra style affect fit?</div>
-                        <div className="rec-sizing-description">Because you have {quiz_answers.shape} shaped breasts, {styles[0]} will fit best. {styles_map.get(styles[0])} </div>
-                        <img className="rec-change" src="/retake.svg"></img>
-                    </div>
-                    <div className="rec-profile-scroll">
-                        {
-                            Array.from(arrStyles).map((r) => {
-                                return (styleRecommendation(r));
-                            })
-                        }
-                    </div>
-                </div>
+
                 <hr className="rec-line"></hr>
                 <div className="recommendation">let's make this easy</div>
                 <div className="recommendation-made">Bra Size <em>Search</em></div>

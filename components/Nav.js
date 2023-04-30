@@ -26,10 +26,18 @@ const style = {
 const buttonStyle = {
   minWidth: "300px",
   border: "none",
+  borderBottom: "1px solid #000000",
   justifyContent: "flex-start",
   color: "#000000",
   borderRadius: "0px",
-  margin: "8px 20px 0px 20px"
+  margin: "8px 20px 0px 20px",
+  fontFamily: 'Inter',
+  "&:hover": {
+    backgroundColor: "white",
+    border: "none",
+    borderBottom: "1px solid #000000",
+    fontWeight: 900
+  }
 }
 // describes the desktop menu
 export default function Nav() {
@@ -126,13 +134,11 @@ export default function Nav() {
           </Grid>
           <Button sx={buttonStyle}
             className="drawer-button"
-            style={{ borderBottom: "1px solid #000000" }}
             variant="outlined" size="large" onClick={handleRecommendation} >
 
             Recommendations
           </Button>
           <Button sx={buttonStyle}
-            style={{ borderBottom: "1px solid #000000" }}
             variant="outlined" size="large" onClick={handleRetakeQuiz} >
 
             Retake Quiz
