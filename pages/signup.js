@@ -77,24 +77,8 @@ export default function Signup() {
               });
           }
           else {
-            fetch(`/api/getAnswers`, {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token'),
-              },
-            }).then(res => {
-              res.json();
-              console.log("POST RESULT: ", res)
-            })
-              .catch((error) => {
-                window.alert("Catch: " + error.message);
-                return;
-              });
+            router.push('/login');
           }
-          router.push('/login');
-
-
         }
       })
       .catch((error) => {

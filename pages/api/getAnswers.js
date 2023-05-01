@@ -1,13 +1,14 @@
 // This file contains the backend code to get answers to the MongoDB 'answers' collection.
 
 import { connectToDatabase } from "../../server/db/conn";
-import globalVal from "../middleware/global";
+import globalVal from "../../middleware/global";
 
-export default async function handler(req, response) {
+export default async function handler(req, res) {
     const db = await connectToDatabase();
     const db_connect = db.database;
 
-    let res = await db_connect.collection('answers').findOne({ userEmail: "sowerschloe@gmail.com" });
-    console.log("Result:" + res)
-    globalVal.answers = res;
+    let rets = await db_connect.collection('answers').findOne({ userEmail: "csowers@usc.edu" });
+    //console.log("Result from getAnswers/:")// + rets.answers)
+    globalVal.answers = rets;
+    return res.json({ answers: rets })
 }
