@@ -17,10 +17,11 @@ async function getanswers() {
     return answers;
 }
 
+var loading = true;
 let name = "";
 let shape = "";
 let styles = [];
-let size = [];
+let size = ["", ""];
 let arrProfile = [];
 let arrStyles = [];
 let arrRecommendations = [
@@ -457,39 +458,383 @@ function breastProfile(r) {
     )
 }
 
-async function load() {
+function get_styles(quiz_answers) {
+    let styles = []
+    if (quiz_answers.medical != null && quiz_answers.medical.find(a => a.includes("Mastectomy")) != undefined) {
+        styles.push("Soft seams");
+        styles.push("Wide underband");
+        styles.push("Deep front");
+        styles.push("Deep side");
+        styles.push("Full cups");
+        styles.push("Wireless");
+        styles.push("Soft");
+        styles.push("Wide");
+        styles.push("Deep");
+    }
+    if (quiz_answers.type != null) {
+        if (quiz_answers.type.find(a => a.includes("Round")) != undefined) {
+            styles.push("T-shirt");
+            styles.push("Balconette");
+            styles.push("Plunge");
+        }
+        if (quiz_answers.type.find(a => a.includes("Athletic")) != undefined) {
+            styles.push("Demi");
+            styles.push("Push-up");
+            styles.push("Vertical seam");
+            styles.push("No horizontal seam");
+            styles.push("Bralette");
+            styles.push("Plunge");
+            styles.push("T-shirt");
+        }
+        if (quiz_answers.type.find(a => a.includes("East West")) != undefined) {
+            styles.push("Contoured");
+        }
+        if (quiz_answers.type.find(a => a.includes("Side Set")) != undefined) {
+            styles.push("Plunge");
+        }
+        if (quiz_answers.type.find(a => a.includes("Bell")) != undefined) {
+            styles.push("Balconette");
+            styles.push("Plunge");
+            styles.push("Stretch");
+            styles.push("Stretched");
+            styles.push("Full coverage");
+            styles.push("Full");
+            styles.push("T-shirt");
+        }
+        if (quiz_answers.type.find(a => a.includes("Teardrop")) != undefined) {
+            styles.push("Balconette");
+            styles.push("Demi");
+        }
+        if (quiz_answers.type.find(a => a.includes("Tubular")) != undefined) {
+            styles.push("Molded");
+            styles.push("Push-up");
+            styles.push("Contoured");
+        }
+        if (quiz_answers.type.find(a => a.includes("Relaxed")) != undefined) {
+            styles.push("Elastic");
+            styles.push("Elastic Neckline");
+            styles.push("Close-set");
+            styles.push("Close-set straps");
+            styles.push("T-shirt");
+            styles.push("Contoured");
+        }
+        if (quiz_answers.type.find(a => a.includes("Slender")) != undefined) {
+            styles.push("Seamed");
+            styles.push("Seamed bra");
+        }
+        if (quiz_answers.type.find(a => a.includes("Asymetric")) != undefined) {
+            styles.push("T-shirt");
+            styles.push("Stretch");
+            styles.push("Stretched");
+            styles.push("Molded");
+            styles.push("Removable Padding");
+        }
+    }
+    styles = [...new Set(styles)];
+    return styles;
+}
+function get_cupsize(bust) {
+    let cupsize = ""
+    if (bust < 1) {
+        cupsize = "AA"
+    }
+    else if (bust == 1) {
+        cupsize = "A"
+    }
+    else if (bust <= 2) {
+        cupsize = "B"
+    }
+    else if (bust <= 3) {
+        cupsize = "C"
+    }
+    else if (bust <= 4) {
+        cupsize = "D"
+    }
+    else if (bust <= 5) {
+        cupsize = "DD"
+    }
+    else if (bust <= 6) {
+        cupsize = "DDD"
+    }
+    else if (bust <= 7) {
+        cupsize = "E"
+    }
+    else if (bust <= 8) {
+        cupsize = "F"
+    }
+    else if (bust <= 9) {
+        cupsize = "FF"
+    }
+    else if (bust <= 10) {
+        cupsize = "G"
+    }
+    else if (bust <= 11) {
+        cupsize = "GG"
+    }
+    else if (bust <= 12) {
+        cupsize = "H"
+    }
+    else if (bust <= 13) {
+        cupsize = "HH"
+    }
+    else if (bust <= 14) {
+        cupsize = "J"
+    }
+    else if (bust <= 15) {
+        cupsize = "JJ"
+    }
+    else if (bust <= 16) {
+        cupsize = "K"
+    }
+    else if (bust <= 17) {
+        cupsize = "KK"
+    }
+    else if (bust <= 18) {
+        cupsize = "L"
+    }
+    else if (bust <= 19) {
+        cupsize = "LL"
+    }
+    else if (bust <= 20) {
+        cupsize = "M"
+    }
+    else {
+        cupsize = "MM"
+    }
+    return cupsize;
+}
+function get_cupsize_int(cupsize) {
+    switch (cupsize) {
+        case "AA":
+            return 0;
+        case "A":
+            return 1;
+        case "B":
+            return 2;
+        case "C":
+            return 3;
+        case "D":
+            return 4;
+        case "DD":
+            return 5;
+        case "DDD":
+            return 6;
+        case "E":
+            return 7;
+        case "F":
+            return 8;
+        case "FF":
+            return 9;
+        case "G":
+            return 10;
+        case "G":
+            return 11;
+        case "H":
+            return 12;
+        case "HH":
+            return 13;
+        case "J":
+            return 14;
+        case "JJ":
+            return 15;
+        case "K":
+            return 16;
+        case "KK":
+            return 17;
+        case "L":
+            return 18;
+        case "LL":
+            return 19;
+        case "M":
+            return 20;
+        case "MM":
+            return 21;
+        default:
+            return 22;
+    }
+}
+function get_percent(bra, bandsize, cupsize_int, quiz_answers) {
+
+    let num_style = 0;
+    let styles_match = styles.concat(quiz_answers.types)
+    styles_match.forEach(element => {
+        if (bra.style.toLowerCase().includes(element.toLowerCase())) {
+            num_style += 1;
+        }
+    });
+
+    let ribcage = 0;
+    let ribcage_diff = Math.abs(bra.fits_ribcage - quiz_answers.snug_underbust);
+    if (ribcage_diff == 0) {
+        ribcage = 10;
+    }
+    else if (ribcage <= 1) {
+        ribcage = Math.round((ribcage_diff * 5) + 5);
+    }
+    else {
+        ribcage = 5 / ribcage_diff;
+    }
+
+    let bra_band = parseInt(bra.size.slice(0, 2));
+    let bra_cup = "";
+    if (bra.size.length == 3) {
+        bra_cup = bra.size.slice(-1);
+    }
+    else if (bra.size.length == 4) {
+        bra_cup = bra.size.slice(-2);
+    }
+    else {
+        bra_cup = bra.size.slice(-3);
+    }
+
+    let size_match = 0;
+    if (bra_band == bandsize) {
+        size_match += 10;
+    }
+    else if (bra_band == bandsize - 2 || bra_band == bandsize + 2) {
+        size_match += 5;
+    }
+    else {
+        return 0.0;
+    }
+
+    let bra_cup_int = get_cupsize_int(bra_cup);
+    let cupsize = Math.ceil(cupsize_int);
+    if (cupsize_int < 1) cupsize = 0;
+
+    if (bra_cup_int == cupsize) {
+        size_match += 10;
+    }
+    else if (bra_cup_int == cupsize - 1 || bra_cup_int == cupsize + 1) {
+        size_match += 5;
+    }
+    else {
+        return 0.0;
+    }
+
+    let match = (65 + size_match + num_style + ribcage);
+    if (match > 100) match = 100;
+
+    return match;
+}
+function match(quiz_answers) {
+    // get user's answers 
+    // map answers to bra data
+    // find % match
+    // populate arrRecommendations
+
+    // get band size
+    let bandsize = 2 * Math.round(quiz_answers.snug_underbust / 2);
+    if (Math.abs(quiz_answers.snug_underbust - quiz_answers.loose_underbust) < 2.0) {
+        bandsize = bandsize + 2;
+    }
+    if (Math.abs(quiz_answers.snug_underbust - quiz_answers.loose_underbust) > 4.0) {
+        bandsize = bandsize - 2;
+    }
+    // get cup size
+    let bust = 0.0;
+    // this assumes any one that is not a transgender man was assigned female at birth
+    if (quiz_answers.gender != null && !(quiz_answers.gender.includes("Transgender") || quiz_answers.gender.includes("Transsexual")) && !quiz_answers.gender.includes("Female")) {
+        // assigned female at birth
+        if (Math.abs(quiz_answers.leaning_bust - quiz_answers.lying_bust) > 2.5) {
+            bust = (quiz_answers.leaning_bust + quiz_answers.lying_bust + quiz_answers.standing_bust) / 3
+        }
+        else {
+            bust = quiz_answers.leaning_bust
+        }
+    }
+    else {
+        // assigned male at birth
+        bust = (parseInt(quiz_answers.leaning_bust) + (2 * parseInt(quiz_answers.lying_bust)) + (2 * parseInt(quiz_answers.standing_bust))) / 5.0
+    }
+    bust = bust - parseInt(quiz_answers.loose_underbust)
+
+    let band_diff = Math.round(Math.abs(bandsize - quiz_answers.loose_underbust)) / 2
+    if (bandsize > quiz_answers.loose_underbust) {
+        bust = bust - band_diff;
+    }
+    if (bandsize < quiz_answers.loose_underbust) {
+        bust = bust + band_diff;
+    }
+
+    let cupsize_int = bust;
+    let cupsize = get_cupsize(bust);
+
+    size[0] = ("" + bandsize + cupsize);
+    size[1] = ("" + (bandsize + 2) + get_cupsize(bust + 1));
+
+    all_bras.forEach(element => {
+        let match = get_percent(element, bandsize, cupsize_int, quiz_answers);
+        element.match = match;
+    });
+
+    let ordered = [...all_bras].sort((a, b) => b.match - a.match);
+    let ret = ordered.slice(0, 5);
+
+    arrRecommendations = [];
+    for (let val of ret) {
+        arrRecommendations.push(val);
+    }
+
+}
+function get_style_arr() {
+    arrStyles = [];
+    styles.forEach(st => {
+        arrStyles.push({
+            style: st,
+            description: styles_map.get(st),
+            image: images_map.get(st)
+        });
+    });
+}
+function get_profile_arr(quiz_answers) {
+    arrProfile = [];
+    let profile = [quiz_answers.top_bottom].concat([quiz_answers.outer_inner], quiz_answers.height, quiz_answers.projection, quiz_answers.width, quiz_answers.type)
+    profile.forEach(pr => {
+        let el = profile_options.find(a => a.find == pr)
+        if (el != undefined) {
+            arrProfile.push(el)
+        }
+    });
+}
+
+function load() {
+
     let answers = globalVal.answers;
-    answers = await getanswers();
-    //(async () => answers = await getanswers())();
+    //answers = getanswers();
 
     if (answers.length == 0) {
         answers = [
-            'NULL',
-            '',
-            [''],
-            [''],
-            [''],
-            [''],
-            [''],
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            [''],
-            [''],
-            [''],
-            [''],
+            'Nina',
+            '21',
+            ['Cisgender', 'Female'],
+            ['None'],
+            [
+                'Push-up ~ Pulls breasts upward then inward bringing breasts closer.'
+            ],
+            ['Romantic ~ Lots of lace.'],
+            ['Skin Tones'],
+            'Yes, all of them',
+            'Yes, all of them',
+            'Full on Bottom ~ Nipples are Above Dotted Line.',
+            'Outer Fullness ~ Nipples are Towards each other.',
+            'Soft ~ Fingers do not bounce back, indent is made in your skin in response to finger.',
+            '1',
+            ['High ~ Above your elbows.'],
+            ['Shallow ~ Breast tissue spread closer to body.'],
+            [
+                'Narrow Width ~ Breats are more narrow at the top than the bottom.'
+            ],
+            ['Round ~ Equally full at the top and bottom.'],
             '30',
-            '30',
-            '30',
+            '29',
+            '28',
             '35',
-            '35',
-            '35',
+            '34',
+            '34',
             '30',
-            '',
-            ''
+            'Yes',
+            'Round ~ Equally full at the top and bottom.'
         ]
         // defaults to random values so it doesn't crash!
     }
@@ -526,371 +871,29 @@ async function load() {
         favorite_size_cup: ""
     };
 
-    function get_styles() {
-        let styles = []
-        if (quiz_answers.medical != null && quiz_answers.medical.find(a => a.includes("Mastectomy")) != undefined) {
-            styles.push("Soft seams");
-            styles.push("Wide underband");
-            styles.push("Deep front");
-            styles.push("Deep side");
-            styles.push("Full cups");
-            styles.push("Wireless");
-            styles.push("Soft");
-            styles.push("Wide");
-            styles.push("Deep");
-        }
-        if (quiz_answers.type != null) {
-            if (quiz_answers.type.find(a => a.includes("Round")) != undefined) {
-                styles.push("T-shirt");
-                styles.push("Balconette");
-                styles.push("Plunge");
-            }
-            if (quiz_answers.type.find(a => a.includes("Athletic")) != undefined) {
-                styles.push("Demi");
-                styles.push("Push-up");
-                styles.push("Vertical seam");
-                styles.push("No horizontal seam");
-                styles.push("Bralette");
-                styles.push("Plunge");
-                styles.push("T-shirt");
-            }
-            if (quiz_answers.type.find(a => a.includes("East West")) != undefined) {
-                styles.push("Contoured");
-            }
-            if (quiz_answers.type.find(a => a.includes("Side Set")) != undefined) {
-                styles.push("Plunge");
-            }
-            if (quiz_answers.type.find(a => a.includes("Bell")) != undefined) {
-                styles.push("Balconette");
-                styles.push("Plunge");
-                styles.push("Stretch");
-                styles.push("Stretched");
-                styles.push("Full coverage");
-                styles.push("Full");
-                styles.push("T-shirt");
-            }
-            if (quiz_answers.type.find(a => a.includes("Teardrop")) != undefined) {
-                styles.push("Balconette");
-                styles.push("Demi");
-            }
-            if (quiz_answers.type.find(a => a.includes("Tubular")) != undefined) {
-                styles.push("Molded");
-                styles.push("Push-up");
-                styles.push("Contoured");
-            }
-            if (quiz_answers.type.find(a => a.includes("Relaxed")) != undefined) {
-                styles.push("Elastic");
-                styles.push("Elastic Neckline");
-                styles.push("Close-set");
-                styles.push("Close-set straps");
-                styles.push("T-shirt");
-                styles.push("Contoured");
-            }
-            if (quiz_answers.type.find(a => a.includes("Slender")) != undefined) {
-                styles.push("Seamed");
-                styles.push("Seamed bra");
-            }
-            if (quiz_answers.type.find(a => a.includes("Asymetric")) != undefined) {
-                styles.push("T-shirt");
-                styles.push("Stretch");
-                styles.push("Stretched");
-                styles.push("Molded");
-                styles.push("Removable Padding");
-            }
-        }
-        styles = [...new Set(styles)];
-        return styles;
-    }
-    function get_cupsize(bust) {
-        let cupsize = ""
-        if (bust < 1) {
-            cupsize = "AA"
-        }
-        else if (bust == 1) {
-            cupsize = "A"
-        }
-        else if (bust <= 2) {
-            cupsize = "B"
-        }
-        else if (bust <= 3) {
-            cupsize = "C"
-        }
-        else if (bust <= 4) {
-            cupsize = "D"
-        }
-        else if (bust <= 5) {
-            cupsize = "DD"
-        }
-        else if (bust <= 6) {
-            cupsize = "DDD"
-        }
-        else if (bust <= 7) {
-            cupsize = "E"
-        }
-        else if (bust <= 8) {
-            cupsize = "F"
-        }
-        else if (bust <= 9) {
-            cupsize = "FF"
-        }
-        else if (bust <= 10) {
-            cupsize = "G"
-        }
-        else if (bust <= 11) {
-            cupsize = "GG"
-        }
-        else if (bust <= 12) {
-            cupsize = "H"
-        }
-        else if (bust <= 13) {
-            cupsize = "HH"
-        }
-        else if (bust <= 14) {
-            cupsize = "J"
-        }
-        else if (bust <= 15) {
-            cupsize = "JJ"
-        }
-        else if (bust <= 16) {
-            cupsize = "K"
-        }
-        else if (bust <= 17) {
-            cupsize = "KK"
-        }
-        else if (bust <= 18) {
-            cupsize = "L"
-        }
-        else if (bust <= 19) {
-            cupsize = "LL"
-        }
-        else if (bust <= 20) {
-            cupsize = "M"
-        }
-        else {
-            cupsize = "MM"
-        }
-        return cupsize;
-    }
-    function get_cupsize_int(cupsize) {
-        switch (cupsize) {
-            case "AA":
-                return 0;
-            case "A":
-                return 1;
-            case "B":
-                return 2;
-            case "C":
-                return 3;
-            case "D":
-                return 4;
-            case "DD":
-                return 5;
-            case "DDD":
-                return 6;
-            case "E":
-                return 7;
-            case "F":
-                return 8;
-            case "FF":
-                return 9;
-            case "G":
-                return 10;
-            case "G":
-                return 11;
-            case "H":
-                return 12;
-            case "HH":
-                return 13;
-            case "J":
-                return 14;
-            case "JJ":
-                return 15;
-            case "K":
-                return 16;
-            case "KK":
-                return 17;
-            case "L":
-                return 18;
-            case "LL":
-                return 19;
-            case "M":
-                return 20;
-            case "MM":
-                return 21;
-            default:
-                return 22;
-        }
-    }
-    function get_percent(bra, bandsize, cupsize_int) {
-
-        let num_style = 0;
-        let styles_match = styles.concat(quiz_answers.types)
-        styles_match.forEach(element => {
-            if (bra.style.toLowerCase().includes(element.toLowerCase())) {
-                num_style += 1;
-            }
-        });
-
-        let ribcage = 0;
-        let ribcage_diff = Math.abs(bra.fits_ribcage - quiz_answers.snug_underbust);
-        if (ribcage_diff == 0) {
-            ribcage = 10;
-        }
-        else if (ribcage <= 1) {
-            ribcage = Math.round((ribcage_diff * 5) + 5);
-        }
-        else {
-            ribcage = 5 / ribcage_diff;
-        }
-
-        let size = 0;
-        let bra_band = parseInt(bra.size.slice(0, 2));
-        let bra_cup = "";
-        if (bra.size.length == 3) {
-            bra_cup = bra.size.slice(-1);
-        }
-        else if (bra.size.length == 4) {
-            bra_cup = bra.size.slice(-2);
-        }
-        else {
-            bra_cup = bra.size.slice(-3);
-        }
-
-        let size_match = 0;
-        if (bra_band == bandsize) {
-            size_match += 10;
-        }
-        else if (bra_band == bandsize - 2 || bra_band == bandsize + 2) {
-            size_match += 5;
-        }
-        else {
-            return 0.0;
-        }
-
-        let bra_cup_int = get_cupsize_int(bra_cup);
-        let cupsize = Math.ceil(cupsize_int);
-        if (cupsize_int < 1) cupsize = 0;
-
-        if (bra_cup_int == cupsize) {
-            size_match += 10;
-        }
-        else if (bra_cup_int == cupsize - 1 || bra_cup_int == cupsize + 1) {
-            size_match += 5;
-        }
-        else {
-            return 0.0;
-        }
-
-        let match = (65 + size_match + num_style + ribcage);
-        if (match > 100) match = 100;
-
-        return match;
-    }
-    function match() {
-        // get user's answers 
-        // map answers to bra data
-        // find % match
-        // populate arrRecommendations
-
-        // get band size
-        let bandsize = 2 * Math.round(quiz_answers.snug_underbust / 2);
-        if (Math.abs(quiz_answers.snug_underbust - quiz_answers.loose_underbust) < 2.0) {
-            bandsize = bandsize + 2;
-        }
-        if (Math.abs(quiz_answers.snug_underbust - quiz_answers.loose_underbust) > 4.0) {
-            bandsize = bandsize - 2;
-        }
-        // get cup size
-        let bust = 0.0;
-        // this assumes any one that is not a transgender man was assigned female at birth
-        if (quiz_answers.gender != null && !(quiz_answers.gender.includes("Transgender") || quiz_answers.gender.includes("Transsexual")) && !quiz_answers.gender.includes("Female")) {
-            // assigned female at birth
-            if (Math.abs(quiz_answers.leaning_bust - quiz_answers.lying_bust) > 2.5) {
-                bust = (quiz_answers.leaning_bust + quiz_answers.lying_bust + quiz_answers.standing_bust) / 3
-            }
-            else {
-                bust = quiz_answers.leaning_bust
-            }
-        }
-        else {
-            // assigned male at birth
-            bust = (parseInt(quiz_answers.leaning_bust) + (2 * parseInt(quiz_answers.lying_bust)) + (2 * parseInt(quiz_answers.standing_bust))) / 5.0
-        }
-        bust = bust - parseInt(quiz_answers.loose_underbust)
-
-        let band_diff = Math.round(Math.abs(bandsize - quiz_answers.loose_underbust)) / 2
-        if (bandsize > quiz_answers.loose_underbust) {
-            bust = bust - band_diff;
-        }
-        if (bandsize < quiz_answers.loose_underbust) {
-            bust = bust + band_diff;
-        }
-
-        let cupsize_int = bust;
-        let cupsize = get_cupsize(bust);
-
-        size.push("" + bandsize + cupsize);
-        size.push("" + (bandsize + 2) + get_cupsize(bust + 1));
-
-        all_bras.forEach(element => {
-            let match = get_percent(element, bandsize, cupsize_int);
-            element.match = match;
-        });
-
-        let ordered = [...all_bras].sort((a, b) => b.match - a.match);
-        let ret = ordered.slice(0, 5);
-
-        arrRecommendations = [];
-        for (let val of ret) {
-            arrRecommendations.push(val);
-        }
-
-    }
-    function get_style_arr() {
-        arrStyles = [];
-        styles.forEach(st => {
-            arrStyles.push({
-                style: st,
-                description: styles_map.get(st),
-                image: images_map.get(st)
-            });
-        });
-    }
-    function get_profile_arr() {
-        arrProfile = [];
-        let profile = [quiz_answers.top_bottom].concat([quiz_answers.outer_inner], quiz_answers.height, quiz_answers.projection, quiz_answers.width, quiz_answers.type)
-        profile.forEach(pr => {
-            let el = profile_options.find(a => a.find == pr)
-            if (el != undefined) {
-                arrProfile.push(el)
-            }
-        });
-    }
-
     name = quiz_answers.name;
-    styles = get_styles();
-    match();
+    styles = get_styles(quiz_answers);
+    match(quiz_answers);
     get_style_arr();
-    get_profile_arr();
+    get_profile_arr(quiz_answers);
     shape = profile_options.find(a => a.find == quiz_answers.type);
+    loading = false;
 }
 
+async function wait_to_load() {
+    for (let i = 0; i < 10000; i++) {
+        if (!loading) break;
+    }
+}
 
 // Defining the recommendation page
 export default function Recommendation() {
-    const [show, setShow] = React.useState(false);
-    React.useEffect(() => {
-        load();
-    }, []);
+    //const [show, setShow] = React.useState(false);
+    load();
 
-    /*if (!show) {
-        return (
-            <div className="rec-row1">
-                <div className="recommendation">Loading Recommendations...</div>
-            </div>
-        );
-    }*/
-
+    while (loading) {
+        wait_to_load();
+    }
     return (
         // <div className="recommendation-wrapper">
         <>
@@ -948,7 +951,7 @@ export default function Recommendation() {
                 <div className="rec-style-wrapper">
                     <div className="rec-sizing-block">
                         <div className="rec-sizing-title">How does bra style affect fit?</div>
-                        <div className="rec-sizing-description">Because you have {shape} shaped breasts, {styles[0]} will fit best. {styles_map.get(styles[0])} </div>
+                        <div className="rec-sizing-description">Because you have {shape.attribute} shaped breasts, {styles[0]} will fit best. {styles_map.get(styles[0])} </div>
                         <img className="rec-change" src="/retake.svg"></img>
                     </div>
                     <div className="rec-profile-scroll">
@@ -965,7 +968,7 @@ export default function Recommendation() {
                 <div className="rec-style-wrapper">
                     <div className="rec-sizing-block">
                         <div className="rec-sizing-title">How does bra style affect fit?</div>
-                        <div className="rec-sizing-description">Because you have {shape} shaped breasts, a {styles[0]} or {styles[1]} will fit best. </div>
+                        <div className="rec-sizing-description">Because you have {shape.attribute} shaped breasts, a {styles[0]} or {styles[1]} will fit best. </div>
                         <img className="rec-change" src="/retake.svg"></img>
                     </div>
                     <div className="rec-profile-scroll">
@@ -987,3 +990,11 @@ export default function Recommendation() {
         // {/* </div > */ }
     )
 }
+
+/*if (!show) {
+    return (
+        <div className="rec-row1">
+            <div className="recommendation">Loading Recommendations...</div>
+        </div>
+    );
+}*/
