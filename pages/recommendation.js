@@ -6,17 +6,6 @@ import globalVal from "../middleware/global";
 import CheckIcon from '@mui/icons-material/Check';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-async function getanswers() {
-    let answers = [];
-    await fetch('http://localhost:3000/api/getAnswers')
-        .then(res => res.json())
-        .then(data => {
-            //console.log("DATA:", data)
-            answers = data.answers.answers;
-        })
-    return answers;
-}
-
 var loading = true;
 let name = "";
 let shape = "";
@@ -798,14 +787,20 @@ function get_profile_arr(quiz_answers) {
     });
 }
 
-function load() {
+
+// Defining the recommendation page
+export default function Recommendation() {
+
+    const router = useRouter();
+    if (globalVal.answers.length == 0) {
+        React.useEffect(() => { router.push('/rec_loading'); })
+    }
 
     let answers = globalVal.answers;
-    //answers = getanswers();
 
     if (answers.length == 0) {
         answers = [
-            'Nina',
+            '',
             '21',
             ['Cisgender', 'Female'],
             ['None'],
@@ -878,22 +873,7 @@ function load() {
     get_profile_arr(quiz_answers);
     shape = profile_options.find(a => a.find == quiz_answers.type);
     loading = false;
-}
 
-async function wait_to_load() {
-    for (let i = 0; i < 10000; i++) {
-        if (!loading) break;
-    }
-}
-
-// Defining the recommendation page
-export default function Recommendation() {
-    //const [show, setShow] = React.useState(false);
-    load();
-
-    while (loading) {
-        wait_to_load();
-    }
     return (
         // <div className="recommendation-wrapper">
         <>
