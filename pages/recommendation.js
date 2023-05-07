@@ -6,7 +6,7 @@ import globalVal from "../middleware/global";
 import CheckIcon from '@mui/icons-material/Check';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-var loading = true;
+// global vals for UI output 
 let name = "";
 let shape = "";
 let styles = [];
@@ -15,6 +15,7 @@ let arrProfile = [];
 let arrStyles = [];
 let arrRecommendations = [
     {
+        // EXAMPLE of what is needed for a bra
         brandName: "brand name",
         braDescription: "simple description of the bra brand from their website.",
         size: "30 F",
@@ -27,6 +28,7 @@ let arrRecommendations = [
 
 ];
 
+// FILL this list with the rest of the bras when ready
 let all_bras = [
     {
         brandName: "Freya",
@@ -155,6 +157,7 @@ let all_bras = [
         image: "/vertical-seamed-bra.png"
     },
 ];
+//to map styles with things about them
 let styles_map_arr = [
     ["T-shirt", "A t-shirt bra is a mid-coverage padded, underwire bra. It's known as a t-shirt bra because they are supposed to disappear elegantly under even the thinnest of shirts."],
     ["Balconette", "A balconette bra provides less coverage, with lower cut cups. The straps are wide set and provide an open necklace. A balconette bra will lift your breasts up, not together."],
@@ -187,6 +190,7 @@ let styles_map_arr = [
     ["Re-usable pasties", "Re-usable pasties cover just your nipples. They come in a range of skin tones and have a rubber consistency. They are sticky on the back and attach comfortably + directly to your nipples."],
     ["Disposable pasties", "Disposable pasties cover your nipples. They typically come in a range of shapes, like hearts, stars, and flowers, and can be either practical or fun under a sheer top."],
 ]
+// to map styles and their images
 const styles_map = new Map(styles_map_arr);
 let images_map_arr = [
     ["T-shirt", "styles/t-shirt-bra.png"],
@@ -221,6 +225,7 @@ let images_map_arr = [
     ["Disposable pasties", "styles/disposable-pasties.png"],
 ]
 const images_map = new Map(images_map_arr);
+// to find style information from breast profile
 const profile_options = [
     {
         find: 'Full on Bottom ~ Nipples are Above Dotted Line.',
@@ -405,7 +410,7 @@ const profile_options = [
         image: '/question26/mastectomy.png'
     },
 ]
-
+// UI for style reccomendations
 function styleRecommendation(r) {
     return (
         <div className="rec-style">
@@ -417,6 +422,7 @@ function styleRecommendation(r) {
         </div>
     )
 }
+// UI for bra reccomendations
 function braRecommendation(r) {
     return (
         <div className="rec-style rec-wrapper">
@@ -434,6 +440,7 @@ function braRecommendation(r) {
         // have reccomendation data that matches FIGMA
     )
 }
+// UI for breast profile
 function breastProfile(r) {
     return (
         <div className="rec-profile">
@@ -447,6 +454,7 @@ function breastProfile(r) {
     )
 }
 
+// defines styles that will fit a user well based on breast type
 function get_styles(quiz_answers) {
     let styles = []
     if (quiz_answers.medical != null && quiz_answers.medical.find(a => a.includes("Mastectomy")) != undefined) {
@@ -522,6 +530,7 @@ function get_styles(quiz_answers) {
     styles = [...new Set(styles)];
     return styles;
 }
+// returns string cupsize from int
 function get_cupsize(bust) {
     let cupsize = ""
     if (bust < 1) {
@@ -592,6 +601,7 @@ function get_cupsize(bust) {
     }
     return cupsize;
 }
+// returns int cupsize from string
 function get_cupsize_int(cupsize) {
     switch (cupsize) {
         case "AA":
@@ -642,8 +652,10 @@ function get_cupsize_int(cupsize) {
             return 22;
     }
 }
+// determines percent match of a bra
 function get_percent(bra, bandsize, cupsize_int, quiz_answers) {
 
+    // add 1 point for every style the bra matches
     let num_style = 0;
     let styles_match = styles.concat(quiz_answers.types)
     styles_match.forEach(element => {
@@ -652,6 +664,7 @@ function get_percent(bra, bandsize, cupsize_int, quiz_answers) {
         }
     });
 
+    // ribcage fit: add 10 if perfect match, 5-10 if within 1 inch, or 0-5 otherwise
     let ribcage = 0;
     let ribcage_diff = Math.abs(bra.fits_ribcage - quiz_answers.snug_underbust);
     if (ribcage_diff == 0) {
@@ -664,6 +677,7 @@ function get_percent(bra, bandsize, cupsize_int, quiz_answers) {
         ribcage = 5 / ribcage_diff;
     }
 
+    // size match
     let bra_band = parseInt(bra.size.slice(0, 2));
     let bra_cup = "";
     if (bra.size.length == 3) {
@@ -677,6 +691,7 @@ function get_percent(bra, bandsize, cupsize_int, quiz_answers) {
     }
 
     let size_match = 0;
+    // band size: add 10 if same, 5 if 1 size off
     if (bra_band == bandsize) {
         size_match += 10;
     }
@@ -684,9 +699,10 @@ function get_percent(bra, bandsize, cupsize_int, quiz_answers) {
         size_match += 5;
     }
     else {
-        return 0.0;
+        return 0.0; // return 0 for efficency (wrong size = bad match)
     }
 
+    // cup size: add 10 if same, 5 if 1 size off
     let bra_cup_int = get_cupsize_int(bra_cup);
     let cupsize = Math.ceil(cupsize_int);
     if (cupsize_int < 1) cupsize = 0;
@@ -698,9 +714,10 @@ function get_percent(bra, bandsize, cupsize_int, quiz_answers) {
         size_match += 5;
     }
     else {
-        return 0.0;
+        return 0.0; // return 0 for efficency (wrong size = bad match)
     }
 
+    // get final match (65% = base number for a similar size, increase from there)
     let match = (65 + size_match + num_style + ribcage);
     if (match > 100) match = 100;
 
@@ -749,14 +766,17 @@ function match(quiz_answers) {
     let cupsize_int = bust;
     let cupsize = get_cupsize(bust);
 
+    // set size and sister size
     size[0] = ("" + bandsize + cupsize);
     size[1] = ("" + (bandsize + 2) + get_cupsize(bust + 1));
 
+    // get % match for each bra
     all_bras.forEach(element => {
         let match = get_percent(element, bandsize, cupsize_int, quiz_answers);
         element.match = match;
     });
 
+    // add top 5 matches to arrRecommendations
     let ordered = [...all_bras].sort((a, b) => b.match - a.match);
     let ret = ordered.slice(0, 5);
 
@@ -766,6 +786,7 @@ function match(quiz_answers) {
     }
 
 }
+// get matching bra style info for UI
 function get_style_arr() {
     arrStyles = [];
     styles.forEach(st => {
@@ -776,6 +797,7 @@ function get_style_arr() {
         });
     });
 }
+// get matching breast profile info for UI
 function get_profile_arr(quiz_answers) {
     arrProfile = [];
     let profile = [quiz_answers.top_bottom].concat([quiz_answers.outer_inner], quiz_answers.height, quiz_answers.projection, quiz_answers.width, quiz_answers.type)
@@ -791,13 +813,16 @@ function get_profile_arr(quiz_answers) {
 // Defining the recommendation page
 export default function Recommendation() {
 
+    // go to loading page to get answers from database
     const router = useRouter();
     if (globalVal.answers.length == 0) {
         React.useEffect(() => { router.push('/rec_loading'); })
     }
 
+    // get answers
     let answers = globalVal.answers;
 
+    // defaults to random values so it doesn't crash!
     if (answers.length == 0) {
         answers = [
             '',
@@ -831,11 +856,11 @@ export default function Recommendation() {
             'Yes',
             'Round ~ Equally full at the top and bottom.'
         ]
-        // defaults to random values so it doesn't crash!
     }
 
-    console.log("ANSWERS: ", answers);
+    //console.log("ANSWERS: ", answers);
 
+    // get quiz answers in easier to read format
     let quiz_answers = {
         name: answers[0],
         age: answers[1],
@@ -866,13 +891,13 @@ export default function Recommendation() {
         favorite_size_cup: ""
     };
 
+    // set global vals
     name = quiz_answers.name;
     styles = get_styles(quiz_answers);
     match(quiz_answers);
     get_style_arr();
     get_profile_arr(quiz_answers);
     shape = profile_options.find(a => a.find == quiz_answers.type);
-    loading = false;
 
     return (
         // <div className="recommendation-wrapper">
@@ -970,11 +995,3 @@ export default function Recommendation() {
         // {/* </div > */ }
     )
 }
-
-/*if (!show) {
-    return (
-        <div className="rec-row1">
-            <div className="recommendation">Loading Recommendations...</div>
-        </div>
-    );
-}*/
