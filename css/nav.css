@@ -53,6 +53,12 @@
     border-radius: 55px;
 }
 
+.drawer-button:hover {
+    border: none;
+    border-bottom: 1px solid #000000;
+    background-color: none;
+}
+
 .default-nav-link-wrapper {
     width: 50%;
     display: flex;
@@ -64,9 +70,17 @@
     letter-spacing: 1px;
 }
 
+.default-nav-link-wrapper a:hover {
+    font-weight: 700;
+}
+
 .default-nav-link {
     margin: 50%;
     /* font-size: 3%; */
+}
+
+.MuiBackdrop-root {
+    backdrop-filter: blur(11px);
 }
 
 .default-nav-icon-wrapper {

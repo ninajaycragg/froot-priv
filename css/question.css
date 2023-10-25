@@ -10,7 +10,78 @@
     justify-content: center;
     position: relative;
     float: right;
-    margin-top: 5%;
+    /*margin-top: 3%;*/
+}
+
+.whyWeAsk {
+    justify-content: center;
+    position: relative;
+    /*left: 40%;*/
+
+    padding-left: 40%;
+}
+
+.whyWeAsk {
+    justify-content: center;
+    /*left: 40%;*/
+}
+
+.wwa_btn {
+    left: 50%;
+    padding: 20px 60px;
+    background:#FAF8F1;
+    font-family: Inter;
+    letter-spacing: 0.15em;
+    font-weight: bold;
+    text-decoration: underline;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.cont_btn {
+    background:#FAF8F1;
+    font-family: Inter;
+    letter-spacing: 0.15em;
+    font-weight: bold;
+    text-decoration: underline;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.popup {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    background: #FAF8F1;
+    text-align: center;
+    padding: 30px 30px 30px 30px;
+    box-shadow: 60em 60em 60em 60em #ebe7df ;
+    visibility: hidden;
+    transition: transform 0.2s;
+
+}
+
+.open-popup {
+    visibility: visible;
+    top: -20%;
+    left: 40%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup h2{
+    margin: 40px 0 10px;
+    font-family: 'Tiempos Headline';
+    font-size: 25px;
+}
+
+.popup button {
+    float: right;
+    background: #FAF8F1;
+    border: 0;
+    outline: none;
+    cursor: pointer;
 }
 
 .question1_body {
@@ -25,7 +96,8 @@
 
 .hanging-pink-tops {
     position: absolute;
-    height: 100%;
+    background-size: contain;
+    height: 100vh;
     width: 50%;
     float: left;
     z-index: -5;
@@ -51,21 +123,22 @@
     margin-right: 4%;
 }
 
-.question-break-back-button {
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    float: right;
-    border: 1px solid black;
-    border-radius: 7px;
-    display: flex;
-    text-align: center;
-}
+/*.question-break-back-button {*/
+/*    padding-left: 2%;*/
+/*    padding-right: 2%;*/
+/*    padding-top: 1%;*/
+/*    padding-bottom: 1%;*/
+/*    float: right;*/
+/*    border: 1px solid black;*/
+/*    border-radius: 7px;*/
+/*    display: flex;*/
+/*    text-align: center;*/
+/*}*/
 
 .question_count_container {
     width: 5%;
     height: 40%;
+    position: relative;
     text-align: right;
     display: flex;
     align-items: start;
@@ -100,6 +173,7 @@
 }
 
 .question_block {
+    position: relative;
     width: 56%;
     height: 40%;
     margin-top: 10.5%;
@@ -151,9 +225,11 @@
     flex-direction: column;
     align-items: center;
     padding: 2%;
-    padding-bottom: 0%;
-    border: 1px solid black;
+    padding-bottom: 0;
+    border: 2px solid #670224;
+    box-shadow: 0.5em 0.5em 0.5em 0.5em #ebe7df ;
     border-radius: 5px;
+    transition: transform 0.8s
 }
 
 .question_choose {
@@ -175,11 +251,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2%;
-    padding-bottom: 0%;
-    background-color: #FAF8F1;
-    border: 1px solid black;
+    padding: 2% 2% 0%;
+    background-color: white;
+    border: 0;
     border-radius: 5px;
+    transition: transform 0.8s
 }
 
 .question_image_container {
@@ -227,7 +303,7 @@
     justify-content: space-between;
     text-align: left;
     width: 60%;
-    padding-bottom: 10%;
+    /*padding-bottom: 5%;*/
 }
 
 .question-end-button {
@@ -253,16 +329,6 @@
     color: black;
 }
 
-/* .question_next_button {
-    border-radius: 5px;
-    width: 15%;
-    font-family: 'Inter';
-    background-color: #FAF8F1;
-    color: black;
-    padding: 1%;
-    border: 1px solid black;
-
-} */
 .question_next_button {
     border-radius: 5px;
     width: 17%;
@@ -328,7 +394,21 @@
     justify-content: space-evenly;
     border: 1px solid black;
     border-radius: 7px;
-    width: 13%;
+    width: 12%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    float: right;
+    text-align: center;
+}
+
+.question-break-back-button {
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    border-radius: 7px;
+    width: 20%;
     padding-left: 2%;
     padding-right: 2%;
     padding-top: 1%;
@@ -346,6 +426,7 @@
 
 .question_text_options_container {
     width: 100%;
+    display: grid;
 }
 
 .question_dropdown_options_container {
@@ -359,6 +440,11 @@
     width: 50%;
 }
 
+.question_dropdown_sub_options_container_brands {
+    width: 50%;
+    visibility: hidden;
+}
+
 .question_text_box {
     width: 100%;
     margin-bottom: 5%;
@@ -367,6 +453,39 @@
 }
 
 .question_dropdown {
+    width: 50%;
+    margin-bottom: 5%;
+    font-family: 'Inter';
+    margin-top: 20px;
+}
+
+/*.search_div {*/
+/*    align-items: center;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+.brands_search {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+
+input[type=search] {
+    position: relative;
+    width: 40%;
+    padding: 12px 20px;
+    margin: 8px 10px;
+    box-sizing: border-box;
+    background-color: #FAF8F1;
+    font-family: 'Inter';
+    border-radius: 5px;
+    border: 0.5px solid black;
+}
+.question_dropdown_ver2 {
+    position: relative;
     width: 50%;
     margin-bottom: 5%;
     font-family: 'Inter';
@@ -400,13 +519,20 @@
     background-color: #FAF8F1;
     color: black;
     border-radius: 55px;
-    margin: 1%;
+    margin: 0.5%;
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     text-transform: capitalize;
     font-family: 'Inter';
+    border: 1px solid black;
+}
+
+.question_tag:hover {
+    background-color:  #670224;
+    opacity: 0.2;
+    color: white;
     border: 1px solid black;
 }
 
@@ -473,7 +599,7 @@
 
     .question_next_enter {
         display: none;
-        visibility: none;
+        /*visibility: none;*/
     }
 
     .question_count_container {
@@ -485,7 +611,7 @@
     }
 
     .question_body {
-        margin-top: 0%;
+        margin-top: 0;
         width: 85%;
         margin-left: auto;
         margin-right: auto;
@@ -511,8 +637,9 @@
     }
 
     .question_back_button_wrap {
+        position: relative;
         width: 100%;
-        margin-bottom: 20%;
+        margin-bottom: 10%;
     }
 
     .question-back-button {
@@ -594,10 +721,7 @@
     }
 
     .question-back-button {
-        padding-left: 12%;
-        padding-right: 12%;
-        padding-top: 2%;
-        padding-bottom: 2%;
+        padding: 2% 12%;
         width: 30%;
     }
 
@@ -652,4 +776,5 @@
         padding-left: 5%;
         padding-right: 5%;
     }
+
 }

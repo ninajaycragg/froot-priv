@@ -7,6 +7,7 @@ import { positions } from '@mui/system';
 import { Padding } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 
+
 export default function Login() {
     const [inputs, setInputs] = useState({});
     const [token, setToken] = useState({});
@@ -40,6 +41,12 @@ export default function Login() {
                     globalVal.email = loginUser.email;
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('email', loginUser.email)
+
+                    globalVal.email = loginUser.email
+
+                    localStorage.setItem('firstName', data.firstName)
+                    localStorage.setItem('lastName', data.lastName)
+
                     // console.log(`in login fetch: ${localStorage.getItem('token')}`)
                     // Set the token in storage
                     setToken(data.token);
@@ -63,7 +70,13 @@ export default function Login() {
             .then(data => {
                 // console.log(`data useefect: ${data.isLoggedIn}`);
                 if (data.isLoggedIn) {
-                    router.push('/quiz').then(() => router.reload());
+                    if (globalVal.answers.length == 0) {
+                        router.push('/quiz').then(() => router.reload());
+                    }
+                    else {
+                        router.push('/recommendation').then(() => router.reload());
+                    }
+
                 }
                 else {
                     null;

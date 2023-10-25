@@ -59,7 +59,26 @@ export default function Signup() {
         else {
           globalVal.email = newUser.email;
           // setToLogin(true);
-          router.push('/login');
+          if (globalVal.answers.length != 0) {
+            const addAnswers = {
+              userEmail: globalVal.email,
+              answers: globalVal.answers
+            }
+            fetch(`/api/addAnswers`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(addAnswers),
+            }).then(res => res.json())
+              .catch((error) => {
+                window.alert("Catch: " + error.message);
+                return;
+              });
+          }
+          else {
+            router.push('/login');
+          }
         }
       })
       .catch((error) => {
@@ -78,7 +97,7 @@ export default function Signup() {
     })
       .then(res => res.json())
       .then(data => {
-        data.isLoggedIn ? router.push('/quiz') : null
+        data.isLoggedIn ? router.push('/recommendation') : null
       })
   }, [])
 
