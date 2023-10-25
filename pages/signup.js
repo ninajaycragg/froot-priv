@@ -76,9 +76,9 @@ export default function Signup() {
                 return;
               });
           }
-          router.push('/login');
-
-
+          else {
+            router.push('/login');
+          }
         }
       })
       .catch((error) => {
@@ -97,7 +97,7 @@ export default function Signup() {
     })
       .then(res => res.json())
       .then(data => {
-        data.isLoggedIn ? router.push('/quiz') : null
+        data.isLoggedIn ? router.push('/recommendation') : null
       })
   }, [])
 

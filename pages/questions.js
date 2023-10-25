@@ -630,11 +630,19 @@ export default function Questions() {
                 console.log("Progress: " + progress);
             }
             setSel('');
+            if (index >= questionsArray.length) {
+                index = questionsArray.length - 1;
+                setIndex(index);
+            }
         } else {
             setAnswers([...answers, sel]);
             setIndex((index += 1));
 
             setSel('');
+            if (index >= questionsArray.length) {
+                index = questionsArray.length - 1;
+                setIndex(index);
+            }
         }
         if (answers[index]) {
             if (questionsArray[index].select === 'multiple') {
@@ -719,6 +727,10 @@ export default function Questions() {
         //handleProgress();
     };
 
+    if (index >= questionsArray.length) {
+        index = questionsArray.length - 1;
+        setIndex(index);
+    }
 
     useEffect(() => {
         setSel(multAnswers);
@@ -726,7 +738,6 @@ export default function Questions() {
     console.log(questionsArray[index].question);
 
     // Setting display of break style questions
-
     // todo: fix styling for break pages
     if (questionsArray[index].type === "break") {
         return (
@@ -1507,58 +1518,8 @@ export default function Questions() {
                                 </div>
                             </div>
                             ) : null}
-                        {/* enable back button if index is not 0 */}
-                        {index === 0 ? null : (
-                            <div className="question_back_button_wrap">
 
-                                <Link href="#scroll">
-                                    <div className="sample-button" role="button" onClick={handleClick}>OK <CheckIcon />
-                                    </div>
-                                </Link>
-
-                                <h1 className="question_next_enter"
-                                >
-                                    press <b>Enter</b>
-                                </h1>
-                            </div>
-                        )}
                     </div>
-                    {(index === 5) ?
-                        (<div className="whyWeAsk">
-                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                            <div className="popup" id="popup">
-                                <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                <h2>Why We Ask</h2>
-                                <p>Bras affect the body in a variety of ways. Wearing a bra that doesn't fit can
-                                    cause pain and posture-issues. We want to make sure that our recommendations are
-                                    taking that into account, if those are symptoms you experience.</p>
-                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
-                            </div>
-                        </div>
-                        ) : null}
-                    {(index === 28) ?
-                        (<div className="whyWeAsk">
-                            <button type="button" className="wwa_btn" onClick={displayPopUp}>WHY WE ASK</button>
-                            <div className="popup" id="popup">
-                                <button type="button" className="exit" onClick={closePopUp}>X</button>
-                                <h2>Why We Ask</h2>
-                                <p>We ask this so we can make recommendations based on how this bra fits you.</p>
-                                <button type="button" className="cont_btn" onClick={closePopUp}>CONTINUE</button>
-                            </div>
-                        </div>
-                        ) : null}
-                    {/* enable back button if index is not 0 */}
-                    {
-                        index === 0 ? null : (
-                            <div className="question_back_button_wrap">
-                                <Link href="#scroll">
-                                    <div className="question-back-button" role="button"
-                                        onClick={handleBack}>BACK <ArrowBackIcon />
-                                    </div>
-                                </Link>
-                            </div>
-                        )
-                    }
 
                 </div>
                 <div> {displayPBar()} </div>
