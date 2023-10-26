@@ -11,7 +11,7 @@ export default function About() {
         </p>
         <hr style={{ width: '100%' }} />
         <h1 className="about_story">
-          We&apos;re writing a new boob story.
+          We&apos;re writing a new bra story.
         </h1>
       </div>
 
